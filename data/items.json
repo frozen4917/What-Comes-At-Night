@@ -1,0 +1,177 @@
+{
+    "shed_key": {
+        "name": "Shed Key",
+        "description_ref": "item_desc_shed_key",
+        "limit": 1,
+        "type": "gate"
+    },
+    "rowan_berries": {
+        "name": "Rowan Berries",
+        "description_ref": "item_desc_rowan_berries",
+        "limit": 2,
+        "type": "crafting"
+    },
+    "garlic": {
+        "name": "Garlic",
+        "description_ref": "item_desc_garlic",
+        "limit": 2,
+        "type": "crafting"
+    },
+    "axe": {
+        "name": "Axe",
+        "description_ref": "item_desc_axe",
+        "limit": 1,
+        "type": "weapon",
+        "effects": {
+            "single_attack": {
+                "damage": 25,
+                "targets": 1
+            },
+            "cleave_attack": {
+                "damage": 12,
+                "targets": 3
+            }
+        }
+    },
+    "fuel": {
+        "name": "Fuel",
+        "description_ref": "item_desc_fuel",
+        "limit": 2,
+        "type": "crafting"
+    },
+    "first_aid_kit": {
+        "name": "First-Aid Kit",
+        "description_ref": "item_desc_first_aid_kit",
+        "limit": 1,
+        "type": "healing",
+        "effects": { "heal": 60 }
+    },
+    "net": {
+        "name": "Net",
+        "description_ref": "item_desc_net",
+        "limit": 2,
+        "type": "utility"
+    },
+    "twine": {
+        "name": "Twine",
+        "description_ref": "item_desc_twine",
+        "limit": 2,
+        "type": "crafting"
+    },
+    "baseball_bat": {
+        "name": "Baseball Bat",
+        "description_ref": "item_desc_baseball_bat",
+        "limit": 1,
+        "type": "weapon",
+        "effects": {
+            "single_attack": {
+                "damage": 12,
+                "targets": 1
+            }
+        },
+        "special": "discard_after_axe"
+    },
+    "bow": {
+        "name": "Bow",
+        "description_ref": "item_desc_bow",
+        "limit": 1,
+        "type": "weapon",
+        "effects": {
+            "single_attack": {
+                "damage": 28,
+                "targets": 1,
+                "ammo": "arrow",
+                "noise": 15
+            }
+        }
+    },
+    "arrow": {
+        "name": "Arrow",
+        "description_ref": "item_desc_arrow",
+        "limit": 5,
+        "type": "ammo"
+    },
+    "wood": {
+        "name": "Wood",
+        "description_ref": "item_desc_wood",
+        "limit": "unlimited",
+        "type": "crafting"
+    },
+    "bandages": {
+        "name": "Bandages",
+        "description_ref": "item_desc_bandages",
+        "limit": 4,
+        "type": "healing",
+        "effects": { "heal": 20 }
+    },
+    "bottle": {
+        "name": "Empty Bottle",
+        "description_ref": "item_desc_bottle",
+        "limit": 2,
+        "type": "crafting"
+    },
+    "rag": {
+        "name": "Rag",
+        "description_ref": "item_desc_rag",
+        "limit": 2,
+        "type": "crafting"
+    },
+    "mushrooms": {
+        "name": "Raw Mushrooms",
+        "description_ref": "item_desc_mushrooms",
+        "limit": 4,
+        "type": "crafting"
+    },
+    "canned_food": {
+        "name": "Canned Food",
+        "description_ref": "item_desc_canned_food",
+        "limit": 2,
+        "type": "food",
+        "effects": { "heal": 10, "stamina": 15 }
+    },
+    "salt": {
+        "name": "Salt",
+        "description_ref": "item_desc_salt",
+        "limit": 2,
+        "type": "crafting_material"
+    },
+    
+    "molotov": {
+        "name": "Molotov",
+        "description_ref": "item_desc_molotov",
+        "type": "craftable",
+        "recipe": [ { "item": "fuel", "quantity": 1 }, { "item": "rag", "quantity": 1 }, { "item": "bottle", "quantity": 1 } ],
+        "effects": {
+            "attack_type": "incinerate",
+            "damage": 25,
+            "targets": "all"
+        }
+    },
+    "black_salt": {
+        "name": "Black Salt",
+        "description_ref": "item_desc_black_salt",
+        "type": "craftable",
+        "recipe": [ { "item": "garlic", "quantity": 1 }, { "item": "salt", "quantity": 1 } ],
+        "effects": {
+            "hurt_boss": "vampire",
+            "damage": 40
+        }
+    },
+    "witch_ward": {
+        "name": "Witch Ward",
+        "description_ref": "item_desc_witch_ward",
+        "type": "craftable",
+        "recipe": [ { "item": "rowan_berries", "quantity": 1 }, { "item": "twine", "quantity": 1 }, { "item": "wood", "quantity": 1 } ],
+        "effects": {
+            "hurt_boss": "witch",
+            "damage": 40
+        }
+    },
+    "cooked_mushroom": {
+        "name": "Cooked Mushroom",
+        "description_ref": "item_desc_cooked_mushroom",
+        "type": "cookable",
+        "recipe": [ { "item": "mushrooms", "quantity": 2 } ],
+        "effects": { "heal": 15, "stamina": 20 }
+    }
+}

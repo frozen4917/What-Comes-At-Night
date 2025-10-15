@@ -1,0 +1,22 @@
+{
+    "playerConfig": {
+        "initialStats": {
+            "health": 100,
+            "stamina": 100
+        },
+        "initialInventory": {}
+    },
+    "initialGameState": {
+        "fortifications": {
+            "campGate": 5,
+            "cabin": 10,
+            "graveyardGate": 5
+        },
+        "noise": 0,
+        "currentLocation": "campsite",
+        "currentPhaseId": "dusk",
+        "flags": {
+            "shed_locked": true
+        }
+    }
+}

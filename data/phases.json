@@ -1,0 +1,87 @@
+{
+    "phases": [
+        {
+            "id": "dusk",
+            "name": "Dusk",
+            "durationInActions": 10,
+            "noiseSpawnPool": ["spirit", "zombie"]
+        },
+        {
+            "id": "evening",
+            "name": "Evening",
+            "durationInActions": 8,
+            "noiseSpawnPool": ["skeleton", "zombie", "spirit"]
+        },
+        {
+            "id": "nightfall",
+            "name": "Nightfall",
+            "durationInActions": 8,
+            "events": [
+                {
+                    "trigger": {
+                        "on": "action_count",
+                        "value": 6
+                    },
+                    "effect": {
+                        "spawn": [ {"monster": "zombie", "count": 2}, {"monster": "spirit", "count": 1}, {"monster": "skeleton", "count": 1} ]
+                    }
+                }
+            ],
+            "noiseSpawnPool": ["spirit", "zombie", "skeleton"]
+        },
+        {
+            "id": "deep_night",
+            "name": "Deep Night",
+            "durationInActions": 9,
+            "events": [
+                {
+                    "trigger": {
+                        "on": "action_count",
+                        "value": 7
+                    },
+                    "effect": {
+                        "spawn": [ {"monster": "zombie", "count": 3}, {"monster": "spirit", "count": 2},{"monster": "skeleton", "count": 2} ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "witching_hour",
+            "name": "The Witching Hour",
+            "durationInActions": 10,
+            "events": [
+                {
+                    "trigger": {
+                        "on": "action_count",
+                        "value": 8
+                    },
+                    "effect": {
+                        "spawn": [ {"bossPool": ["witch", "vampire"], "count": 1}, {"monster": "zombie", "count": 4}, {"monster": "spirit", "count": 4},{"monster": "skeleton", "count": 3} ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "pre_dawn",
+            "name": "Pre-Dawn",
+            "durationInActions": 5,
+            "introText_ref": "phase_intro_pre_dawn",
+            "events": [
+                {
+                    "trigger": {
+                        "on": "action_count",
+                        "value": 5
+                    },
+                    "effect": {
+                        "spawn": [ {"monster": "skeleton", "count": 2}, {"monster": "spirit", "count": 2} ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "dawn",
+            "name": "Dawn",
+            "introText_ref": "phase_intro_dawn"
+        }
+    ]
+}

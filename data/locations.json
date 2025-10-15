@@ -1,0 +1,170 @@
+{
+    "campsite": {
+        "name": "The Campsite",
+        "description_ref": "loc_desc_campsite",
+        "pointsOfInterest": {
+            "rec_tent": {
+                "name_ref": "poi_name_rec_tent",
+                "oneTimeLoot": { "baseball": 1, "bow": 1, "arrow": 5 }
+            },
+            "food_tent": {
+                "name_ref": "poi_name_food_tent",
+                "oneTimeLoot": { "canned_food": 2, "bottle": 2, "salt": 2 }
+            },
+            "utility_tent": {
+                "name_ref": "poi_name_utility_tent",
+                "oneTimeLoot": { "bandages": 2, "rag": 2 }
+            },
+            "game_tent": {
+                "name_ref": "poi_name_game_tent",
+                "oneTimeLoot": { "net": 2, "twine": 2 }
+            },
+            "pier": {
+                "name_ref": "poi_name_pier",
+                "oneTimeLoot": { "twine": 2, "net": 2 }
+            },
+            "woods": {
+                "name_ref": "poi_name_woods",
+                "oneTimeLoot": { "mushrooms": 4, "garlic": 2 },
+                "renewableLoot": { "wood": { "min": 1, "max": 2 } }
+            }
+        },
+        "menu": [
+            {
+                "category": "MOVE",
+                "subActions": [
+                    {
+                        "id": "move_to_graveyard",
+                        "text_ref": "action_text_move_to_graveyard",
+                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["campsite", "campGate", "insideCabin"] } ],
+                        "effects": { "setLocation": "graveyard" }
+                    },
+                    {
+                        "id": "move_to_cabin",
+                        "text_ref": "action_text_move_to_cabin",
+                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["insideCabin"] } ],
+                        "effects": { "setLocation": "cabin" }
+                    }
+                ]
+            },
+            {
+                "category": "FORTIFY",
+                "subActions": [
+                    {
+                        "id": "fortify_camp_gate",
+                        "text_ref": "action_text_fortify_gate",
+                        "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["campsite", "insideCabin"] } ],
+                        "effects": { "changeStat": { "fortification_campGate": 10 }, "removeItem": "wood" }
+                    }
+                ]
+            },
+            {
+                "category": "REST & HIDE",
+                "subActions": [
+                    {
+                        "id": "rest_by_fire",
+                        "text_ref": "action_text_rest_fire",
+                        "showIf": [ { "hordeLocationNotIn": ["campsite", "insideCabin"] } ],
+                        "effects": { "changeStat": { "stamina": 20 } }
+                    },
+                    {
+                        "id": "hide_in_tents",
+                        "text_ref": "action_text_hide_tents",
+                        "showIf": [ { "gameModeIs": "combat_lone" } ],
+                        "effects": { "changeStat": { "noise": -15 }, "setPlayerState": "hiding" }
+                    }
+                ]
+            }
+        ]
+    },
+
+    "cabin": {
+        "name": "The Cabin",
+        "description_ref": "loc_desc_cabin",
+        "pointsOfInterest": {
+            "cabinItems": {
+                "name_ref": "poi_name_cabin_items",
+                "oneTimeLoot": { "first_aid_kit": 1, "fuel": 2 }
+            }
+        },
+        "menu": [
+            {
+                "category": "MOVE",
+                "subActions": [
+                    {
+                        "id": "move_to_campsite",
+                        "text_ref": "action_text_move_to_campsite",
+                        "showIf": [ { "hordeLocationNotIn": ["campsite", "insideCabin"] }, { "hordeLocationNotIn": ["insideCabin"] } ],
+                        "effects": { "setLocation": "campsite" }
+                    }
+                ]
+            },
+            {
+                "category": "FORTIFY",
+                "subActions": [
+                    {
+                        "id": "fortify_cabin",
+                        "text_ref": "action_text_fortify_cabin",
+                        "showIf": [ { "hasItem": "wood" } ],
+                        "effects": { "changeStat": { "fortification_cabin": 15 }, "removeItem": "wood" }
+                    }
+                ]
+            },
+            {
+                "category": "REST & HIDE",
+                "subActions": [
+                    {
+                        "id": "rest_in_cabin",
+                        "text_ref": "action_text_rest_cabin",
+                        "showIf": [ { "hordeLocationNotIn": ["insideCabin"] } ],
+                        "effects": { "changeStat": { "stamina": 35 } }
+                    }
+                ]
+            }
+        ]
+    },
+
+    "graveyard": {
+        "name": "The Graveyard",
+        "description_ref": "loc_desc_graveyard",
+        "pointsOfInterest": {
+            "rowan_tree": {
+                "name_ref": "poi_name_rowan_tree",
+                "oneTimeLoot": { "rowan_berries": 2 }
+            },
+            "gravekeepers_hut": {
+                "name_ref": "poi_name_hut",
+                "oneTimeLoot": { "shed_key": 1, "bandages": 2 }
+            },
+            "shed": {
+                "name_ref": "poi_name_shed",
+                "oneTimeLoot": { "axe": 1 },
+                "isLocked": true
+            }
+        },
+        "menu": [
+            {
+                "category": "MOVE",
+                "subActions": [
+                    {
+                        "id": "move_to_camp",
+                        "text_ref": "action_text_move_to_campsite",
+                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["insideGraveyard", "graveyardGate"] } ],
+                        "effects": { "setLocation": "campsite" }
+                    }
+                ]
+            },
+            {
+                "category": "FORTIFY",
+                "subActions": [
+                    {
+                        "id": "fortify_graveyard_gate",
+                        "text_ref": "action_text_graveyard_gate",
+                        "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["insideGraveyard"] } ],
+                        "effects": { "changeStat": { "fortification_graveyard_gate": 15 }, "removeItem": "wood" }
+                    }
+                ]
+            }
+        ]
+    }
+}
