@@ -1,4 +1,43 @@
 {
+    "loc_desc_campsite_first": "A group of monsters is hot on your tail. The night is dangerous. You've managed to outrun the horde and get some time to get yourself under control. You find yourself in a campsite amidst a rough clearing through the woods as the sun begins to set. Several tents are pitched around a warm campfire. A wooden cabin stands at the far west. A small wooden pier extends over the dark water ahead.",
+    "loc_desc_campsite_current": [
+        "You remain at the campsite. The campfires burn bright, enough to provide you with some warmth.",
+        "The campsite remains your position. Overhead, the trees sway gently, their branches creating shifting patterns of light and shadow across the tents and cabin",
+        "You remain at the campsite, staying close to the fire's warmth. The flames pop and hiss occasionally, sending sparks spiraling upward into the night sky.",
+        "You stay put at the campsite, the familiar surroundings offering what comfort they can."
+    ],
+    "loc_desc_campsite_return": [
+        "You return to the campsite, relieved to see the fire still burning strong. The generator's hum continues to be nothing but just background noise for you.",
+        "You make your way back to the centre of the campsite. The glow of the fire and cabin lights guides you in, a beacon of relative safety in the darkness.",
+        "You return to the clearing, the familiar layout of the campsite greeting you. The piers stretch out into darkness and the fire burns straight ahead."
+    ],
+
+    "loc_desc_cabin_first": "You step into the wooden cabin and close the door behind you, muffling the sounds of the night outside. The interior is cozy and well-maintained. A worn sofa faces a cold fireplace, and someone's jacket hangs on a peg by the door. Maps and a schedule are pinned to a corkboard near the window. The cabin smells of pine wood, lamp oil, and the faint mustiness of a place that's lived-in but currently empty. Through the windows, you can see the campfire outside, but in here, the generator's hum is more muted. It feels safer somehow, with walls between you and whatever's out there.",
+    "loc_desc_cabin_current": [
+        "You remain inside the cabin, the solid walls around you providing a sense of security.",
+        "You stay inside the cabin, listening to the muffled sounds of the night beyond the walls. The wooden floor creaks slightly as you shift your weight.",
+        "You're still inside, grateful for the barrier between you and the darkness."
+    ],
+    "loc_desc_cabin_return": [
+        "You return to the cabin and step back inside, pulling the door shut behind you. The lamplight welcomes you back, unchanged since you left.",
+        "You return to the cabin's shelter, closing the door firmly behind you. Through the windows, you can see the campfire still burning outside, but in here feels safer.",
+        "You make your way back to the cabin and enter. Everything is exactly as you left it."
+    ],
+
+    "loc_desc_graveyard_first": "You arrive at the graveyard, and a chill runs down your spine that has nothing to do with the temperature. You remember glimpsing this place earlier when you were fleeing toward the campsite. Now here you are, standing among the dead. The graveyard sprawls across uneven ground, dotted with tombstones of varying ages. A gravekeeper's hut  stands near the entrance. A small shed sits further back.",
+    "loc_desc_graveyard_current": [
+        "You remain in the graveyard, acutely aware of how exposed you are here.",
+        "You're still among the graves. The wind picks up slightly, making the loose shutter on the gravekeeper's hut bang.",
+        "You stay in the graveyard, though every instinct screams at you to leave.",
+        "You stay among the graves, counting the tombstones you can see, anything to keep your mind occupied."
+    ],
+    "loc_desc_graveyard_return": [
+        "You make your way back to the graveyard along the path. The iron gates come into view, and beyond them, the familiar arrangement of graves and monuments.",
+        "You return to the graveyard, emerging from the path into the open area among the graves.",
+        "You visit the graveyard once again. You hope that you can survive an ambush here."
+    ],
+    
+
     "dusk_flavor_10": "The sun bleeds orange across the horizon, its dying light casting long shadows that stretch like grasping fingers across the ground. The air still holds the day's warmth, but there's a whisper of something colder creeping in.",
     "dusk_flavor_9": "Golden light filters through the trees, turning everything amber. The first evening birds begin their calls, oblivious to what the darkness might bring.",
     "dusk_flavor_8": "The sun sinks lower, painting the clouds in shades of crimson and purple.",

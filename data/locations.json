@@ -118,6 +118,12 @@
                         "text_ref": "action_text_rest_cabin",
                         "showIf": [ { "hordeLocationNotIn": ["insideCabin"] } ],
                         "effects": { "changeStat": { "stamina": 35 } }
+                    }, 
+                    {
+                        "id": "hide_in_cabin",
+                        "text_ref": "action_text_hide_cabin",
+                        "showIf": [ { "gameModeIs": "combat_lone" } ],
+                        "effects": { "changeStat": { "noise": -15 }, "setPlayerState": "hiding" }
                     }
                 ]
             }
@@ -162,6 +168,17 @@
                         "text_ref": "action_text_graveyard_gate",
                         "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["insideGraveyard"] } ],
                         "effects": { "changeStat": { "fortification_graveyard_gate": 15 }, "removeItem": "wood" }
+                    }
+                ]
+            },
+            {
+                "category": "REST & HIDE",
+                "subActions": [
+                    {
+                        "id": "hide_in_hut",
+                        "text_ref": "action_text_hide_hut",
+                        "showIf": [ { "gameModeIs": "combat_lone" } ],
+                        "effects": { "changeStat": { "noise": -15 }, "setPlayerState": "hiding" }
                     }
                 ]
             }
