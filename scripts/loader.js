@@ -1,4 +1,6 @@
+import promptSync from "prompt-sync";
 import chalk from "chalk";
+const prompt = promptSync({ sigint: true });
 import path from 'path';
 import { promises as fs } from 'fs';
 
@@ -6,6 +8,7 @@ export async function loadGameData() { // Call in main.js
     console.log(chalk.yellow("Loading all game data..."));
 
     const fileNames = [
+        'globalActions.json',
         'initialState.json',
         'items.json',
         'locations.json',
@@ -36,6 +39,7 @@ export async function loadGameData() { // Call in main.js
         }, {});
 
         console.log(chalk.yellow("Game data loaded successfully!"));
+        prompt("> ");
         return gameData;
 
     } catch (error) {

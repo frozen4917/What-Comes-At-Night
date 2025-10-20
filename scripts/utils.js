@@ -31,10 +31,39 @@ export function areConditionsMet(conditions, gameState) {
                 // Checks if the item exists in inventory and has a quantity > 0.
                 return gameState.player.inventory[value] > 0;
 
-            // You can add more conditions here later, like "playerHealthIsBelow", etc.
+            case "hasAnyItem":
+                    return value.some(item => gameState.player.inventory[item] > 0);
+                
+            case "hasItems": 
+                return Object.entries(value).every(([item, quantity]) => 
+                    (gameState.player.inventory[item] || 0) >= quantity
+                );
+            
+            case "atLocation":
+                return gameState.world.currentLocation === value;
 
+            case "notScavenged":
+                return !gameState.world.scavengedLocations.includes(value);
+            
+            case "flagIsTrue":
+                return gameState.world.flags[value] === true;
+            
+            case "flagIsFalse":
+                return gameState.world.flags[value] === false;
+            
+            case "monsterIsPresent":
+                return gameState.horde[value] && gameState.horde[value].length > 0;
+            
+            case "bossIsPresent":
+                return gameState.horde[value] && gameState.horde[value].length > 0;
+
+            case "hordeSizeIsGreaterThan":
+                const totalMonsters = Object.values(gameState.horde).reduce((sum, list) => sum + list.length, 0);
+                return totalMonsters > value;
+            
             default:
                 // If the condition is unknown, assume it's okay for now.
+                console.warn(chalk.red(`Unknown condition key: ${key}`));
                 return true;
         }
     });
