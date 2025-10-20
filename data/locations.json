@@ -2,33 +2,6 @@
     "campsite": {
         "name": "The Campsite",
         "description_ref": "loc_desc_campsite",
-        "pointsOfInterest": {
-            "rec_tent": {
-                "name_ref": "poi_name_rec_tent",
-                "oneTimeLoot": { "baseball": 1, "bow": 1, "arrow": 5 }
-            },
-            "food_tent": {
-                "name_ref": "poi_name_food_tent",
-                "oneTimeLoot": { "canned_food": 2, "bottle": 2, "salt": 2 }
-            },
-            "utility_tent": {
-                "name_ref": "poi_name_utility_tent",
-                "oneTimeLoot": { "bandages": 2, "rag": 2 }
-            },
-            "game_tent": {
-                "name_ref": "poi_name_game_tent",
-                "oneTimeLoot": { "net": 2, "twine": 2 }
-            },
-            "pier": {
-                "name_ref": "poi_name_pier",
-                "oneTimeLoot": { "twine": 2, "net": 2 }
-            },
-            "woods": {
-                "name_ref": "poi_name_woods",
-                "oneTimeLoot": { "mushrooms": 4, "garlic": 2 },
-                "renewableLoot": { "wood": { "min": 1, "max": 2 } }
-            }
-        },
         "menu": [
             {
                 "category": "MOVE",
@@ -74,6 +47,73 @@
                         "effects": { "changeStat": { "noise": -15 }, "setPlayerState": "hiding" }
                     }
                 ]
+            },
+            {
+                "category": "GATHER",
+                "subActions": [
+                    {
+                        "id": "search_rec_tent",
+                        "name_ref": "action_text_rec_tent",
+                        "showIf": [ { "notScavenged": "search_rec_tent"} ],
+                        "effects": {
+                            "addItems": { "baseball_bat": 1, "bow": "1", "arrow": 5 },
+                            "addScavengedFlag": "search_rec_tent",
+                            "result_ref": "outcome_search_rec_tent_success"
+                        }
+                    },
+                    {
+                        "id": "search_woods",
+                        "name_ref": "action_text_search_woods",
+                        "effects": {
+                            "addItemsOnce": { 
+                                "items": { "mushrooms": 4, "garlic": 2 },
+                                "flag": "searched_woods_once"
+                            },
+                            "addRandomItems": { "wood": { "min": 1, "max": 2 } },
+                            "result_ref": "outcome_search_woods_success"
+                        }
+                    },
+                    {
+                        "id": "search_food_tent",
+                        "text_ref": "action_text_search_food_tent",
+                        "showIf": [ { "notScavenged": "search_food_tent" } ],
+                        "effects": {
+                            "addItems": { "canned_food": 2, "bottle": 2, "salt": 2 },
+                            "addScavengedFlag": "search_food_tent",
+                            "result_ref": "outcome_search_food_tent_success"
+                        }
+                    },
+                    {
+                        "id": "search_utility_tent",
+                        "text_ref": "action_text_search_utility_tent",
+                        "showIf": [ { "notScavenged": "search_utility_tent" } ],
+                        "effects": {
+                            "addItems": { "bandages": 2, "rag": 2 },
+                            "addScavengedFlag": "search_utility_tent",
+                            "result_ref": "outcome_search_utility_tent_success"
+                        }
+                    },
+                    {
+                        "id": "search_game_tent",
+                        "text_ref": "action_text_search_game_tent",
+                        "showIf": [ { "notScavenged": "search_game_tent" } ],
+                        "effects": {
+                            "addItems": { "net": 2, "twine": 2 },
+                            "addScavengedFlag": "search_game_tent",
+                            "result_ref": "outcome_search_game_tent_success"
+                        }
+                    },
+                    {
+                        "id": "search_pier",
+                        "text_ref": "action_text_search_pier",
+                        "showIf": [ { "notScavenged": "search_pier" } ],
+                        "effects": {
+                            "addItems": { "twine": 2, "net": 2 },
+                            "addScavengedFlag": "search_pier",
+                            "result_ref": "outcome_search_pier_success"
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -81,12 +121,6 @@
     "cabin": {
         "name": "The Cabin",
         "description_ref": "loc_desc_cabin",
-        "pointsOfInterest": {
-            "cabinItems": {
-                "name_ref": "poi_name_cabin_items",
-                "oneTimeLoot": { "first_aid_kit": 1, "fuel": 2 }
-            }
-        },
         "menu": [
             {
                 "category": "MOVE",
@@ -126,6 +160,21 @@
                         "effects": { "changeStat": { "noise": -15 }, "setPlayerState": "hiding" }
                     }
                 ]
+            }, 
+            {
+                "category": "GATHER",
+                "subActions": [
+                    {
+                        "id": "search_cabin_items",
+                        "text_ref": "action_text_search_cabin_items",
+                        "showIf": [ { "notScavenged": "search_cabin_items" } ],
+                        "effects": {
+                            "addItems": { "first_aid_kit": 1, "fuel": 2 },
+                            "addScavengedFlag": "search_cabin_items",
+                            "result_ref": "outcome_search_cabin_items_success"
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -133,21 +182,6 @@
     "graveyard": {
         "name": "The Graveyard",
         "description_ref": "loc_desc_graveyard",
-        "pointsOfInterest": {
-            "rowan_tree": {
-                "name_ref": "poi_name_rowan_tree",
-                "oneTimeLoot": { "rowan_berries": 2 }
-            },
-            "gravekeepers_hut": {
-                "name_ref": "poi_name_hut",
-                "oneTimeLoot": { "shed_key": 1, "bandages": 2 }
-            },
-            "shed": {
-                "name_ref": "poi_name_shed",
-                "oneTimeLoot": { "axe": 1 },
-                "isLocked": true
-            }
-        },
         "menu": [
             {
                 "category": "MOVE",
@@ -179,6 +213,42 @@
                         "text_ref": "action_text_hide_hut",
                         "showIf": [ { "gameModeIs": "combat_lone" } ],
                         "effects": { "changeStat": { "noise": -15 }, "setPlayerState": "hiding" }
+                    }
+                ]
+            },
+            {
+                "category": "GATHER",
+                "subActions": [
+                    {
+                        "id": "gather_rowan_tree",
+                        "text_ref": "action_text_gather_rowan",
+                        "showIf": [ { "notScavenged": "gather_rowan_tree" } ],
+                        "effects": {
+                            "addItems": { "rowan_berries": 2 },
+                            "addScavengedFlag": "gather_rowan_tree",
+                            "result_ref": "outcome_gather_rowan_tree_success"
+                        }
+                    },
+                    {
+                        "id": "search_gravekeepers_hut",
+                        "text_ref": "action_text_search_hut",
+                        "showIf": [ { "notScavenged": "search_gravekeepers_hut" } ],
+                        "effects": {
+                            "addItems": { "shed_key": 1, "bandages": 2 },
+                            "addScavengedFlag": "search_gravekeepers_hut",
+                            "setToFalse": "shed_locked",
+                            "result_ref": "outcome_search_gravekeepers_hut_success"
+                        }
+                    },
+                    {
+                        "id": "search_shed",
+                        "text_ref": "action_text_search_shed",
+                        "showIf": [ { "notScavenged": "search_shed" }, { "flagIsFalse": "shed_locked" }, { "hasItem": "shed_key" } ],
+                        "effects": {
+                            "addItems": { "axe": 1 },
+                            "addScavengedFlag": "search_shed",
+                            "result_ref": "outcome_search_shed_success"
+                        }
                     }
                 ]
             }
