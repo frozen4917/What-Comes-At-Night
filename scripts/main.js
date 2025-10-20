@@ -43,52 +43,148 @@ export function buildPromptText(gameState, gameData) {
     return parts.filter(part => part).join('\n\n'); // Filter out empty parts and join
 }
 
-// WORK IN PROGREEESSSSSS
+// WIP - NEW
 export function getCurrentActions(gameState, gameData) {
     const validActions = [];
-    const locationData = gameData.locations[gameState.world.currentLocation]; // Current location's option menu
+    const locationData = gameData.locations[gameState.world.currentLocation]; // Location specific data
+    const globalData = gameData.globalActions; // Global options
 
-    // I. Process static actions from the location's menu (MOVE, FORTIFY, etc.)
-    if (locationData.menu) {
-        for (const category of locationData.menu) {
-            for (const action of category.subActions) {
-                // Check if the action's conditions are met
-                if (areConditionsMet(action.showIf, gameState)) {
-                    // For now, we'll just add the action object directly.
-                    // Later, we'll look up the text_ref.
-                    validActions.push({
-                        id: action.id,
-                        displayText: gameData.texts[action.text_ref] || action.id,
-                        effects: action.effects
-                    });
-                }
-            }
-        }
-    }
-    
-    // II. Dynamically generate GATHER actions from Points of Interest
-    if (locationData.pointsOfInterest) {
-        for (const poiId in locationData.pointsOfInterest) {
-            const poi = locationData.pointsOfInterest[poiId];
-            
-            const hasBeenScavenged = gameState.world.scavengedLocations.includes(poiId);
-            const isRenewable = poi.renewableLoot !== undefined;
+    // A combined list of all menu definitions (local and global)
+    const allMenuSources = [
+        ...(locationData.menu || []),
+        ...(globalData.menu || [])
+    ];
 
-            if (!hasBeenScavenged || isRenewable) {
-                // This POI is available to be searched. Create an action for it.
+    // 1. Process all static actions from both location and global files
+    for (const category of allMenuSources) {
+        for (const action of category.subActions) {
+            // Check if the action's conditions are met by the current game state
+            if (areConditionsMet(action.showIf, gameState, gameData)) {
+                
+                // Create the final action object and add it to our list
                 validActions.push({
-                    id: `search_${poiId}`,
-                    displayText: `Search the ${gameData.texts[poi.name_ref]}`,
-                    // We will need to create a special effect for this later
-                    effects: { scavenge: poiId } 
+                    id: action.id,
+                    displayText: gameData.texts[action.text_ref] || action.id, // Fallback to ID if text_ref is missing
+                    effects: action.effects
                 });
             }
         }
     }
 
-    // III. (Future/TODO) Dynamically generate ATTACK, USE, CRAFT actions here...
-
     return validActions;
+}
+
+export function handleEffects(effects, gameState, gameData) {
+    if (!effects) return "You wait a moment, gathering your thoughts";
+
+    let resultRef = effects.result_ref;
+
+    for (const key in effects) {
+        const value = effects[key];
+        switch (key) {
+            case "setLocation":
+                // gameState.world.previousLocation = gameState.world.currentLocation;
+                gameState.world.currentLocation = value;
+                break;
+            
+            case "changeStat":
+                for (const stat in value) {
+                    if (gameState.player[stat] !== undefined) {
+                        gameState.player[stat] += value[stat];
+                    } else if (gameState.world.fortifications[stat] !== undefined) {
+                        gameState.world.fortifications[stat] += value[stat];
+                        outcomeData.fortificationName = stat;
+                    }
+                }
+                break;
+            
+            case "addItems":
+                for (const itemID in value) {
+                    const quantity = value[itemID];
+                    gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + quantity;
+                }
+                break;
+            
+            case "addRandomItems":
+                for (const itemID in value) {
+                    const { min, max } = value[itemID];
+                    const quantity = getRandomInt(min, max);
+                    if (quantity > 0) {
+                        gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + quantity;
+                    }
+                }
+                break;
+            
+            case "removeItem":
+                if (gameState.player.inventory[value] && gameState.player.inventory[value] > 0) {
+                    gameState.player.inventory[value]--;
+                    if (gameState.player.inventory[value] <= 0) {
+                        delete gameState.player.inventory[value];
+                    }
+                }
+                break;
+            
+            case "removeItems": // CRAFTING
+                for (const itemID in value) {
+                    gameState.player.inventory[itemID] -= value[itemID];
+                    if (gameState.player.inventory[itemID] <= 0) {
+                        delete gameState.player.inventory[itemID];
+                    }
+                }
+                break;
+            
+            case "setToFalse":
+                gameState.world.flags[value] = false;
+            
+            case "addScavengedFlag":
+                if (!gameState.world.scavengedLocations.includes(value)) {
+                    gameState.world.scavengedLocations.push(value);
+                }
+                break;
+            
+            case "craft": 
+                processCraftEffect(value, gameState, gameData);
+                break;
+            
+            case "attackType":
+            case "attackTarget":
+            case "attackBoss":
+                // All attack effects are handled by one helper
+                // processAttackEffect(effects, gameState, gameData);
+                break;
+
+        }
+    }
+}
+
+function processCraftEffect(itemID, gameState, gameData) {
+    const craftableItem = gameData.items[itemID];
+
+    // Safety check: if the item or its recipe doesn't exist, do nothing.
+    if (!craftableItem || !craftableItem.recipe) {
+        console.error(chalk.red(`Attempted to craft an item with no recipe: ${itemID}`));
+        return;
+    }
+
+    // Remove ingredients from the player's inventory
+    for (const ingredient of craftableItem.recipe) {
+        const ingredientID = ingredient.item;
+        const quantityNeeded = ingredient.quantity;
+
+        if (gameState.player.inventory[ingredientID]) {
+            gameState.player.inventory[ingredientID] -= quantityNeeded;
+            // If the ingredient count drops to zero, remove it from the inventory
+            if (gameState.player.inventory[ingredientID] <= 0) {
+                delete gameState.player.inventory[ingredientID];
+            }
+        }
+    }
+
+    // Add the newly crafted item to the inventory
+    gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + 1;
+    console.log(chalk.green(`Crafted ${itemID}`));
+    // Return the name of the item for the result message
+    // return { itemName: craftableItem.name };
 }
 
 export function initializeGameState(gameData) {
@@ -151,11 +247,6 @@ export function initializeGameState(gameData) {
 async function startGame() {
     const gameData = await loadGameData(); // Get Game Data object
     
-    // You can now access all your data from this one object.
-    console.log("Axe damage:", gameData.items.axe.effects.single_attack.damage);
-    console.log("Dusk phase actions:", gameData.phases.phases[0].durationInActions);
-    console.log(chalk.green(gameData.texts.dusk_flavor_4));
-    
     // ... initializeGameState() and main game loop would start here ...
     const gameState = initializeGameState(gameData);
     
@@ -166,6 +257,7 @@ async function startGame() {
 // 16/10/2025 - Basic functionality: Prompt text, option list, display option chosen
 async function runGameLoop(gameState, gameData) {
     while (true) {
+        
         // ---- FUTURE START OF TURN FUNCTIONS ----
         // processTimedEvents()
         // processMonsterActions()
@@ -182,10 +274,11 @@ async function runGameLoop(gameState, gameData) {
         // 'chosenAction' is now the object the player selected, e.g., { id: "move_to_graveyard", ... }
 
         // 4. Process the player's choice
-        console.log(chalk.yellow(`\nYou chose: ${chosenAction.id}`)); // For debugging
+        console.log(chalk.yellow(`\nYou chose: ${chosenAction.id}`));
 
+        gameState.world.previousLocation = gameState.world.currentLocation;
         // ---- FUTURE FUNCTIONS ----
-        // handleEffects(chosenAction.effects, gameState);
+        handleEffects(chosenAction.effects, gameState, gameData);
         // tickClock(gameState, gameData);
         // checkGameStatus(gameState);
         
