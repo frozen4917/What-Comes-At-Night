@@ -43,7 +43,7 @@ export function buildPromptText(gameState, gameData) {
     return parts.filter(part => part).join('\n\n'); // Filter out empty parts and join
 }
 
-// WIP - NEW
+// WIP - NEW: Fetches available actions
 export function getCurrentActions(gameState, gameData) {
     const validActions = [];
     const locationData = gameData.locations[gameState.world.currentLocation]; // Location specific data
@@ -55,13 +55,13 @@ export function getCurrentActions(gameState, gameData) {
         ...(globalData.menu || [])
     ];
 
-    // 1. Process all static actions from both location and global files
+    // Process all static actions from both location and global files
     for (const category of allMenuSources) {
         for (const action of category.subActions) {
             // Check if the action's conditions are met by the current game state
             if (areConditionsMet(action.showIf, gameState, gameData)) {
                 
-                // Create the final action object and add it to our list
+                // Create the final action object and add it to the list
                 validActions.push({
                     id: action.id,
                     displayText: gameData.texts[action.text_ref] || action.id, // Fallback to ID if text_ref is missing
@@ -77,13 +77,12 @@ export function getCurrentActions(gameState, gameData) {
 export function handleEffects(effects, gameState, gameData) {
     if (!effects) return "You wait a moment, gathering your thoughts";
 
-    let resultRef = effects.result_ref;
+    //let resultRef = effects.result_ref;
 
     for (const key in effects) {
         const value = effects[key];
         switch (key) {
             case "setLocation":
-                // gameState.world.previousLocation = gameState.world.currentLocation;
                 gameState.world.currentLocation = value;
                 break;
             
@@ -93,7 +92,6 @@ export function handleEffects(effects, gameState, gameData) {
                         gameState.player[stat] += value[stat];
                     } else if (gameState.world.fortifications[stat] !== undefined) {
                         gameState.world.fortifications[stat] += value[stat];
-                        outcomeData.fortificationName = stat;
                     }
                 }
                 break;
@@ -124,17 +122,9 @@ export function handleEffects(effects, gameState, gameData) {
                 }
                 break;
             
-            case "removeItems": // CRAFTING
-                for (const itemID in value) {
-                    gameState.player.inventory[itemID] -= value[itemID];
-                    if (gameState.player.inventory[itemID] <= 0) {
-                        delete gameState.player.inventory[itemID];
-                    }
-                }
-                break;
-            
             case "setToFalse":
                 gameState.world.flags[value] = false;
+                break;
             
             case "addScavengedFlag":
                 if (!gameState.world.scavengedLocations.includes(value)) {
@@ -182,9 +172,7 @@ function processCraftEffect(itemID, gameState, gameData) {
 
     // Add the newly crafted item to the inventory
     gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + 1;
-    console.log(chalk.green(`Crafted ${itemID}`));
-    // Return the name of the item for the result message
-    // return { itemName: craftableItem.name };
+    console.log(chalk.green(`Crafted ${itemID}`)); // DEBUGGING. TO REMOVE
 }
 
 export function initializeGameState(gameData) {
@@ -243,7 +231,7 @@ export function initializeGameState(gameData) {
     };
 }
 
-// The main entry point for your game.
+// The main entry point for the game.
 async function startGame() {
     const gameData = await loadGameData(); // Get Game Data object
     
@@ -253,8 +241,27 @@ async function startGame() {
     runGameLoop(gameState, gameData);
 }
 
+function tickClock(gameState) {
+    gameState.world.actionsRemaining -= 1;
+}
+
+function checkGameStatus(gameState, gameData) {
+    if (gameState.player.health <= 0) {
+        //endGame('lose');
+    }
+    if (gameState.world.actionsRemaining === 0) {
+        const nextIndex = gameData.phases.phases.findIndex(phase => phase.id === gameState.world.currentPhaseId) + 1;
+
+        gameState.world.currentPhaseId = gameData.phases.phases[nextIndex].id
+        gameState.world.actionsRemaining = gameData.phases.phases[nextIndex] ? gameData.phases.phases[nextIndex].durationInActions : -1;
+    }
+
+    if (gameState.world.currentPhaseId === 'dawn') {
+        //endGame('win');
+    }
+}
+
 // TODO Game loop
-// 16/10/2025 - Basic functionality: Prompt text, option list, display option chosen
 async function runGameLoop(gameState, gameData) {
     while (true) {
         
@@ -270,7 +277,7 @@ async function runGameLoop(gameState, gameData) {
 
         // 3. Call the UI function to display everything and get input
         // It takes the text, the actions, and the prompt function as arguments.
-        const chosenAction = updateConsoleUI(promptText, validActions, prompt);
+        const chosenAction = updateConsoleUI(promptText, validActions, prompt, gameState);
         // 'chosenAction' is now the object the player selected, e.g., { id: "move_to_graveyard", ... }
 
         // 4. Process the player's choice
@@ -279,8 +286,8 @@ async function runGameLoop(gameState, gameData) {
         gameState.world.previousLocation = gameState.world.currentLocation;
         // ---- FUTURE FUNCTIONS ----
         handleEffects(chosenAction.effects, gameState, gameData);
-        // tickClock(gameState, gameData);
-        // checkGameStatus(gameState);
+        tickClock(gameState);
+        checkGameStatus(gameState, gameData);
         
         // For now, let's just pause to see the result.
         prompt('Press Enter to continue to the next (mock) turn...');
