@@ -73,24 +73,24 @@
                     "id": "heal_bandages",
                     "text_ref": "action_text_heal_bandages",
                     "showIf": [ { "hasItem": "bandages" } ],
-                    "effects": { "heal": 20, "removeItem": "bandages", "result_ref": "outcome_heal_bandages" } },
+                    "effects": { "changeStat": { "health": 20 }, "removeItem": "bandages", "result_ref": "outcome_heal_bandages" } },
                 {
                     "id": "heal_first_aid",
                     "text_ref": "action_text_heal_first_aid",
                     "showIf": [ { "hasItem": "first_aid_kit" } ],
-                    "effects": { "heal": 60, "removeItem": "first_aid_kit", "result_ref": "outcome_heal_first_aid" }
+                    "effects": { "changeStat": { "health": 60 }, "removeItem": "first_aid_kit", "result_ref": "outcome_heal_first_aid" }
                 },
                 {
                     "id": "eat_canned_food",
                     "text_ref": "action_text_eat_canned_food",
                     "showIf": [ { "hasItem": "canned_food" } ],
-                    "effects": { "heal": 10, "stamina": 15, "removeItem": "canned_food", "result_ref": "outcome_eat_canned_food" }
+                    "effects": { "changeStat": { "health": 10, "stamina": 15 }, "removeItem": "canned_food", "result_ref": "outcome_eat_canned_food" }
                 },
                 {
                     "id": "eat_cooked_mushroom",
                     "text_ref": "action_text_eat_mushroom",
                     "showIf": [ { "hasItem": "cooked_mushroom" } ],
-                    "effects": { "heal": 15, "stamina": 20, "removeItem": "cooked_mushroom", "result_ref": "outcome_eat_cooked_mushroom" }
+                    "effects": { "changeStat": { "health": 15, "stamina": 20 }, "removeItem": "cooked_mushroom", "result_ref": "outcome_eat_cooked_mushroom" }
                 }
             ]
         },

@@ -24,10 +24,10 @@
                 "category": "FORTIFY",
                 "subActions": [
                     {
-                        "id": "fortify_camp_gate",
-                        "text_ref": "action_text_fortify_gate",
+                        "id": "fortify_campGate",
+                        "text_ref": "action_text_fortify_campGate",
                         "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["campsite", "insideCabin"] } ],
-                        "effects": { "changeStat": { "fortification_campGate": 10 }, "removeItem": "wood" }
+                        "effects": { "changeStat": { "campGate": 10 }, "removeItem": "wood" }
                     }
                 ]
             },
@@ -56,7 +56,7 @@
                         "name_ref": "action_text_rec_tent",
                         "showIf": [ { "notScavenged": "search_rec_tent"} ],
                         "effects": {
-                            "addItems": { "baseball_bat": 1, "bow": "1", "arrow": 5 },
+                            "addItems": { "baseball_bat": 1, "bow": 1, "arrow": 5 },
                             "addScavengedFlag": "search_rec_tent",
                             "result_ref": "outcome_search_rec_tent_success"
                         }
@@ -140,7 +140,7 @@
                         "id": "fortify_cabin",
                         "text_ref": "action_text_fortify_cabin",
                         "showIf": [ { "hasItem": "wood" } ],
-                        "effects": { "changeStat": { "fortification_cabin": 15 }, "removeItem": "wood" }
+                        "effects": { "changeStat": { "cabin": 15 }, "removeItem": "wood" }
                     }
                 ]
             },
@@ -198,10 +198,10 @@
                 "category": "FORTIFY",
                 "subActions": [
                     {
-                        "id": "fortify_graveyard_gate",
-                        "text_ref": "action_text_graveyard_gate",
+                        "id": "fortify_graveyardGate",
+                        "text_ref": "action_text_graveyardGate",
                         "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["insideGraveyard"] } ],
-                        "effects": { "changeStat": { "fortification_graveyard_gate": 15 }, "removeItem": "wood" }
+                        "effects": { "changeStat": { "graveyardGate": 15 }, "removeItem": "wood" }
                     }
                 ]
             },
