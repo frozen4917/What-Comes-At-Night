@@ -1,4 +1,51 @@
 {
+    "outcome_fortify_campGate": "You fortify the campsite gate using wood. The fortification strength is now at {strength}.",
+    "outcome_fortify_cabin": "You barricade the cabin windows and door. The fortification strength is now at {strength}.",
+    "outcome_fortify_graveyardGate": "You fortify the graveyard gate to make it resistant to monster attacks. The fortification strength is now at {strength}.",
+
+    "outcome_rest_by_fire": "You rest by the campfire, catching your breath and gaining a moment to think. You gain {stamina} stamina.",
+    "outcome_rest_in_cabin": "You rest inside the wooden cabin's structure. With the much needed rest, you gain {stamina} stamina.",
+    "outcome_hide_in_tents": "You hide in the tents to avoid being spotted. The noise you create now reduces.",
+    "outcome_hide_in_cabin": "You hide inside the cabin. You won't be spotted. Your actions do not create noise.",
+    "outcome_hide_in_hut": "You scurry yourself over into the gravekeeper's hut. You avoid creating noise to not attract the monsters.",
+    "outcome_wait_normal": "You take a moment to pause and recollect your thoughts. You regain {stamina} stamina.",
+    "outcome_wait_hiding": "You remain hidden, waiting and watching.",
+    "outcome_heal_bandages": "You carefully open and use one of the bandages to heal yourself. You regain {health} HP.",
+    "outcome_heal_first_aid": "You open the first aid kit. You find some useful . You regain {health} HP.",
+    "outcome_eat_canned_food": "You open the can of food you have been storing. You consume its content, giving you {stamina} stamina and {health} HP.",
+    "outcome_eat_cooked_mushrooms": "You eat the mushrooms you had cooked earlier. You gain {stamina} stamina and {health} HP.",
+    "outcome_craft_molotov": "You fill the empty bottle with some fuel and use the old rag to craft a molotov. It is dangerous and can cause a large fire, dealing a large amount of damage to any monster horde.",
+    "outcome_craft_witch_ward": "Using wood, twine, and the rowan berries, you carefully craft a Witch Ward. Witches can be hurt when they come in contact with this ward.",
+    "outcome_craft_black_salt": "You combine the salt and a garlic to create black salt. Vampires are vulnerable to black salt.",
+    "outcome_cook_mushrooms": "You put two mushrooms on a stick and cook them by the campfire. After a while, you collect the cooked mushrooms.",
+
+
+
+
+    "outcome_search_rec_tent": "You rummage through the recreational tent. You find some useful items, including a baseball bat, a bow, and 5 arrows.",
+    "outcome_search_woods": "You look through the woods beyond the campsite's perimeter. You collect 4 mushrooms, 2 garlics from the patch, and 1 wood.",
+    "outcome_search_woods_again": "You quietly look through the woods again. You are able to find {quantity} wood.",
+    "outcome_search_food_tent": "You go through the food tent. You manage to gather 2 empty bottles, 2 salt shakers, and 2 cans of food.",
+    "outcome_search_utility_tent": "You look into the utility tent for any items. You find 2 old rags and 2 bandages.",
+    "outcome_search_pier": "You wander off to the water body. You look near the pier for any items that could be helpful. You recover 2 nets and 2 twines.",
+    "outcome_search_cabin_items": "You explore through the wooden cabin. You find 2 cans of fuel as well as a first-aid kit. They can come in handy.",
+    "outcome_gather_rowan_tree": "Knowing a witch's weakness, you gather some berries from the rowan tree in the graveyard. You collect 2 rowan berries.",
+    "outcome_search_gravekeepers_hut": "You go inside the gravekeeper's hut, hoping he wouldn't mind. You find 2 bandages and a door key.",
+    "outcome_search_shed": "You look through the old shed. You find a rather-well-maintained axe. It can definitely strike.",
+
+    "outcome_attack_single_zombie": "You swing at a zombie using your {weapon}. You deal {damage} HP of damage to it.",
+    "outcome_attack_single_skeleton": "You swing at a skeleton using your {weapon}. You deal {damage} HP of damage to it.",
+    "outcome_attack_single_spirit": "You swing at a spirit using your {weapon}. You deal {damage} HP of damage to it.",
+    "outcome_attack_cleave": "You perform a cleave attack at the horde. You deal a combined {damage} HP of damage to the horde.",
+    "outcome_attack_incinerate": "You throw your molotov at the horde. A large fire erupts, dealing massive amount of damage to the horde.",
+    "outcome_attack_shoot": "You take your bow and arrow and shoot at {monster}. You deal {damage} HP of damage.",
+    "outcome_attack_boss_witch": "You try to attack the witch with your {weapon}. You manage to lower her health by {damage} HP.",
+    "outcome_attack_boss_vampire": "You use your {weapon} and attack the vampire, dealing {damage} HP of damage.",
+    "outcome_hurt_boss_witch": "You grab your Witch Ward that you crafted earlier and throw it towards the witch. It is very effective, dealing {damage} HP of damage to the witch.",
+    "outcome_hurt_boss_vampire": "You collect that black salt that you have been saving and hurl it towards the vampire. The salt goes everywhere. It inflicts {damage} HP of damage to the vampire.",
+    
+
+
     "loc_desc_campsite_first": "A group of monsters is hot on your tail. The night is dangerous. You've managed to outrun the horde and get some time to get yourself under control. You find yourself in a campsite amidst a rough clearing through the woods as the sun begins to set. Several tents are pitched around a warm campfire. A wooden cabin stands at the far west. A small wooden pier extends over the dark water ahead.",
     "loc_desc_campsite_current": [
         "You remain at the campsite. The campfires burn bright, enough to provide you with some warmth.",
