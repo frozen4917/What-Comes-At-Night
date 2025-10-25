@@ -68,3 +68,20 @@ export function areConditionsMet(conditions, gameState) {
         }
     });
 }
+
+export function renderText(template, params) {
+    if (!params) return template;
+    // template is the text with placeholders, example: "You dealt {damage} HP of damage""
+    // params is an object comprising of placeholder values example: {"damage": 23}
+
+    const regex = /{(\w+)}/g;
+    return template.replace(regex, (match, key) => {
+        // 'match' is the full text that was matched, example, {damage}
+        // 'key' is just the captured part (the word inside), example., "damage"
+
+        // Check if the key exists in params object.
+        // If it does, return the value from the params.
+        // If it doesn't, return the original match
+        return params[key] !== undefined ? params[key] : match;
+    });
+}
