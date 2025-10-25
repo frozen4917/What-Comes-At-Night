@@ -17,7 +17,8 @@
         "previousLocation": null,
         "currentPhaseId": "dusk",
         "flags": {
-            "shed_locked": true
+            "shed_locked": true,
+            "woods_not_searched": true
         }
     }
 }

@@ -7,62 +7,103 @@
                     "id": "attack_single_zombie",
                     "text_ref": "action_text_attack_zombie",
                     "showIf": [ { "monsterIsPresent": "zombie" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
-                    "effects": { "attackTarget": "zombie", "weapon": "axe", "result_ref": "outcome_attack_single_zombie" }
+                    "effects": { 
+                        "attackTarget": "zombie", 
+                        "weaponPriority": ["axe", "baseball_bat"], 
+                        "result_ref": "outcome_attack_single_zombie" 
+                    }
                  
                 },
                 {
                     "id": "attack_single_skeleton",
                     "text_ref": "action_text_attack_skeleton",
                     "showIf": [ { "monsterIsPresent": "skeleton" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
-                    "effects": { "attackTarget": "skeleton", "weapon": "axe", "result_ref": "outcome_attack_single_skeleton" }
+                    "effects": { 
+                        "attackTarget": "skeleton", 
+                        "weaponPriority": ["axe", "baseball_bat"],
+                        "result_ref": "outcome_attack_single_skeleton" 
+                    }
                 },
                 {
                     "id": "attack_single_spirit",
                     "text_ref": "action_text_attack_spirit",
                     "showIf": [ { "monsterIsPresent": "skeleton" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
-                    "effects": { "attackTarget": "spirit", "weapon": "axe", "result_ref": "outcome_attack_single_spirit" }
+                    "effects": { 
+                        "attackTarget": "spirit", 
+                        "weaponPriority": ["axe", "baseball_bat"], 
+                        "result_ref": 
+                        "outcome_attack_single_spirit" 
+                    }
                 },
                 {
                     "id": "attack_cleave",
                     "text_ref": "action_text_attack_cleave",
                     "showIf": [ { "hordeSizeIsGreaterThan": 1 }, { "hasItem": "axe" } ],
-                    "effects": { "attackType": "cleave", "weapon": "axe", "result_ref": "outcome_attack_cleave" }
+                    "effects": { 
+                        "attackType": "cleave", 
+                        "weaponPriority": ["axe"], 
+                        "result_ref": "outcome_attack_cleave" 
+                    }
                 },
                 {
                     "id": "attack_incinerate",
                     "text_ref": "action_text_attack_incinerate",
                     "showIf": [ { "hordeSizeIsGreaterThan": 1 }, { "hasItem": "molotov" } ],
-                    "effects": { "attackType": "incinerate", "removeItem": "molotov", "result_ref": "outcome_attack_incinerate" }
+                    "effects": { 
+                        "attackType": "incinerate", 
+                        "removeItem": "molotov", "result_ref": 
+                        "outcome_attack_incinerate" 
+                    }
                 },
                 {
                     "id": "attack_shoot",
                     "text_ref": "action_text_attack_shoot",
                     "showIf": [ { "hordeSizeIsGreaterThan": 0 }, { "hasItem": "bow" }, { "hasItem": "arrow" } ],
-                    "effects": { "attackType": "shoot", "removeItem": "arrow", "result_ref": "outcome_attack_shoot" }
+                    "effects": { 
+                        "attackType": "shoot", 
+                        "removeItem": "arrow", 
+                        "result_ref": "outcome_attack_shoot" 
+                    }
                 },
                 {
                     "id": "attack_boss_witch",
                     "text_ref": "action_text_attack_witch",
                     "showIf": [ { "bossIsPresent": "witch" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
-                    "effects": { "attackTarget": "witch", "weapon": "axe", "result_ref": "outcome_attack_boss_witch" }
+                    "effects": { 
+                        "attackTarget": "witch", 
+                        "weaponPriority": ["axe", "baseball_bat"], 
+                        "result_ref": "outcome_attack_boss_witch" 
+                    }
                 },
                 {
                     "id": "attack_boss_vampire",
                     "text_ref": "action_text_attack_vampire",
                     "showIf": [ { "bossIsPresent": "vampire" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
-                    "effects": { "attackTarget": "vampire", "weapon": "axe", "result_ref": "outcome_attack_boss_vampire" }
+                    "effects": { 
+                        "attackTarget": "vampire", 
+                        "weaponPriority": ["axe", "baseball_bat"], 
+                        "result_ref": "outcome_attack_boss_vampire" 
+                    }
                 },
                 {
                     "id": "hurt_boss_witch",
                     "text_ref": "action_text_hurt_witch",
                     "showIf": [ { "bossIsPresent": "witch" }, { "hasItem": "witch_ward" } ],
-                    "effects": { "attackBoss": "witch", "removeItem": "witch_ward", "result_ref": "outcome_hurt_boss_witch" }
+                    "effects": { 
+                        "attackBoss": "witch", 
+                        "removeItem": "witch_ward", 
+                        "result_ref": "outcome_hurt_boss_witch" 
+                    }
                 },
                 {
                     "id": "hurt_boss_vampire",
                     "text_ref": "action_text_hurt_vampire",
                     "showIf": [ { "bossIsPresent": "vampire" }, { "hasItem": "black_salt" } ],
-                    "effects": { "attackBoss": "vampire", "removeItem": "black_salt", "result_ref": "outcome_hurt_boss_vampire" }
+                    "effects": { 
+                        "attackBoss": "vampire", 
+                        "removeItem": "black_salt", 
+                        "result_ref": "outcome_hurt_boss_vampire" 
+                    }
                 }
             ]
         },
@@ -70,27 +111,50 @@
             "category": "REST & HIDE",
             "subActions": [
                 {
+                    "id": "wait",
+                    "text_ref": "action_text_wait",
+                    "effects": { 
+                        "wait": true
+                    }
+                },
+                {
                     "id": "heal_bandages",
                     "text_ref": "action_text_heal_bandages",
                     "showIf": [ { "hasItem": "bandages" } ],
-                    "effects": { "changeStat": { "health": 20 }, "removeItem": "bandages", "result_ref": "outcome_heal_bandages" } },
+                    "effects": { 
+                        "changeStat": { "health": 20 }, 
+                        "removeItem": "bandages", 
+                        "result_ref": "outcome_heal_bandages" } 
+                    },
                 {
                     "id": "heal_first_aid",
                     "text_ref": "action_text_heal_first_aid",
                     "showIf": [ { "hasItem": "first_aid_kit" } ],
-                    "effects": { "changeStat": { "health": 60 }, "removeItem": "first_aid_kit", "result_ref": "outcome_heal_first_aid" }
+                    "effects": { 
+                        "changeStat": { "health": 60 }, 
+                        "removeItem": "first_aid_kit", 
+                        "result_ref": "outcome_heal_first_aid" 
+                    }
                 },
                 {
                     "id": "eat_canned_food",
                     "text_ref": "action_text_eat_canned_food",
                     "showIf": [ { "hasItem": "canned_food" } ],
-                    "effects": { "changeStat": { "health": 10, "stamina": 15 }, "removeItem": "canned_food", "result_ref": "outcome_eat_canned_food" }
+                    "effects": { 
+                        "changeStat": { "health": 10, "stamina": 15 }, 
+                        "removeItem": "canned_food", 
+                        "result_ref": "outcome_eat_canned_food" 
+                    }
                 },
                 {
                     "id": "eat_cooked_mushroom",
                     "text_ref": "action_text_eat_mushroom",
                     "showIf": [ { "hasItem": "cooked_mushroom" } ],
-                    "effects": { "changeStat": { "health": 15, "stamina": 20 }, "removeItem": "cooked_mushroom", "result_ref": "outcome_eat_cooked_mushroom" }
+                    "effects": { 
+                        "changeStat": { "health": 15, "stamina": 20 }, 
+                        "removeItem": "cooked_mushroom", 
+                        "result_ref": "outcome_eat_cooked_mushroom" 
+                    }
                 }
             ]
         },
@@ -101,19 +165,37 @@
                     "id": "craft_molotov",
                     "text_ref": "action_text_craft_molotov",
                     "showIf": [ { "hasItems": { "fuel": 1, "rag": 1, "bottle": 1 } } ],
-                    "effects": { "craft": "molotov", "result_ref": "outcome_craft_molotov_success" }
+                    "effects": { 
+                        "craft": "molotov", 
+                        "result_ref": "outcome_craft_molotov" 
+                    }
                 },
                 {
                     "id": "craft_witch_ward",
                     "text_ref": "action_text_craft_witch_ward",
                     "showIf": [ { "hasItems": { "rowan_berries": 1, "twine": 1, "wood": 1 } } ],
-                    "effects": { "craft": "witch_ward", "result_ref": "outcome_craft_witch_ward_success" }
+                    "effects": { 
+                        "craft": "witch_ward", 
+                        "result_ref": "outcome_craft_witch_ward" 
+                    }
+                },
+                {
+                    "id": "craft_black_salt",
+                    "text_ref": "action_text_craft_black_salt",
+                    "showIf": [ { "hasItems": { "garlic": 1, "salt": 1 } } ],
+                    "effects": {
+                        "craft": "black_salt",
+                        "result_ref": "outcome_craft_black_salt"
+                    }
                 },
                 {
                     "id": "cook_mushrooms",
                     "text_ref": "action_text_cook_mushrooms",
                     "showIf": [ { "hasItems": { "mushrooms": 2 } }, { "atLocation": "campsite" } ],
-                    "effects": { "craft": "cooked_mushroom", "result_ref": "outcome_cook_mushrooms_success" }
+                    "effects": { 
+                        "craft": "cooked_mushroom", 
+                        "result_ref": "outcome_cook_mushrooms" 
+                    }
                 }
             ]
         }
