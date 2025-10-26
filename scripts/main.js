@@ -7,7 +7,7 @@ import { updateConsoleUI } from './ui.js';
 import { getRandomInt, areConditionsMet, renderText } from './utils.js';
 
 export function buildPromptText(gameState, gameData) {
-    const { world, status } = gameState; // Deconstruct gameState
+    const { player, world, status } = gameState; // Deconstruct gameState
     const { texts } = gameData;
 
     const timelineKey = `${world.currentPhaseId}_flavor_${world.actionsRemaining}`; // Timeline flavor text: Build key, e.g. dusk_flavor_4
@@ -60,8 +60,29 @@ export function buildPromptText(gameState, gameData) {
 
     const consequenceAndThreatText = messageStrings.join('\n');
 
+
+    // STAT MESSAGE
+    // Gives warnings for low health
+    const statMessages = [];
+    
+    // Health warnings
+    if (player.health <= 15) {
+        statMessages.push(texts.status_health_critical);
+    } else if (player.health <= 35) {
+        statMessages.push(texts.status_health_low);
+    }
+    // Stamina warnings
+    if (player.stamina <= 15) {
+        statMessages.push(texts.status_stamina_critical);
+    } else if (player.stamina <= 35) {
+        statMessages.push(texts.status_stamina_low);
+    }
+    
+    // Join all stat messages
+    const statsText = statMessages.join('\n');
+
     // Assemble all parts into a final string
-    const parts = [timelineText, locationDescription, consequenceAndThreatText];
+    const parts = [timelineText, locationDescription, consequenceAndThreatText, statsText];
     return parts.filter(part => part).join('\n\n'); // Filter out empty parts and join
 }
 
@@ -119,7 +140,7 @@ export function handleEffects(effects, gameState, gameData) {
                         gameState.player[stat] = Math.max(0, Math.min(100, currentValue + change));
                         
                         // For texts like: "gain {health} HP" or "gain {stamina} stamina"
-                        messageParams[stat] = change;
+                        messageParams[stat] = gameState.player[stat] - currentValue;
                     } else if (gameState.world.fortifications[stat] !== undefined) {
                         let currentFHP = gameState.world.fortifications[stat];
                         let newFHP = currentFHP + change;
@@ -194,10 +215,12 @@ export function handleEffects(effects, gameState, gameData) {
                 } else {
                     // Pushes "outcome_wait_normal" (with stamina param)
                     const stamGain = 5;
+                    const currentValue = gameState.player.stamina;
                     gameState.player.stamina = Math.min(100, gameState.player.stamina + stamGain);
+                    const netGain = gameState.player.stamina - currentValue;
                     gameState.status.messageQueue.push({ 
                         text_ref: "outcome_wait_normal",
-                        params: { stamina: stamGain } 
+                        params: (netGain > 0) ? { staminaRegen: ` You regain ${netGain} stamina.` } : { staminaRegen: "" } 
                     });
                 }
                 break;

@@ -8,10 +8,10 @@
     "outcome_hide_in_tents": "You hide in the tents to avoid being spotted. The noise you create now reduces.",
     "outcome_hide_in_cabin": "You hide inside the cabin. You won't be spotted. Your actions do not create noise.",
     "outcome_hide_in_hut": "You scurry yourself over into the gravekeeper's hut. You avoid creating noise to not attract the monsters.",
-    "outcome_wait_normal": "You take a moment to pause and recollect your thoughts. You regain {stamina} stamina.",
+    "outcome_wait_normal": "You take a moment to pause and recollect your thoughts.{staminaRegen}",
     "outcome_wait_hiding": "You remain hidden, waiting and watching.",
     "outcome_heal_bandages": "You carefully open and use one of the bandages to heal yourself. You regain {health} HP.",
-    "outcome_heal_first_aid": "You open the first aid kit. You find some useful . You regain {health} HP.",
+    "outcome_heal_first_aid": "You open the first aid kit. You find some antiseptic, bandages, and some gauze rolls. You use it and regain {health} HP.",
     "outcome_eat_canned_food": "You open the can of food you have been storing. You consume its content, giving you {stamina} stamina and {health} HP.",
     "outcome_eat_cooked_mushrooms": "You eat the mushrooms you had cooked earlier. You gain {stamina} stamina and {health} HP.",
     "outcome_craft_molotov": "You fill the empty bottle with some fuel and use the old rag to craft a molotov. It is dangerous and can cause a large fire, dealing a large amount of damage to any monster horde.",
@@ -46,6 +46,13 @@
     
 
 
+    "status_health_low": "Your health is low. You should find a way to heal.",
+    "status_health_critical": "CRITICAL: Your health is dangerously low! Heal immediately!",
+    "status_stamina_low": "You are feeling exhausted and sluggish.",
+    "status_stamina_critical": "CRITICAL: You are about to collapse from exhaustion! You must rest!",
+
+
+
     "loc_desc_campsite_first": "A group of monsters is hot on your tail. The night is dangerous. You've managed to outrun the horde and get some time to get yourself under control. You find yourself in a campsite amidst a rough clearing through the woods as the sun begins to set. Several tents are pitched around a warm campfire. A wooden cabin stands at the far west. A small wooden pier extends over the dark water ahead.",
     "loc_desc_campsite_current": [
         "You remain at the campsite. The campfires burn bright, enough to provide you with some warmth.",
@@ -56,7 +63,7 @@
     "loc_desc_campsite_return": [
         "You return to the campsite, relieved to see the fire still burning strong. The generator's hum continues to be nothing but just background noise for you.",
         "You make your way back to the centre of the campsite. The glow of the fire and cabin lights guides you in, a beacon of relative safety in the darkness.",
-        "You return to the clearing, the familiar layout of the campsite greeting you. The piers stretch out into darkness and the fire burns straight ahead."
+        "You return to the clearing, the familiar layout of the campsite greeting you. The pier stretches out into darkness and the fire burns straight ahead."
     ],
 
     "loc_desc_cabin_first": "You step into the wooden cabin and close the door behind you, muffling the sounds of the night outside. The interior is cozy and well-maintained. A worn sofa faces a cold fireplace, and someone's jacket hangs on a peg by the door. Maps and a schedule are pinned to a corkboard near the window. The cabin smells of pine wood, lamp oil, and the faint mustiness of a place that's lived-in but currently empty. Through the windows, you can see the campfire outside, but in here, the generator's hum is more muted. It feels safer somehow, with walls between you and whatever's out there.",
@@ -71,7 +78,7 @@
         "You make your way back to the cabin and enter. Everything is exactly as you left it."
     ],
 
-    "loc_desc_graveyard_first": "You arrive at the graveyard, and a chill runs down your spine that has nothing to do with the temperature. You remember glimpsing this place earlier when you were fleeing toward the campsite. Now here you are, standing among the dead. The graveyard sprawls across uneven ground, dotted with tombstones of varying ages. A gravekeeper's hut  stands near the entrance. A small shed sits further back.",
+    "loc_desc_graveyard_first": "You arrive at the graveyard, and a chill runs down your spine that has nothing to do with the temperature. You remember glimpsing this place earlier when you were fleeing towards the campsite. Now here you are, standing among the dead. The graveyard sprawls across uneven ground, dotted with tombstones of varying ages. A gravekeeper's hut stands near the entrance and a small locked shed sits further back.",
     "loc_desc_graveyard_current": [
         "You remain in the graveyard, acutely aware of how exposed you are here.",
         "You're still among the graves. The wind picks up slightly, making the loose shutter on the gravekeeper's hut bang.",
@@ -99,11 +106,11 @@
     "evening_flavor_8": "Evening arrives with a blanket of darker blue-grey across the heavens. The stars are now clearly visible, scattered like diamonds across velvet, and the moon begins its ascent. The comfortable warmth of day is gone, replaced by a chill that makes you pull your clothing tighter.",
     "evening_flavor_7": "The sky deepens to a rich cobalt, with the brightest stars forming their familiar constellations.",
     "evening_flavor_6": "Darkness settles more. Night sounds begin: crickets chirping and the distant hoot of an owl setting out to hunt.",
-    "evening_flavor_5": " The moon climbs higher, casting everything in shades of silver and shadow. Trees become dark silhouettes against the star-filled sky, their branches like skeletal hands reaching upward.",
+    "evening_flavor_5": "The moon climbs higher, casting everything in shades of silver and shadow. Trees become dark silhouettes against the star-filled sky, their branches like skeletal hands reaching upward.",
     "evening_flavor_4": "Evening's grip tightens as the last traces of twilight vanish from the western horizon. The night is fully awake now, and every sound seems amplified in the quiet darkness.",
     "evening_flavor_3": "The moon's light creates a patchwork of illumination and shadow across the ground. A cold breeze rustles through the vegetation, carrying sounds that are harder to identify in the dark.",
     "evening_flavor_2": "Moonlight now gleams off surfaces: water, stone, anything smooth enough to reflect it back.",
-    "evenin_flavor_1": "Evening reaches its deepest point before transitioning to true night. The stars wheel slowly overhead, and the shadows seem to shift and move at the edges of your vision.",
+    "evening_flavor_1": "Evening reaches its deepest point before transitioning to true night. The stars wheel slowly overhead, and the shadows seem to shift and move at the edges of your vision.",
 
     "nightfall_flavor_8": "True nightfall descends like a curtain, and the darkness takes on weight and substance. The moon hangs bright but somehow distant, its light feeling colder now, less comforting than before. The night sounds have changed: some creatures have gone silent, while others you can't identify have started calling.",
     "nightfall_flavor_7": "The cold intensifies as the temperature plummets. Shadows pool thick and heavy beneath trees and overhangs, places where moonlight cannot reach.",
@@ -111,7 +118,7 @@
     "nightfall_flavor_5": "The night deepens further still. The moon's journey across the sky continues, and its angle creates unfamiliar shadows that make familiar landscapes seem strange and foreign.",
     "nightfall_flavor_4": "The remaining warmth left over from the day is completely gone, replaced by the deep cold of true night.",
     "nightfall_flavor_3": "Silence falls more heavily now, broken only by the occasional crack of a twig or the distant cry of a night bird. The darkness between shadows seems somehow darker.",
-    "nightfall_flavor_2": "he moon reaches its highest point, bathing everything in pale, colorless light. But there are more shadows now.",
+    "nightfall_flavor_2": "The moon reaches its highest point, bathing everything in pale, colorless light. But there are more shadows now.",
     "nightfall_flavor_1": "The world feels suspended, caught between the evening that was and the deeper darkness yet to come.",
 
     "deep_night_flavor_9": "Deep night arrives with an almost physical presence, as if the darkness itself has grown thicker, more tangible. The moon continues its arc but seems to give less light than before, its beams struggling to penetrate the gloom. Strange sounds echo from the darkness. This is the hour when natural creatures hide, and other forces emerge.",
@@ -128,14 +135,14 @@
     "witching_hour_flavor_9": "The darkness writhes and pulses with unseen presence. Shapes seem move through the mist with purpose now.",
     "witching_hour_flavor_8": "The night sky intensifies. The shadows have gained depth, becoming doorways to somewhere else.",
     "witching_hour_flavor_7": "The moon bleeds a sickly color, somewhere between silver and red.",
-    "witching_hour_flavor_6": " Time feels distorted, stretching and compressing. Seconds last hours, minutes pass in heartbeats.",
+    "witching_hour_flavor_6": "Time feels distorted, stretching and compressing. Seconds last hours, minutes pass in heartbeats.",
     "witching_hour_flavor_5": "The Witching Hour reaches its apex. The boundary between worlds is paper-thin now, and things press against it from the other side.",
     "witching_hour_flavor_4": "Dead leaves swirl in spirals without wind to move them. Every sound seems swallowed by the oppressive stillness. The ground itself seems to hold its breath.",
     "witching_hour_flavor_3": "The Witching Hour continues. The stars trace paths slowly, offering no sign of hope or dawn to come.",
     "witching_hour_flavor_2": "The stars begin their slow wheel toward morning positions, though dawn is still impossibly far away.",
     "witching_hour_flavor_1": "The witching hour's grip begins to weaken... barely. The absolute stillness starts to break as the faintest breath of wind stirs. The moon's color begins its slow fade back toward normal silver.",
 
-    "pre_dawn_flavor_5": "The first hint of change arrives. The absolute black of the sky begins to lighten to merely dark grey in the far east. The unnaturality that filled the witching hour seem to stop. The temperature remains brutally cold, but no longer drops. The moon, pale and exhausted, begins its descent toward the western horizon. You've survived the worst. You just have to hold on a little longer.",
+    "pre_dawn_flavor_5": "The first hint of change arrives. The absolute black of the sky begins to lighten to merely dark grey in the far east. The unnaturality that filled the witching hour seems to have stopped. The temperature remains brutally cold, but no longer drops. The moon, pale and exhausted, begins its descent toward the western horizon. You've survived the worst. You just have to hold on a little longer.",
     "pre_dawn_flavor_4": "The eastern horizon shows a line of slightly lighter grey, barely distinguishable from the darkness above it.",
     "pre_dawn_flavor_3": "The stars begin to fade, the brightest ones clinging to visibility as the sky slowly lightens.",
     "pre_dawn_flavor_2": "The shadows lose their depth and menace, becoming ordinary darkness once more. Birds begin their first tentative chirps.",
