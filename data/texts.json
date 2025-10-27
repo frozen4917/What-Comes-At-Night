@@ -1,4 +1,21 @@
 {
+    "threat_horde_spawn_timed_nightfall": "A distant growl rolls across the land! A horde ({composition}) stirs from their hiding places, moving closer with growing hunger.",
+    "threat_horde_spawn_timed_deep_night": "You catch glimpses of movement between the trees. A horde ({composition}) is closing in fast!",
+    "threat_horde_spawn_timed_witching_hour": "The air splits with unholy shrieks! A massive horde ({composition}) emerges from the dark!",
+    "threat_horde_spawn_timed_pre_dawn": "Just when you think it is over, another small horde ({composition}) moves closer!",
+
+    
+    "threat_horde_attacks_fortification_cabin": "The horde slams against the doors and windows of the cabin, dealing {totalDamage} damage!",
+    "threat_horde_attacks_fortification_campGate": "The horde attacks the foundations of the campsite gate, dealing {totalDamage} damage!",
+    "threat_horde_attacks_fortification_graveyardGate": "The horde damages the graveyard gate, dealing {totalDamage} damage!",
+
+    "threat_fortification_breached_cabin": "The cabin door splinters and breaks! The monsters are inside!",
+    "threat_fortification_breached_campGate": "The campsite gate breaks down, no longer usable. The monsters rush towards the campfire.",
+    "threat_fortification_breached_graveyardGate": "The old graveyard gate becomes unstable and falls apart. The monsters enter the graveyard!",
+
+    "threat_horde_attacks_player": "The horde swarms you, dealing {totalDamage} damage!",
+    "outcome_stop_hiding": "You are no longer hiding.",
+
     "outcome_fortify_campGate": "You fortify the campsite gate using wood. The fortification strength is now at {strength}.",
     "outcome_fortify_cabin": "You barricade the cabin windows and door. The fortification strength is now at {strength}.",
     "outcome_fortify_graveyardGate": "You fortify the graveyard gate to make it resistant to monster attacks. The fortification strength is now at {strength}.",
