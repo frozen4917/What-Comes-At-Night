@@ -147,13 +147,13 @@
                     }
                 },
                 {
-                    "id": "eat_cooked_mushroom",
-                    "text_ref": "action_text_eat_mushroom",
-                    "showIf": [ { "hasItem": "cooked_mushroom" } ],
+                    "id": "eat_cooked_mushrooms",
+                    "text_ref": "action_text_eat_mushrooms",
+                    "showIf": [ { "hasItem": "cooked_mushrooms" } ],
                     "effects": { 
                         "changeStat": { "health": 15, "stamina": 20 }, 
-                        "removeItem": "cooked_mushroom", 
-                        "result_ref": "outcome_eat_cooked_mushroom" 
+                        "removeItem": "cooked_mushrooms", 
+                        "result_ref": "outcome_eat_cooked_mushrooms" 
                     }
                 }
             ]
@@ -193,7 +193,7 @@
                     "text_ref": "action_text_cook_mushrooms",
                     "showIf": [ { "hasItems": { "mushrooms": 2 } }, { "atLocation": "campsite" } ],
                     "effects": { 
-                        "craft": "cooked_mushroom", 
+                        "craft": "cooked_mushrooms", 
                         "result_ref": "outcome_cook_mushrooms" 
                     }
                 }

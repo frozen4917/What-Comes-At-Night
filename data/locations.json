@@ -9,7 +9,7 @@
                     {
                         "id": "move_to_graveyard",
                         "text_ref": "action_text_move_to_graveyard",
-                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["campsite", "campGate", "insideCabin"] } ],
+                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["campsite", "campGate", "cabin"] } ],
                         "effects": { 
                             "setLocation": "graveyard"
                         }
@@ -17,7 +17,7 @@
                     {
                         "id": "move_to_cabin",
                         "text_ref": "action_text_move_to_cabin",
-                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["insideCabin"] } ],
+                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["cabin"] } ],
                         "effects": { 
                             "setLocation": "cabin"
                         }
@@ -30,7 +30,7 @@
                     {
                         "id": "fortify_campGate",
                         "text_ref": "action_text_fortify_campGate",
-                        "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["campsite", "insideCabin"] } ],
+                        "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["campsite", "cabin"] } ],
                         "effects": { 
                             "changeStat": { "campGate": 10 }, 
                             "removeItem": "wood",
@@ -45,7 +45,7 @@
                     {
                         "id": "rest_by_fire",
                         "text_ref": "action_text_rest_fire",
-                        "showIf": [ { "hordeLocationNotIn": ["campsite", "insideCabin"] } ],
+                        "showIf": [ { "hordeLocationNotIn": ["campsite", "cabin"] } ],
                         "effects": { 
                             "changeStat": { "stamina": 30 },
                             "result_ref": "outcome_rest_by_fire"
@@ -79,7 +79,7 @@
                     {
                         "id": "search_woods",
                         "name_ref": "action_text_search_woods",
-                        "showIf": [ { "notScavenged": "search_woods" } ],
+                        "showIf": [ { "notScavenged": "search_woods" }, { "hordeLocationNotIn": ["cabin", "campsite", "campGate"] } ],
                         "effects": {
                             "addItems": { "mushrooms": 4, "garlic": 2, "wood": 1 },
                             "addScavengedFlag": "search_woods",
@@ -90,7 +90,7 @@
                     {
                         "id": "search_woods_again",
                         "name_ref": "action_text_search_woods_again",
-                        "showIf": [ { "flagIsFalse": "woods_not_searched" } ],
+                        "showIf": [ { "flagIsFalse": "woods_not_searched" }, { "hordeLocationNotIn": ["cabin", "campsite", "campGate"] } ],
                         "effects": {
                             "addRandomItems": { "wood": { "min": 1, "max": 2 } },
                             "result_ref": "outcome_search_woods_again"
@@ -141,7 +141,7 @@
                     {
                         "id": "move_to_campsite",
                         "text_ref": "action_text_move_to_campsite",
-                        "showIf": [ { "hordeLocationNotIn": ["campsite", "insideCabin"] }, { "hordeLocationNotIn": ["insideCabin"] } ],
+                        "showIf": [ { "hordeLocationNotIn": ["cabin", "campsite"] } ],
                         "effects": { 
                             "setLocation": "campsite"
                         }
@@ -154,7 +154,7 @@
                     {
                         "id": "fortify_cabin",
                         "text_ref": "action_text_fortify_cabin",
-                        "showIf": [ { "hasItem": "wood" } ],
+                        "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["cabin"] } ],
                         "effects": { 
                             "changeStat": { "cabin": 15 }, 
                             "removeItem": "wood", 
@@ -169,7 +169,7 @@
                     {
                         "id": "rest_in_cabin",
                         "text_ref": "action_text_rest_cabin",
-                        "showIf": [ { "hordeLocationNotIn": ["insideCabin"] } ],
+                        "showIf": [ { "hordeLocationNotIn": ["cabin"] } ],
                         "effects": { 
                             "changeStat": { "stamina": 35 },
                             "result_ref": "outcome_rest_in_cabin"

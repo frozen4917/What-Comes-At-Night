@@ -167,9 +167,9 @@
             "damage": 40
         }
     },
-    "cooked_mushroom": {
-        "name": "Cooked Mushroom",
-        "description_ref": "item_desc_cooked_mushroom",
+    "cooked_mushrooms": {
+        "name": "Cooked Mushrooms",
+        "description_ref": "item_desc_cooked_mushrooms",
         "type": "cookable",
         "recipe": [ { "item": "mushrooms", "quantity": 2 } ],
         "effects": { "heal": 15, "stamina": 20 }
