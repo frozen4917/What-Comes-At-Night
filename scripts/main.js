@@ -3,88 +3,12 @@ import chalk from "chalk";
 const prompt = promptSync({ sigint: true });
 
 import { loadGameData } from './loader.js';
-import { updateConsoleUI } from './ui.js';
-import { getRandomInt, areConditionsMet, renderText } from './utils.js';
-
-export function buildPromptText(gameState, gameData) {
-    const { player, world, status } = gameState; // Deconstruct gameState
-    const { texts } = gameData;
-
-    const timelineKey = `${world.currentPhaseId}_flavor_${world.actionsRemaining}`; // Timeline flavor text: Build key, e.g. dusk_flavor_4
-    const timelineText = texts[timelineKey] || `The night continues...`; // Actual text from texts.json
-
-    // Location description
-    let locationDescription = '';
-    const locationKeyBase = `loc_desc_${world.currentLocation}`;    // Location base e.g. loc_desc_campsite
-    
-    if (!world.visitedLocations.includes(world.currentLocation)) {
-        // First-time visit
-        locationDescription = texts[locationKeyBase + '_first'];    // Location text on first visit e.g. loc_desc_campsite_first
-        world.visitedLocations.push(world.currentLocation);         // Mark as visited
-    } else if (world.currentLocation === world.previousLocation) {
-        // Player is still in the same location
-        const locationArrayBase = locationKeyBase + '_current';     // Array base of the location e.g. loc_desc_cabin_current[]
-        locationDescription = texts[locationArrayBase][getRandomInt(0,texts[locationArrayBase].length - 1)]     // Randomly select from array
-    } else {
-        // Player has returned to a previously visited location
-        const locationArrayBase = locationKeyBase + '_return';      // Array base of the location e.g. loc_desc_cabin_return
-        locationDescription = texts[locationArrayBase][getRandomInt(0,texts[locationArrayBase].length - 1)]     // Randomly select from array
-    }
-
-    // CONSEQUENCE & THREAT
-    // example of messageQueue object:
-    // { text_ref: "threat_horde_spawn_timed", params: { hordeComposition: "..." } }
-    const messageStrings = [];
-    if (status.messageQueue && status.messageQueue.length > 0) {
-        
-        // Loop over every message object in the queue
-        for (const messageObject of status.messageQueue) {
-            
-            // 1. Get the template string from texts.json
-            const template = texts[messageObject.text_ref];
-            
-            if (template) {
-                // 2. Use your renderText helper to build the final string
-                const renderedMessage = renderText(template, messageObject.params);
-                
-                // 3. Add it to our list
-                messageStrings.push(renderedMessage);
-            } else {
-                messageStrings.push(`[Missing text_ref: ${messageObject.text_ref}]`);
-            }
-        }
-        
-        // 4. ADD THIS LINE: Clear the queue for the next turn
-        status.messageQueue = []; // <--- THIS IS THE FIX
-    }
-
-    const consequenceAndThreatText = messageStrings.join('\n');
+import { updateConsoleUI, buildPromptText } from './ui.js';
+import { getRandomInt, areConditionsMet } from './utils.js';
+import { processFortificationDamage, processTimedEvents } from "./monsterHandler.js";
+import { handleEffects, updateHidingStatus } from "./effectsHandlers.js";
 
 
-    // STAT MESSAGE
-    // Gives warnings for low health
-    const statMessages = [];
-    
-    // Health warnings
-    if (player.health <= 15) {
-        statMessages.push(texts.status_health_critical);
-    } else if (player.health <= 35) {
-        statMessages.push(texts.status_health_low);
-    }
-    // Stamina warnings
-    if (player.stamina <= 15) {
-        statMessages.push(texts.status_stamina_critical);
-    } else if (player.stamina <= 35) {
-        statMessages.push(texts.status_stamina_low);
-    }
-    
-    // Join all stat messages
-    const statsText = statMessages.join('\n');
-
-    // Assemble all parts into a final string
-    const parts = [timelineText, locationDescription, consequenceAndThreatText, statsText];
-    return parts.filter(part => part).join('\n\n'); // Filter out empty parts and join
-}
 
 // WIP - NEW: Fetches available actions
 export function getCurrentActions(gameState, gameData) {
@@ -115,182 +39,6 @@ export function getCurrentActions(gameState, gameData) {
     }
 
     return validActions;
-}
-
-export function handleEffects(effects, gameState, gameData) {
-    if (!effects) return;
-
-    let messageParams = {};
-    let specialMessageHandled = false; // This flag stops duplicate messages for special cases (attack, craft, wait).
-
-    for (const key in effects) {
-        const value = effects[key];
-        switch (key) {
-            case "setLocation":
-                gameState.world.currentLocation = value;
-                // NO MESSAGE - Handled by location text
-                break;
-            
-            case "changeStat":
-                for (const stat in value) {
-                    const change = value[stat];
-
-                    if (gameState.player[stat] !== undefined) {
-                        let currentValue = gameState.player[stat];
-                        gameState.player[stat] = Math.max(0, Math.min(100, currentValue + change));
-                        
-                        // For texts like: "gain {health} HP" or "gain {stamina} stamina"
-                        messageParams[stat] = gameState.player[stat] - currentValue;
-                    } else if (gameState.world.fortifications[stat] !== undefined) {
-                        let currentFHP = gameState.world.fortifications[stat];
-                        let newFHP = currentFHP + change;
-                        gameState.world.fortifications[stat] = newFHP;
-                        
-                        // For texts like: "strength is now at {strength}"
-                        messageParams.strength = newFHP;
-                    } else if (gameState.world[stat] !== undefined) {
-                        let currentNoise = gameState.world.noise;
-                        gameState.world.noise = Math.max(0, currentNoise + change);
-                        
-                        // For texts like: "reduces noise by {noiseChange}"
-                        messageParams.noise = change;
-                    }
-                }
-                break;
-            
-            case "addItems":
-                for (const itemID in value) {
-                    const quantity = value[itemID];
-                    gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + quantity;
-                }
-                // Text in text_ref below. No dynamic params
-                break;
-            
-            case "addRandomItems":
-                // for woods
-                let added = {}
-                for (const itemID in value) {
-                    const { min, max } = value[itemID];
-                    const quantity = getRandomInt(min, max);
-                    if (quantity > 0) {
-                        gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + quantity;
-                        added[itemID] = quantity;
-                    }
-                }
-                messageParams.quantity = added['wood'] || 0;
-                break;
-            
-            case "removeItem":
-                if (gameState.player.inventory[value] && gameState.player.inventory[value] > 0) {
-                    gameState.player.inventory[value]--;
-                    if (gameState.player.inventory[value] <= 0) {
-                        delete gameState.player.inventory[value];
-                    }
-                }
-                // NO MESSAGE
-                break;
-            
-            case "setPlayerState":
-                // The result_ref (e.g., "outcome_hide_in_tents")will be pushed at the end, and it doesn't need params.
-                gameState.status.playerState = value;
-                break;
-
-            case "setToFalse":
-                gameState.world.flags[value] = false;
-                // NO MESSAGE
-                break;
-            
-            case "addScavengedFlag":
-                if (!gameState.world.scavengedLocations.includes(value)) {
-                    gameState.world.scavengedLocations.push(value);
-                }
-                // NO MESSAGE
-                break;
-            
-            case "wait":
-                specialMessageHandled = true; 
-                if (gameState.status.playerState === "hiding") {
-                    // Pushes "outcome_wait_hiding" (no params)
-                    gameState.status.messageQueue.push({ text_ref: "outcome_wait_hiding" });
-                } else {
-                    // Pushes "outcome_wait_normal" (with stamina param)
-                    const stamGain = 5;
-                    const currentValue = gameState.player.stamina;
-                    gameState.player.stamina = Math.min(100, gameState.player.stamina + stamGain);
-                    const netGain = gameState.player.stamina - currentValue;
-                    gameState.status.messageQueue.push({ 
-                        text_ref: "outcome_wait_normal",
-                        params: (netGain > 0) ? { staminaRegen: ` You regain ${netGain} stamina.` } : { staminaRegen: "" } 
-                    });
-                }
-                break;
-
-
-            case "craft": 
-                processCraftEffect(effects, gameState, gameData);
-                specialMessageHandled = true;
-                break;
-            
-            case "attackType":
-            case "attackTarget":
-            case "attackBoss":
-                // All attack effects are handled by one helper
-                // processAttackEffect(effects, gameState, gameData);
-                specialMessageHandled = true;
-                break;
-
-            case "result_ref":
-            case "weaponPriority":
-                // Ignored, these are data, not effects to process.
-                break;
-            
-            default:
-                console.log(chalk.redBright(`Unhandled effect key: ${key}`));
-        }
-    }
-    if (effects.result_ref && !specialMessageHandled) {
-        gameState.status.messageQueue.push({
-            text_ref: effects.result_ref,
-            params: messageParams 
-        });
-    }
-    console.log(chalk.yellowBright(`${gameState.status.messageQueue}`));
-}
-
-function processCraftEffect(effects, gameState, gameData) {
-    const itemID = effects.craft;
-    const craftableItem = gameData.items[itemID];
-
-    // Safety check: if the item or its recipe doesn't exist, do nothing.
-    if (!craftableItem || !craftableItem.recipe) {
-        console.error(chalk.red(`Attempted to craft an item with no recipe: ${itemID}`));
-        return;
-    }
-
-    // Remove ingredients from the player's inventory
-    for (const ingredient of craftableItem.recipe) {
-        const ingredientID = ingredient.item;
-        const quantityNeeded = ingredient.quantity;
-
-        if (gameState.player.inventory[ingredientID]) {
-            gameState.player.inventory[ingredientID] -= quantityNeeded;
-            // If the ingredient count drops to zero, remove it from the inventory
-            if (gameState.player.inventory[ingredientID] <= 0) {
-                delete gameState.player.inventory[ingredientID];
-            }
-        }
-    }
-
-    // Add the newly crafted item to the inventory
-    gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + 1;
-    console.log(chalk.green(`Crafted ${itemID}`)); // DEBUGGING. TO REMOVE
-
-    if (effects.result_ref) {
-        gameState.status.messageQueue.push({
-            text_ref: effects.result_ref,
-            params: {} // No params needed for static craft texts
-        });
-    }
 }
 
 export function initializeGameState(gameData) {
@@ -383,9 +131,9 @@ function checkGameStatus(gameState, gameData) {
 async function runGameLoop(gameState, gameData) {
     while (true) {
         
-        // ---- FUTURE START OF TURN FUNCTIONS ----
-        // processTimedEvents()
-        // processMonsterActions()
+        // ---- START OF TURN FUNCTIONS ----
+        processTimedEvents(gameState,gameData);
+        processFortificationDamage(gameState,gameData);
 
         // 1. Build the prompt text
         const promptText = buildPromptText(gameState, gameData);
@@ -402,7 +150,9 @@ async function runGameLoop(gameState, gameData) {
         console.log(chalk.yellow(`\nYou chose: ${chosenAction.id}`));
 
         gameState.world.previousLocation = gameState.world.currentLocation;
-        // ---- FUTURE FUNCTIONS ----
+        
+        updateHidingStatus(chosenAction, gameState);
+
         handleEffects(chosenAction.effects, gameState, gameData);
         tickClock(gameState);
         checkGameStatus(gameState, gameData);
