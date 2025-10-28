@@ -119,13 +119,13 @@ export function handleEffects(effects, gameState, gameData) {
                 break;
             
             case "attackType":
-            case "attackTarget":
-            case "attackBoss":
                 // All attack effects are handled by one helper
-                // processAttackEffect(effects, gameState, gameData);
+                processAttackEffect(effects, gameState, gameData);
                 specialMessageHandled = true;
                 break;
 
+            case "attackBoss":
+            case "attackTarget":
             case "result_ref":
             case "weaponPriority":
                 // Ignored, these are data, not effects to process.
@@ -176,6 +176,224 @@ export function processCraftEffect(effects, gameState, gameData) {
         gameState.status.messageQueue.push({
             text_ref: effects.result_ref,
             params: {} // No params needed for static craft texts
+        });
+    }
+}
+
+export function processAttackEffect(effects, gameState, gameData) {
+    let weaponID = null;
+    if (effects.weaponPriority) {
+        for (const id of effects.weaponPriority) {
+            if (gameState.player.inventory[id] > 0) {
+                weaponID = id;
+                break;
+            }
+        }
+    }
+
+    switch (effects.attackType) {
+        case "cleave":
+            return processCleaveAttack(effects, weaponID, gameState, gameData);
+        
+        case "shoot": 
+            return processShootAttack(effects, gameState, gameData);
+        
+        case "incinerate":
+            return processIncinerateAttack(effects, gameState, gameData);
+        
+        case "single": 
+            return processSingleAttack(effects, weaponID, gameState, gameData);
+        
+        case "special": 
+            return processSpecialAttack(effects, gameState, gameData);
+    }
+}
+
+function processSingleAttack(effects, weaponID, gameState, gameData) {
+    if (!weaponID) return;
+
+    const weaponData = gameData.items[weaponID];
+    const baseDamage = weaponData.effects.single_attack.damage;
+    const damage = baseDamage + getRandomInt(-2, 2);
+    const target = effects.attackTarget;
+    const hordeList = gameState.horde[target];
+
+    if (hordeList && hordeList.length > 0) {
+        const randomIndex = getRandomInt(0, hordeList.length - 1);
+        const monster = hordeList[randomIndex];
+        monster.currentHealth -= damage;
+
+        let killParam = '';
+        if (monster.currentHealth <= 0) {
+            hordeList.splice(randomIndex, 1); // Remove the defeated monster
+            
+            killParam = ` You killed the ${gameData.monsters[target].name}.`; // e.g. "outcome_attack_single_zombie_kill"
+        }
+
+        gameState.status.messageQueue.push({
+            text_ref: effects.result_ref,
+            params: {
+                weapon: weaponData.name,
+                damage: damage,
+                kill: killParam
+            }
+        });
+    }
+}
+
+function processCleaveAttack(effects, weaponID, gameState, gameData) {
+    if (weaponID !== 'axe') return;
+
+    const weaponData = gameData.items[weaponID];
+    const baseDamage = weaponData.effects.cleave_attack.damage;
+    const maxTargets = weaponData.effects.cleave_attack.targets;
+
+    let allMonsters = Object.values(gameState.horde).flat();
+    allMonsters.sort(() => 0.5 - Math.random());
+
+    let targetsHit = allMonsters.slice(0, maxTargets);
+    let defeatedCount = 0;
+    let totalDamage = 0;
+    // Attack each target
+    targetsHit.forEach(monster => {
+        let damage = baseDamage + getRandomInt(-1, 2);
+        monster.currentHealth -= damage;
+        totalDamage += damage;
+        if (monster.currentHealth <= 0) {
+            defeatedCount++;
+        }
+    });
+
+    for (const type in gameState.horde) {
+        gameState.horde[type] = gameState.horde[type].filter(m => m.currentHealth > 0);
+    }
+
+    let killParam = '';
+    if (defeatedCount > 0) {
+        killParam = ` You defeated the ${defeatedCount} monsters.`;
+    }
+
+    gameState.status.messageQueue.push({
+        text_ref: effects.result_ref,
+        params: {
+            numHit: targetsHit.length,
+            damage: totalDamage,
+            kill: killParam
+        }
+    });
+}
+
+function processShootAttack(effects, gameState, gameData) {
+    if (gameState.player.inventory.arrow <= 0) {
+        console.log(chalk.redBright("ERROR: No arrows - [processShootAttack()]"));
+        return;
+    }
+
+    gameState.player.inventory.arrow--;
+    const weaponData = gameData.items.bow;
+    const damage = weaponData.effects.single_attack.damage + getRandomInt(-1, 1);
+    const targetOrder = ["witch", "vampire", "zombie", "skeleton", "spirit"];
+    let targetMonster = null;
+    let targetName = null;
+    let targetList = null;
+    let randomIndex = -1;
+
+    for (const type of targetOrder) {
+        if (gameState.horde[type] && gameState.horde[type].length > 0) {
+            targetList = gameState.horde[type];
+            randomIndex = getRandomInt(0, targetList.length - 1);
+            targetMonster = targetList[randomIndex];
+            targetName = gameData.monsters[type].name;
+            break;
+        }
+    }
+
+    targetMonster.currentHealth -= damage;
+
+    let killParam = '';
+    if (targetMonster.currentHealth <= 0) {
+        targetList.splice(randomIndex, 1); // Remove the defeated monster
+        killParam = ` You shot the ${targetName} to death.`;
+    }
+
+    gameState.status.messageQueue.push({
+        text_ref: effects.result_ref,
+        params: {
+            monster: targetName,
+            damage: damage,
+            kill: killParam
+        }
+    });
+
+}
+
+function processIncinerateAttack(effects, gameState, gameData) {
+    if (gameState.player.inventory.molotov <= 0) {
+        console.log(chalk.redBright("ERROR: No Molotovs - [processIncinerateAttack()]"));
+        return;
+    }
+
+    gameState.player.inventory.molotov--;
+    const weaponData = gameData.items.molotov;
+    const baseDamage = weaponData.effects.incinerate.damage;
+
+    let allMonsters = Object.values(gameState.horde).flat();
+    
+    let defeatedCount = 0;
+    let totalDamage = 0;
+    
+    allMonsters.forEach(monster => {
+        let damage = baseDamage + getRandomInt(-4, 3);
+        monster.currentHealth -= baseDamage;
+        totalDamage += damage;
+        if (monster.currentHealth <= 0) {
+            defeatedCount++;
+        }
+    });
+
+    for (const type in gameState.horde) {
+        gameState.horde[type] = gameState.horde[type].filter(m => m.currentHealth > 0);
+    } 
+
+    let killParam = '';
+    if (defeatedCount > 0) {
+        killParam = ` The fire ends up killing ${defeatedCount} monsters.`;
+    }
+
+    gameState.status.messageQueue.push({
+        text_ref: effects.result_ref,
+        params: {
+            numHit: allMonsters.length,
+            damage: totalDamage,
+            kill: killParam
+        }
+    });
+}
+
+function processSpecialAttack(effects, gameState, gameData) {
+    const bossType = effects.attackBoss;
+    const itemID = effects.removeItem;
+
+    const bossList = gameState.horde[bossType];
+    const itemData = gameData.items[itemID];
+    const damage = itemData.effects.damage + getRandomInt(-2,3);
+
+    if (bossList && bossList.length > 0) {
+        bossList[0].currentHealth -= damage;
+
+        let killParam = '';
+        if (bossList[0].currentHealth <= 0) {
+            bossList.shift();
+            
+            killParam = ` You defeated the ${gameData.monsters[bossType].name}.`
+        }
+
+        gameState.status.messageQueue.push({
+            text_ref: effects.result_ref,
+            params: {
+                damage: damage,
+                kill: killParam
+            }
         });
     }
 }

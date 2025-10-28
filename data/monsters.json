@@ -12,11 +12,11 @@
         "behavior": { "target": ["player"], "damage": 8, "special": ["lingers_long"] }
     },
     "witch": {
-        "name": "The Witch", "health": 85,
+        "name": "Witch", "health": 85,
         "behavior": { "target": ["fortification", "player"], "damage": 10, "special": ["heals_horde", "throws_potions"] }
     },
     "vampire": {
-        "name": "The Vampire", "health": 100,
+        "name": "Vampire", "health": 100,
         "behavior": { "target": ["fortification", "player"], "damage": 15, "special": ["life_drain", "mesmerize"] }
     }
 }

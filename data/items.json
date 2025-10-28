@@ -81,7 +81,7 @@
                 "damage": 28,
                 "targets": 1,
                 "ammo": "arrow",
-                "noise": 15
+                "noise": 10
             }
         }
     },
@@ -142,9 +142,10 @@
         "type": "craftable",
         "recipe": [ { "item": "fuel", "quantity": 1 }, { "item": "rag", "quantity": 1 }, { "item": "bottle", "quantity": 1 } ],
         "effects": {
-            "attack_type": "incinerate",
-            "damage": 25,
-            "targets": "all"
+            "incinerate": {
+                "damage": 25,
+                "targets": "all"
+            }
         }
     },
     "black_salt": {
