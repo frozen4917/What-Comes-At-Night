@@ -9,6 +9,7 @@
                     "showIf": [ { "monsterIsPresent": "zombie" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
                     "effects": { 
                         "attackTarget": "zombie", 
+                        "attackType": "single",
                         "weaponPriority": ["axe", "baseball_bat"], 
                         "result_ref": "outcome_attack_single_zombie" 
                     }
@@ -20,6 +21,7 @@
                     "showIf": [ { "monsterIsPresent": "skeleton" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
                     "effects": { 
                         "attackTarget": "skeleton", 
+                        "attackType": "single",
                         "weaponPriority": ["axe", "baseball_bat"],
                         "result_ref": "outcome_attack_single_skeleton" 
                     }
@@ -27,9 +29,10 @@
                 {
                     "id": "attack_single_spirit",
                     "text_ref": "action_text_attack_spirit",
-                    "showIf": [ { "monsterIsPresent": "skeleton" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
+                    "showIf": [ { "monsterIsPresent": "spirit" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
                     "effects": { 
                         "attackTarget": "spirit", 
+                        "attackType": "single",
                         "weaponPriority": ["axe", "baseball_bat"], 
                         "result_ref": 
                         "outcome_attack_single_spirit" 
@@ -51,8 +54,7 @@
                     "showIf": [ { "hordeSizeIsGreaterThan": 1 }, { "hasItem": "molotov" } ],
                     "effects": { 
                         "attackType": "incinerate", 
-                        "removeItem": "molotov", "result_ref": 
-                        "outcome_attack_incinerate" 
+                        "result_ref": "outcome_attack_incinerate" 
                     }
                 },
                 {
@@ -61,46 +63,49 @@
                     "showIf": [ { "hordeSizeIsGreaterThan": 0 }, { "hasItem": "bow" }, { "hasItem": "arrow" } ],
                     "effects": { 
                         "attackType": "shoot", 
-                        "removeItem": "arrow", 
                         "result_ref": "outcome_attack_shoot" 
                     }
                 },
                 {
                     "id": "attack_boss_witch",
-                    "text_ref": "action_text_attack_witch",
+                    "text_ref": "action_text_attack_boss_witch",
                     "showIf": [ { "bossIsPresent": "witch" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
                     "effects": { 
                         "attackTarget": "witch", 
+                        "attackType": "single",
                         "weaponPriority": ["axe", "baseball_bat"], 
                         "result_ref": "outcome_attack_boss_witch" 
                     }
                 },
                 {
                     "id": "attack_boss_vampire",
-                    "text_ref": "action_text_attack_vampire",
+                    "text_ref": "action_text_attack_boss_vampire",
                     "showIf": [ { "bossIsPresent": "vampire" }, { "hasAnyItem": ["axe", "baseball_bat"] } ],
                     "effects": { 
                         "attackTarget": "vampire", 
+                        "attackType": "single",
                         "weaponPriority": ["axe", "baseball_bat"], 
                         "result_ref": "outcome_attack_boss_vampire" 
                     }
                 },
                 {
                     "id": "hurt_boss_witch",
-                    "text_ref": "action_text_hurt_witch",
+                    "text_ref": "action_text_hurt_boss_witch",
                     "showIf": [ { "bossIsPresent": "witch" }, { "hasItem": "witch_ward" } ],
                     "effects": { 
                         "attackBoss": "witch", 
+                        "attackType": "special",
                         "removeItem": "witch_ward", 
                         "result_ref": "outcome_hurt_boss_witch" 
                     }
                 },
                 {
                     "id": "hurt_boss_vampire",
-                    "text_ref": "action_text_hurt_vampire",
+                    "text_ref": "action_text_hurt_boss_vampire",
                     "showIf": [ { "bossIsPresent": "vampire" }, { "hasItem": "black_salt" } ],
                     "effects": { 
                         "attackBoss": "vampire", 
+                        "attackType": "special",
                         "removeItem": "black_salt", 
                         "result_ref": "outcome_hurt_boss_vampire" 
                     }
@@ -148,7 +153,7 @@
                 },
                 {
                     "id": "eat_cooked_mushrooms",
-                    "text_ref": "action_text_eat_mushrooms",
+                    "text_ref": "action_text_eat_cooked_mushrooms",
                     "showIf": [ { "hasItem": "cooked_mushrooms" } ],
                     "effects": { 
                         "changeStat": { "health": 15, "stamina": 20 }, 

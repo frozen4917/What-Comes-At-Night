@@ -53,7 +53,7 @@
                     },
                     {
                         "id": "hide_in_tents",
-                        "text_ref": "action_text_hide_tents",
+                        "text_ref": "action_text_hide_in_tents",
                         "showIf": [ { "gameModeIs": "combat_lone" } ],
                         "effects": { 
                             "changeStat": { "noise": -15 }, 
@@ -68,7 +68,7 @@
                 "subActions": [
                     {
                         "id": "search_rec_tent",
-                        "name_ref": "action_text_rec_tent",
+                        "text_ref": "action_text_search_rec_tent",
                         "showIf": [ { "notScavenged": "search_rec_tent"} ],
                         "effects": {
                             "addItems": { "baseball_bat": 1, "bow": 1, "arrow": 5 },
@@ -78,7 +78,7 @@
                     },
                     {
                         "id": "search_woods",
-                        "name_ref": "action_text_search_woods",
+                        "text_ref": "action_text_search_woods",
                         "showIf": [ { "notScavenged": "search_woods" }, { "hordeLocationNotIn": ["cabin", "campsite", "campGate"] } ],
                         "effects": {
                             "addItems": { "mushrooms": 4, "garlic": 2, "wood": 1 },
@@ -89,7 +89,7 @@
                     },
                     {
                         "id": "search_woods_again",
-                        "name_ref": "action_text_search_woods_again",
+                        "text_ref": "action_text_search_woods_again",
                         "showIf": [ { "flagIsFalse": "woods_not_searched" }, { "hordeLocationNotIn": ["cabin", "campsite", "campGate"] } ],
                         "effects": {
                             "addRandomItems": { "wood": { "min": 1, "max": 2 } },
@@ -177,12 +177,12 @@
                     }, 
                     {
                         "id": "hide_in_cabin",
-                        "text_ref": "action_text_hide_cabin",
+                        "text_ref": "action_text_hide_in_cabin",
                         "showIf": [ { "gameModeIs": "combat_lone" } ],
                         "effects": { 
                             "changeStat": { "noise": -15 }, 
                             "setPlayerState": "hiding",
-                            "result_ref": "outcome_hide_int_cabin"
+                            "result_ref": "outcome_hide_in_cabin"
                         }
                     }
                 ]
@@ -213,9 +213,9 @@
                 "category": "MOVE",
                 "subActions": [
                     {
-                        "id": "move_to_camp",
+                        "id": "move_to_campsite",
                         "text_ref": "action_text_move_to_campsite",
-                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["insideGraveyard", "graveyardGate"] } ],
+                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["graveyard", "graveyardGate"] } ],
                         "effects": { 
                             "setLocation": "campsite"
                         }
@@ -228,7 +228,7 @@
                     {
                         "id": "fortify_graveyardGate",
                         "text_ref": "action_text_graveyardGate",
-                        "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["insideGraveyard"] } ],
+                        "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["graveyard"] } ],
                         "effects": { 
                             "changeStat": { "graveyardGate": 15 }, 
                             "removeItem": "wood",
@@ -242,7 +242,7 @@
                 "subActions": [
                     {
                         "id": "hide_in_hut",
-                        "text_ref": "action_text_hide_hut",
+                        "text_ref": "action_text_hide_in_hut",
                         "showIf": [ { "gameModeIs": "combat_lone" } ],
                         "effects": { 
                             "changeStat": { "noise": -15 }, 
@@ -257,7 +257,7 @@
                 "subActions": [
                     {
                         "id": "gather_rowan_tree",
-                        "text_ref": "action_text_gather_rowan",
+                        "text_ref": "action_text_gather_rowan_tree",
                         "showIf": [ { "notScavenged": "gather_rowan_tree" } ],
                         "effects": {
                             "addItems": { "rowan_berries": 2 },
@@ -267,7 +267,7 @@
                     },
                     {
                         "id": "search_gravekeepers_hut",
-                        "text_ref": "action_text_search_hut",
+                        "text_ref": "action_text_search_gravekeepers_hut",
                         "showIf": [ { "notScavenged": "search_gravekeepers_hut" } ],
                         "effects": {
                             "addItems": { "shed_key": 1, "bandages": 2 },
