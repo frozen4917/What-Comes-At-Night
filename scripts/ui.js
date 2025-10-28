@@ -101,7 +101,7 @@ export function updateConsoleUI(promptText, actions, prompt, gameState) {
         const letter = String.fromCharCode(65 + index);
         // For now, just the action ID as the display text.
         // TODO: Replace properly with option text later.
-        console.log(chalk.gray(`  ${letter}. ${action.id}`));
+        console.log(chalk.gray(`  ${letter}. ${action.displayText}`));
     });
     console.log('\n---------------------------------');
 
@@ -129,6 +129,11 @@ function debugEval(prompt, gameState) {
             const exp = prompt('-> ');
             if (exp === 'exit()') {
                 break;
+            }
+            if (exp === 'nightfall()') {
+                gameState.world.currentPhaseId = 'nightfall';
+                gameState.world.actionsRemaining = 8;
+                continue;
             }
             console.log(eval(exp));
         } catch (err) {

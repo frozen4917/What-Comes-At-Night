@@ -50,16 +50,16 @@
     "outcome_search_gravekeepers_hut": "You go inside the gravekeeper's hut, hoping he wouldn't mind. You find 2 bandages and a door key.",
     "outcome_search_shed": "You look through the old shed. You find a rather-well-maintained axe. It can definitely strike.",
 
-    "outcome_attack_single_zombie": "You swing at a zombie using your {weapon}. You deal {damage} HP of damage to it.",
-    "outcome_attack_single_skeleton": "You swing at a skeleton using your {weapon}. You deal {damage} HP of damage to it.",
-    "outcome_attack_single_spirit": "You swing at a spirit using your {weapon}. You deal {damage} HP of damage to it.",
-    "outcome_attack_cleave": "You perform a cleave attack at the horde. You deal a combined {damage} HP of damage to the horde.",
-    "outcome_attack_incinerate": "You throw your molotov at the horde. A large fire erupts, dealing massive amount of damage to the horde.",
-    "outcome_attack_shoot": "You take your bow and arrow and shoot at {monster}. You deal {damage} HP of damage.",
-    "outcome_attack_boss_witch": "You try to attack the witch with your {weapon}. You manage to lower her health by {damage} HP.",
-    "outcome_attack_boss_vampire": "You use your {weapon} and attack the vampire, dealing {damage} HP of damage.",
-    "outcome_hurt_boss_witch": "You grab your Witch Ward that you crafted earlier and throw it towards the witch. It is very effective, dealing {damage} HP of damage to the witch.",
-    "outcome_hurt_boss_vampire": "You collect that black salt that you have been saving and hurl it towards the vampire. The salt goes everywhere. It inflicts {damage} HP of damage to the vampire.",
+    "outcome_attack_single_zombie": "You swing at a zombie using your {weapon}. You deal {damage} HP of damage to it.{kill}",
+    "outcome_attack_single_skeleton": "You swing at a skeleton using your {weapon}. You deal {damage} HP of damage to it.{kill}",
+    "outcome_attack_single_spirit": "You swing at a spirit using your {weapon}. You deal {damage} HP of damage to it.{kill}",
+    "outcome_attack_cleave": "You perform a cleave attack at the horde. You deal a combined {damage} HP of damage to the horde and hit {numHit} monsters.{kill}",
+    "outcome_attack_incinerate": "You throw your molotov at the horde. A large fire erupts, catching {numHit} monsters ablaze and dealing a total of {damage} damage to the horde.{kill}",
+    "outcome_attack_shoot": "You take your bow and arrow and shoot at a {monster}. You deal {damage} HP of damage.{kill}",
+    "outcome_attack_boss_witch": "You try to attack the witch with your {weapon}. You manage to lower her health by {damage} HP.{kill}",
+    "outcome_attack_boss_vampire": "You use your {weapon} and attack the vampire, dealing {damage} HP of damage.{kill}",
+    "outcome_hurt_boss_witch": "You grab your Witch Ward that you crafted earlier and throw it towards the witch. It is very effective, dealing {damage} HP of damage to the witch.{kill}",
+    "outcome_hurt_boss_vampire": "You collect that black salt that you have been saving and hurl it towards the vampire. The salt goes everywhere. It inflicts {damage} HP of damage to the vampire.{kill}",
     
 
 
@@ -67,6 +67,56 @@
     "status_health_critical": "CRITICAL: Your health is dangerously low! Heal immediately!",
     "status_stamina_low": "You are feeling exhausted and sluggish.",
     "status_stamina_critical": "CRITICAL: You are about to collapse from exhaustion! You must rest!",
+
+
+
+    "action_text_move_to_graveyard": "Move to Graveyard",
+    "action_text_move_to_cabin": "Move to Cabin",
+    "action_text_move_to_campsite": "Move to Campsite",
+
+    "action_text_fortify_campGate": "Fortify Campsite gate",
+    "action_text_fortify_cabin": "Fortify Cabin doors & windows",
+    "action_text_fortify_graveyardGate": "Fortify Graveyard gate",
+
+    "action_text_rest_fire": "Rest by the campfire",
+    "action_text_rest_cabin": "Rest in the cabin",
+    "action_text_hide_in_tents": "Hide in a tent",
+    "action_text_hide_in_cabin": "Hide in the cabin",
+    "action_text_hide_in_hut": "Hide in the gravekeeper's hut",
+    "action_text_wait": "Wait and do nothing",
+    "action_text_heal_bandages": "Heal using bandages",
+    "action_text_heal_first_aid": "Heal using first aid kit",
+    "action_text_eat_canned_food": "Eat canned food",
+    "action_text_eat_cooked_mushrooms": "Eat cooked mushrooms",
+    "action_text_craft_molotov": "Craft a Molotov",
+    "action_text_craft_witch_ward": "Craft a Witch Ward",
+    "action_text_craft_black_salt": "Craft some Black Salt",
+    "action_text_cook_mushrooms": "Cook mushrooms by the campfire",
+
+    "action_text_search_rec_tent": "Search the recreational tent",
+    "action_text_search_woods": "Search in the woods",
+    "action_text_search_woods_again": "Search through the woods again",
+    "action_text_search_food_tent": "Search the food tent",
+    "action_text_search_utility_tent": "Search the utility tent",
+    "action_text_search_pier": "Search at the pier",
+    "action_text_search_cabin_items": "Search for items in the cabin",
+    "action_text_gather_rowan_tree": "Gather berries from the rowan tree",
+    "action_text_search_gravekeepers_hut": "Search the gravekeeper's hut",
+    "action_text_search_shed": "Search the shed",
+    
+    "action_text_attack_zombie": "Attack a Zombie",
+    "action_text_attack_skeleton": "Attack a Skeleton",
+    "action_text_attack_spirit": "Attack a Spirit",
+    "action_text_attack_cleave": "Perform a cleave attack on the Horde", 
+    "action_text_attack_incinerate": "Throw a Molotov to incinerate the Horde", 
+    "action_text_attack_shoot": "Shoot at a monster using bow-and-arrow",
+    "action_text_attack_boss_witch": "Attack the Witch",
+    "action_text_attack_boss_vampire": "Attack the Vampire",
+    "action_text_hurt_boss_witch": "Hurt the Witch",
+    "action_text_hurt_boss_vampire": "Hurt the Vampire",
+
+
+
 
 
 
