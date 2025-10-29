@@ -6,7 +6,7 @@ import { loadGameData } from './loader.js';
 import { updateConsoleUI, buildPromptText } from './ui.js';
 import { getRandomInt, areConditionsMet } from './utils.js';
 import { trapMonster, processFortificationDamage, processTimedEvents } from "./monsterHandler.js";
-import { handleEffects, updateHidingStatus } from "./effectsHandlers.js";
+import { handleEffects, updateHidingStatus } from "./effectsHandler.js";
 
 
 
