@@ -5,7 +5,7 @@ const prompt = promptSync({ sigint: true });
 import { loadGameData } from './loader.js';
 import { updateConsoleUI, buildPromptText } from './ui.js';
 import { getRandomInt, areConditionsMet } from './utils.js';
-import { processFortificationDamage, processTimedEvents } from "./monsterHandler.js";
+import { trapMonster, processFortificationDamage, processTimedEvents } from "./monsterHandler.js";
 import { handleEffects, updateHidingStatus } from "./effectsHandlers.js";
 
 
@@ -133,6 +133,7 @@ async function runGameLoop(gameState, gameData) {
         
         // ---- START OF TURN FUNCTIONS ----
         processTimedEvents(gameState,gameData);
+        trapMonster(gameState, gameData);
         processFortificationDamage(gameState,gameData);
 
         // 1. Build the prompt text

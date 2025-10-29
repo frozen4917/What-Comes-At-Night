@@ -94,6 +94,12 @@ export function handleEffects(effects, gameState, gameData) {
                 // NO MESSAGE
                 break;
             
+            case "addTrap":
+                gameState.world.traps[value] +=  1;
+                gameState.player.inventory.wood -= 1;
+                gameState.player.inventory.net -= 1;
+                break;
+            
             case "wait":
                 specialMessageHandled = true; 
                 if (gameState.status.playerState === "hiding") {

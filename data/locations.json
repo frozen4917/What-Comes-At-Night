@@ -127,6 +127,20 @@
                         }
                     }
                 ]
+            },
+            {
+                "category": "INTERACT & USE",
+                "subActions": [
+                    {
+                        "id": "set_trap_campGate",
+                        "text_ref": "action_text_set_trap_campGate",
+                        "showIf": [ { "hasItems": { "net": 1, "wood": 1 } }, { "hordeLocationNotIn": ["campsite", "insideCabin"] } ],
+                        "effects": { 
+                            "addTrap": "campGate",
+                            "result_ref": "outcome_set_trap_campGate" 
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -284,6 +298,20 @@
                             "addItems": { "axe": 1 },
                             "addScavengedFlag": "search_shed",
                             "result_ref": "outcome_search_shed"
+                        }
+                    }
+                ]
+            },
+            {
+                "category": "INTERACT & USE",
+                "subActions": [
+                    {
+                        "id": "set_trap_graveyardGate",
+                        "text_ref": "action_text_set_trap_graveyardGate",
+                        "showIf": [ { "hasItems": { "net": 1, "wood": 1 } }, { "hordeLocationNotIn": ["graveyard"] } ],
+                        "effects": { 
+                            "addTrap": "graveyardGate",
+                            "result_ref": "outcome_set_trap_graveyardGate" 
                         }
                     }
                 ]

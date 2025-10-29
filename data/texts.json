@@ -35,8 +35,8 @@
     "outcome_craft_witch_ward": "Using wood, twine, and the rowan berries, you carefully craft a Witch Ward. Witches can be hurt when they come in contact with this ward.",
     "outcome_craft_black_salt": "You combine the salt and a garlic to create black salt. Vampires are vulnerable to black salt.",
     "outcome_cook_mushrooms": "You put two mushrooms on a stick and cook them by the campfire. After a while, you collect the cooked mushrooms.",
-
-
+    "outcome_set_trap_campGate": "You spend time setting up a strong trap near the campsite gate. This should stop at least one of them.",
+    "outcome_set_trap_graveyardGate": "You rig a net trap to the graveyard gate, hoping it's strong enough to hold.",
 
 
     "outcome_search_rec_tent": "You rummage through the recreational tent. You find some useful items, including a baseball bat, a bow, and 5 arrows.",
@@ -60,6 +60,8 @@
     "outcome_attack_boss_vampire": "You use your {weapon} and attack the vampire, dealing {damage} HP of damage.{kill}",
     "outcome_hurt_boss_witch": "You grab your Witch Ward that you crafted earlier and throw it towards the witch. It is very effective, dealing {damage} HP of damage to the witch.{kill}",
     "outcome_hurt_boss_vampire": "You collect that black salt that you have been saving and hurl it towards the vampire. The salt goes everywhere. It inflicts {damage} HP of damage to the vampire.{kill}",
+    "outcome_trap_triggered": "You hear {count} loud *SNAP!* outside. Your trap worked! The trap killed {monsterName}!",
+
     
 
 
@@ -92,6 +94,8 @@
     "action_text_craft_witch_ward": "Craft a Witch Ward",
     "action_text_craft_black_salt": "Craft some Black Salt",
     "action_text_cook_mushrooms": "Cook mushrooms by the campfire",
+    "action_text_set_trap_campGate": "Set a trap at the campsite gate",
+    "action_text_set_trap_graveyardGate": "Set a trap at the graveyard gate",
 
     "action_text_search_rec_tent": "Search the recreational tent",
     "action_text_search_woods": "Search in the woods",

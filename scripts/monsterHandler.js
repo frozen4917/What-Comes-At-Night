@@ -21,6 +21,74 @@ export function getLoneMonsters(horde, type) {
     return horde[type].filter(m => !m.persistent);
 }
 
+export function trapMonster(gameState, gameData) {
+    const trapKey = gameState.world.hordeLocation; // "campGate" or "graveyardGate"
+    let trappedMonsters = []; // Store the types of monsters killed
+
+    while (gameState.world.traps && gameState.world.traps[trapKey] > 0) {
+        
+        // Build a list of ONLY zombies, skeletons, and spirits currently present
+        let trappableMonsters = [];
+        ["zombie", "skeleton", "spirit"].forEach(type => {
+            if (gameState.horde[type] && gameState.horde[type].length > 0) {
+                trappableMonsters.push(...gameState.horde[type].map(m => ({ ...m, type: type })));
+            }
+        });
+
+        // If no more monsters left to trap, break the loop
+        if (trappableMonsters.length === 0) break;
+
+        gameState.world.traps[trapKey]--; 
+
+        // Pick a random monster
+        const randomIndex = getRandomInt(0, trappableMonsters.length - 1);
+        const targetMonster = trappableMonsters[randomIndex];
+        const targetType = targetMonster.type; // Get type directly
+        const targetId = targetMonster.id;
+
+        // Remove the monster (using filter)
+        gameState.horde[targetType] = gameState.horde[targetType].filter(m => m.id !== targetId);
+
+        // Add the type to our list for the final message
+        trappedMonsters.push(targetType); 
+    }
+
+    if (trappedMonsters.length > 0) {
+        let messageParam = "";
+
+        if (trappedMonsters.length === 1) {
+            // Single kill: "a Zombie"
+            messageParam = `a ${gameData.monsters[trappedMonsters[0]].name}`;
+        } else {
+            // Multiple kills: Count types
+            const counts = trappedMonsters.reduce((acc, type) => {
+                acc[type] = (acc[type] || 0) + 1;
+                return acc;
+            }, {}); // e.g., { zombie: 2, spirit: 1 }
+
+            const parts = Object.entries(counts).map(([type, count]) => {
+                const name = gameData.monsters[type].name;
+                return `${count} ${name}${count > 1 ? 's' : ''}`; // e.g., "2 Zombies", "1 Spirit"
+            });
+            
+            // Join with "and": "2 Zombies and 1 Spirit"
+            if (parts.length > 1) {
+                messageParam = parts.slice(0, -1).join(', ') + ' and ' + parts.slice(-1);
+            } else {
+                messageParam = parts[0]; // e.g., "2 Zombies"
+            }
+        }
+
+        gameState.status.messageQueue.push({
+            text_ref: "outcome_trap_triggered",
+            params: {
+                count: (trappedMonsters.length === 2) ? 'two' : 'a',
+                monsterName: messageParam
+            }
+        });
+    }
+}
+
 export function processFortificationDamage(gameState, gameData) {
     const { world, horde, player } = gameState;
     const { monsters } = gameData;
