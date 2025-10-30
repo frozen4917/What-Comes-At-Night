@@ -85,3 +85,31 @@ export function renderText(template, params) {
         return params[key] !== undefined ? params[key] : match;
     });
 }
+
+export function checkAndSetGracePeriod(gameState) {
+    const { status, horde, world } = gameState;
+
+    if (status.gameMode === 'exploring') return;
+
+    // Count ALL monsters left on the board.
+    let totalMonsters = 0;
+    for (const monsterType in horde) {
+        totalMonsters += horde[monsterType].length;
+    }
+
+    if (totalMonsters > 0) return;
+
+    // --- If we are here, totalMonsters is 0 ---
+    // The board is clear! Reset the game state.
+    
+    status.gameMode = 'exploring';
+    world.hordeLocation = "";
+    
+    // Cooldowns
+    status.gracePeriodCooldown = 3;
+    status.repeatedSpawnCooldown = 0; 
+
+    // Add a generic "all clear" message
+    // (You will need to add this to texts.json)
+    // status.messageQueue.push({ text_ref: "threat_monsters_gone" });
+}

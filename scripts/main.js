@@ -5,8 +5,8 @@ const prompt = promptSync({ sigint: true });
 import { loadGameData } from './loader.js';
 import { updateConsoleUI, buildPromptText } from './ui.js';
 import { getRandomInt, areConditionsMet } from './utils.js';
-import { trapMonster, processFortificationDamage, processTimedEvents } from "./monsterHandler.js";
-import { handleEffects, updateHidingStatus } from "./effectsHandler.js";
+import { trapMonster, processFortificationDamage, processTimedEvents, processNoiseSpawning, processNoiseDespawning } from "./monsterHandler.js";
+import { handleEffects } from "./effectsHandler.js";
 
 
 
@@ -85,7 +85,10 @@ export function initializeGameState(gameData) {
     const status = {
         gameMode: "exploring", // Exploring or combat
         playerState: "normal", // normal or hiding
-        messageQueue: [] // Consequence of previous action + threat + monster damages
+        messageQueue: [], // Consequence of previous action + threat + monster damages
+        noiseSpawnCount: 0,         // For unique monster IDs
+        repeatedSpawnCooldown: 0,   // Cooldown between spawns
+        gracePeriodCooldown: 0     // Cooldown after noise despawn/kill
     };
     
     // 5. Assemble and return the complete gameState object
@@ -109,6 +112,12 @@ async function startGame() {
 
 function tickClock(gameState) {
     gameState.world.actionsRemaining -= 1;
+    if (gameState.status.gracePeriodCooldown > 0) {
+        gameState.status.gracePeriodCooldown -= 1;
+    }
+    if (gameState.status.repeatedSpawnCooldown > 0) {
+        gameState.status.repeatedSpawnCooldown -= 1;
+    }
 }
 
 function checkGameStatus(gameState, gameData) {
@@ -133,6 +142,8 @@ async function runGameLoop(gameState, gameData) {
         
         // ---- START OF TURN FUNCTIONS ----
         processTimedEvents(gameState,gameData);
+        processNoiseSpawning(gameState, gameData);
+        processNoiseDespawning(gameState, gameData);
         trapMonster(gameState, gameData);
         processFortificationDamage(gameState,gameData);
 
@@ -151,10 +162,8 @@ async function runGameLoop(gameState, gameData) {
         console.log(chalk.yellow(`\nYou chose: ${chosenAction.id}`));
 
         gameState.world.previousLocation = gameState.world.currentLocation;
-        
-        updateHidingStatus(chosenAction, gameState);
 
-        handleEffects(chosenAction.effects, gameState, gameData);
+        handleEffects(chosenAction, gameState, gameData);
         tickClock(gameState);
         checkGameStatus(gameState, gameData);
         

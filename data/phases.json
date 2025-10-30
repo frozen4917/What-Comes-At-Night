@@ -26,8 +26,7 @@
                         "spawn": [ {"monster": "zombie", "count": 2}, {"monster": "spirit", "count": 1}, {"monster": "skeleton", "count": 1} ]
                     }
                 }
-            ],
-            "noiseSpawnPool": ["spirit", "zombie", "skeleton"]
+            ]
         },
         {
             "id": "deep_night",
