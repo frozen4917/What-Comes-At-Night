@@ -2,9 +2,11 @@ import promptSync from "prompt-sync";
 import chalk from "chalk";
 const prompt = promptSync({ sigint: true });
 
-import { getRandomInt } from "./utils.js";
+import { getRandomInt, checkAndSetGracePeriod } from "./utils.js";
 
-export function handleEffects(effects, gameState, gameData) {
+export function handleEffects(chosenAction, gameState, gameData) {
+    updateHidingStatus(chosenAction, gameState);
+    const effects = chosenAction.effects;
     if (!effects) return;
 
     let messageParams = {};
@@ -103,6 +105,9 @@ export function handleEffects(effects, gameState, gameData) {
             case "wait":
                 specialMessageHandled = true; 
                 if (gameState.status.playerState === "hiding") {
+                    const noiseReduction = 15; // Amount to reduce
+                    let currentNoise = gameState.world.noise;
+                    gameState.world.noise = Math.max(0, currentNoise - noiseReduction);
                     // Pushes "outcome_wait_hiding" (no params)
                     gameState.status.messageQueue.push({ text_ref: "outcome_wait_hiding" });
                 } else {
@@ -234,6 +239,7 @@ function processSingleAttack(effects, weaponID, gameState, gameData) {
             hordeList.splice(randomIndex, 1); // Remove the defeated monster
             
             killParam = ` You killed the ${gameData.monsters[target].name}.`; // e.g. "outcome_attack_single_zombie_kill"
+            checkAndSetGracePeriod(gameState);
         }
 
         gameState.status.messageQueue.push({
@@ -277,6 +283,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
     let killParam = '';
     if (defeatedCount > 0) {
         killParam = ` You defeated the ${defeatedCount} monsters.`;
+        checkAndSetGracePeriod(gameState);
     }
 
     gameState.status.messageQueue.push({
@@ -320,6 +327,7 @@ function processShootAttack(effects, gameState, gameData) {
     if (targetMonster.currentHealth <= 0) {
         targetList.splice(randomIndex, 1); // Remove the defeated monster
         killParam = ` You shot the ${targetName} to death.`;
+        checkAndSetGracePeriod(gameState);
     }
 
     gameState.status.messageQueue.push({
@@ -364,6 +372,7 @@ function processIncinerateAttack(effects, gameState, gameData) {
     let killParam = '';
     if (defeatedCount > 0) {
         killParam = ` The fire ends up killing ${defeatedCount} monsters.`;
+        checkAndSetGracePeriod(gameState);
     }
 
     gameState.status.messageQueue.push({
@@ -392,6 +401,7 @@ function processSpecialAttack(effects, gameState, gameData) {
             bossList.shift();
             
             killParam = ` You defeated the ${gameData.monsters[bossType].name}.`
+            checkAndSetGracePeriod(gameState);
         }
 
         gameState.status.messageQueue.push({
@@ -404,7 +414,7 @@ function processSpecialAttack(effects, gameState, gameData) {
     }
 }
 
-export function updateHidingStatus(chosenAction, gameState) {
+function updateHidingStatus(chosenAction, gameState) {
     if (gameState.status.playerState === "hiding") {
         // Actions that DON'T break hiding
         const isStayingHidden = [
