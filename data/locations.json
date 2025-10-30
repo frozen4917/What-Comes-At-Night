@@ -9,7 +9,7 @@
                     {
                         "id": "move_to_graveyard",
                         "text_ref": "action_text_move_to_graveyard",
-                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["campsite", "campGate", "cabin"] } ],
+                        "showIf": [ { "hordeLocationNotIn": ["campsite", "campGate", "cabin"] } ],
                         "effects": { 
                             "setLocation": "graveyard"
                         }
@@ -17,7 +17,7 @@
                     {
                         "id": "move_to_cabin",
                         "text_ref": "action_text_move_to_cabin",
-                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["cabin"] } ],
+                        "showIf": [ { "hordeLocationNotIn": ["cabin"] } ],
                         "effects": { 
                             "setLocation": "cabin"
                         }
@@ -229,7 +229,7 @@
                     {
                         "id": "move_to_campsite",
                         "text_ref": "action_text_move_to_campsite",
-                        "showIf": [ { "gameModeIs": "exploring" }, { "hordeLocationNotIn": ["graveyard", "graveyardGate"] } ],
+                        "showIf": [ { "hordeLocationNotIn": ["graveyard", "graveyardGate"] } ],
                         "effects": { 
                             "setLocation": "campsite"
                         }
@@ -241,7 +241,7 @@
                 "subActions": [
                     {
                         "id": "fortify_graveyardGate",
-                        "text_ref": "action_text_graveyardGate",
+                        "text_ref": "action_text_fortify_graveyardGate",
                         "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["graveyard"] } ],
                         "effects": { 
                             "changeStat": { "graveyardGate": 15 }, 
