@@ -106,6 +106,33 @@ export function processFortificationDamage(gameState, gameData) {
     if (!fortificationID) return;
 
     let fortificationHP = world.fortifications[fortificationID];
+
+    if (fortificationHP <= 0) {
+        // The fortification is *already* broken. Move the horde immediately.
+        
+        let newHordeLocation = "";
+        if (world.hordeLocation === "campGate") newHordeLocation = "campsite";
+        if (world.hordeLocation === "graveyardGate") newHordeLocation = "graveyard";
+        if (world.hordeLocation === "campsite") newHordeLocation = "cabin";
+        
+        if (newHordeLocation) {
+            world.hordeLocation = newHordeLocation;
+            let noLongerHiding = '';
+            // Check if this move forces the player out of hiding
+            if (newHordeLocation === gameState.world.currentLocation && gameState.status.playerState === "hiding") {
+                gameState.status.playerState = "normal";
+                noLongerHiding = " You were spotted instantly. You are no longer hidden!";
+            }
+
+            gameState.status.messageQueue.push({
+                text_ref: "threat_fortification_non_existing_" + fortificationID,
+                params: { 
+                    noLongerHiding: noLongerHiding 
+                }
+            });
+        }
+        return; // Horde has moved. Nothing further
+    }
     
     // Only attack if the fortification is standing
     if (fortificationHP > 0) {
@@ -152,7 +179,7 @@ export function processFortificationDamage(gameState, gameData) {
                 // If the player was hiding, they are NOT anymore.
                 if (gameState.status.playerState === "hiding") {
                     gameState.status.playerState = "normal";
-                    noLongerHiding = " You were spotted instantly! You are no longer hidden!"
+                    noLongerHiding = " You were spotted instantly. You are no longer hidden!"
                 }
             }
             

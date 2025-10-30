@@ -17,6 +17,10 @@
     "threat_fortification_breached_campGate": "The campsite gate breaks down, no longer usable. The monsters rush towards the campfire.{noLongerHiding}",
     "threat_fortification_breached_graveyardGate": "The old graveyard gate becomes unstable and falls apart. The monsters enter the graveyard!{noLongerHiding}",
 
+    "threat_fortification_non_existing_cabin": "The monsters rush in through the unprotected cabin door!{noLongerHiding}",
+    "threat_fortification_non_existing_campGate": "The monsters move past the unfortified campsite gate rush towards the campfire.{noLongerHiding}",
+    "threat_fortification_non_existing_graveyardGate": "The old graveyard gate opens as the monsters rush through it!{noLongerHiding}",
+
     "threat_horde_attacks_player": "The horde swarms you, dealing {totalDamage} damage!",
     "outcome_stop_hiding": "You are no longer hiding.",
 
