@@ -2,7 +2,7 @@ import promptSync from "prompt-sync";
 import chalk from "chalk";
 const prompt = promptSync({ sigint: true });
 
-import { getRandomInt, checkAndSetGracePeriod } from './utils.js';
+import { getRandomInt, checkAndSetGracePeriod, countMonsters } from './utils.js';
 
 
 function getTargetFortification(world) {
@@ -91,7 +91,7 @@ export function trapMonster(gameState, gameData) {
 }
 
 export function processFortificationDamage(gameState, gameData) {
-    const { world, horde, player } = gameState;
+    const { world, horde, status } = gameState;
     const { monsters } = gameData;
     
     // If there's no horde, do nothing.
@@ -139,27 +139,55 @@ export function processFortificationDamage(gameState, gameData) {
         let hordeAttackSummary = { totalDamage: 0 };
 
         // Loop through all monster types
-        for (const monsterType in horde) {
-            const monsterData = monsters[monsterType];
-            // Check if this monster type can even attack fortifications. If not, go to the next monster
-            if (!monsterData.behavior.target.includes("fortification")) {
-                continue;
-            }
+        // If can attack fortification, good.
+        // Calculate damage from that type alone
 
-            // Get horde monsters of this type (e.g. Zombie)
-            const hordeMonsters = horde[monsterType];
-            if (hordeMonsters.length > 0) {
-                hordeAttackSummary.totalDamage += (monsterData.behavior.damage * hordeMonsters.length) + (getRandomInt(-1 * hordeMonsters.length, hordeMonsters.length));
-            }
+        // monster counter
+        const allMonsters = countMonsters(horde, "all", gameData);
+        // array of monsters that can attack fortification
+        const monsterTypes = Object.keys(allMonsters).filter(type => monsters[type].behavior.target.includes("fortification"));
+        for (const type of monsterTypes) {
+            const monsterData = monsters[type];
+
+            hordeAttackSummary.totalDamage += (monsterData.behavior.damage * allMonsters[type]) + (getRandomInt(-1 * allMonsters[type], allMonsters[type]));
         }
 
+
         // --- Push Horde Attack Message ---
+        let monsterListString = "";
+        let totalMonsterCount = 0;
         if (hordeAttackSummary.totalDamage > 0) {
+            if (status.gameMode === 'combat') {
+                monsterListString = 'The horde';
+                totalMonsterCount = 2;
+            } else {
+                let nameStrings = monsterTypes.map(type => {
+                    const count = allMonsters[type];
+                    const name = monsters[type].name;
+
+                    totalMonsterCount += count;
+                    if (count > 1) return `the ${name}s`
+                    return `the ${name}`
+                });
+
+                if (nameStrings.length === 1) {
+                    monsterListString = nameStrings[0];
+                } else if (nameStrings.length === 2) {
+                    monsterListString = nameStrings.join(' and '); // e.g., "the Zombies and the Spirit"
+                } else {
+                    monsterListString = nameStrings.slice(0, -1).join(', ') + ', and ' + nameStrings.slice(-1);
+                }
+            }
+
             fortificationHP -= hordeAttackSummary.totalDamage;
             gameState.status.messageQueue.push({
                 text_ref: "threat_horde_attacks_fortification_" + fortificationID,
                 params: {
-                    totalDamage: hordeAttackSummary.totalDamage
+                    totalDamage: hordeAttackSummary.totalDamage,
+                    monsterList: monsterListString[0].toUpperCase() + monsterListString.substring(1),
+                    slamVerb: (totalMonsterCount > 1) ? "slam" : "slams",
+                    damageVerb: (totalMonsterCount > 1) ? "damage" : "damages",
+                    attackVerb: (totalMonsterCount > 1) ? "attack" : "attacks"
                 }
             });
         }
@@ -167,7 +195,7 @@ export function processFortificationDamage(gameState, gameData) {
         // --- Handle Breach ---
         if (fortificationHP <= 0) {
             fortificationHP = 0;
-            
+
             // Logic to move horde "inside"
             let newHordeLocation = "";
             if (world.hordeLocation === "campGate") newHordeLocation = "campsite";
@@ -323,37 +351,29 @@ export function processNoiseDespawning(gameState, gameData) {
 
     // Stores the counts directly by type, e.g: { zombie: 2, spirit: 1 }
     const despawnedCounts = {};
-    
-    // Identify, count, and remove all applicable monsters
-    for (const monsterType in horde) {
-        // Find all lone monsters of this type
-        const loneMonsters = getLoneMonsters(horde, monsterType);
-        if (loneMonsters.length === 0) {
-            continue; // No lone monsters of this type
-        }
 
-        const monsterData = monsters[monsterType];
-        if (!monsterData) continue; // Safety check
+    // Check for short-lingering monsters and add them to the list if noise is low enough.
+    if (world.noise < 35) {
+        const shortLingerers = countMonsters(horde, "lingers_short", gameData);
+        Object.assign(despawnedCounts, shortLingerers);
+    }
 
-        const specials = monsterData.behavior.special || [];
-        
-        // Determine the noise threshold for this monster type
-        let despawnThreshold = -1;
-        if (specials.includes("lingers_short")) despawnThreshold = 35;
-        else if (specials.includes("lingers_long")) despawnThreshold = 25;
+    // Check for long-lingering monsters and add them to the list.
+    if (world.noise < 25) {
+        const longLingerers = countMonsters(horde, "lingers_long", gameData);
+        Object.assign(despawnedCounts, longLingerers);
+    }
+    // Remove the identified monsters from the game state.
+    const despawnedTypes = Object.keys(despawnedCounts);
 
-        // If the noise is low enough...
-        if (despawnThreshold > 0 && world.noise < despawnThreshold) {
-            // Add this type to our count for the message
-            despawnedCounts[monsterType] = loneMonsters.length;
-            
-            // Filter the list
-            horde[monsterType] = horde[monsterType].filter(m => m.persistent);
+    if (despawnedTypes.length > 0) {
+        for (const monsterType of despawnedTypes) {
+            // As gameMode is 'combat_lone', all monsters of this type are lone monsters.
+            // Clear the array
+            horde[monsterType] = [];
         }
     }
 
-    // If no monsters were despawned, exit early.
-    const despawnedTypes = Object.keys(despawnedCounts);
     if (despawnedTypes.length === 0) {
         return;
     }

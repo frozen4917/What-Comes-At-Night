@@ -22,7 +22,7 @@ export function areConditionsMet(conditions, gameState) {
         switch (key) {
             case "gameModeIs":
                 return gameState.status.gameMode === value;
-            
+
             case "hordeLocationNotIn":
                 // Checks if the current location is NOT in the forbidden list.
                 return !value.includes(gameState.world.hordeLocation);
@@ -32,35 +32,35 @@ export function areConditionsMet(conditions, gameState) {
                 return gameState.player.inventory[value] > 0;
 
             case "hasAnyItem":
-                    return value.some(item => gameState.player.inventory[item] > 0);
-                
-            case "hasItems": 
-                return Object.entries(value).every(([item, quantity]) => 
+                return value.some(item => gameState.player.inventory[item] > 0);
+
+            case "hasItems":
+                return Object.entries(value).every(([item, quantity]) =>
                     (gameState.player.inventory[item] || 0) >= quantity
                 );
-            
+
             case "atLocation":
                 return gameState.world.currentLocation === value;
 
             case "notScavenged":
                 return !gameState.world.scavengedLocations.includes(value);
-            
+
             case "flagIsTrue":
                 return gameState.world.flags[value] === true;
-            
+
             case "flagIsFalse":
                 return gameState.world.flags[value] === false;
-            
+
             case "monsterIsPresent":
                 return gameState.horde[value] && gameState.horde[value].length > 0;
-            
+
             case "bossIsPresent":
                 return gameState.horde[value] && gameState.horde[value].length > 0;
 
             case "hordeSizeIsGreaterThan":
                 const totalMonsters = Object.values(gameState.horde).reduce((sum, list) => sum + list.length, 0);
                 return totalMonsters > value;
-            
+
             default:
                 // If the condition is unknown, assume it's okay for now.
                 console.warn(chalk.red(`Unknown condition key: ${key}`));
@@ -101,15 +101,36 @@ export function checkAndSetGracePeriod(gameState) {
 
     // --- If we are here, totalMonsters is 0 ---
     // The board is clear! Reset the game state.
-    
+
     status.gameMode = 'exploring';
     world.hordeLocation = "";
-    
+
     // Cooldowns
     status.gracePeriodCooldown = 3;
-    status.repeatedSpawnCooldown = 0; 
+    status.repeatedSpawnCooldown = 0;
+}
 
-    // Add a generic "all clear" message
-    // (You will need to add this to texts.json)
-    // status.messageQueue.push({ text_ref: "threat_monsters_gone" });
+export function countMonsters(horde, condition = "all", gameData) {
+    return Object.entries(horde)
+        .filter(([type, monsters]) => {
+            // Skip empty arrays always
+            if (!monsters.length) return false;
+
+            // Handle conditions
+            if (condition === "all") return true;
+
+            const specials = gameData.monsters[type].behavior.special || [];
+            if (condition === "lingers_long") {
+                return specials.includes("lingers_long");
+            }
+            if (condition === "lingers_short") {
+                return specials.includes("lingers_short");
+            }
+
+            return false;
+        })
+        .reduce((acc, [type, monsters]) => {
+            acc[type] = monsters.length;
+            return acc;
+        }, {});
 }

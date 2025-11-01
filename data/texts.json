@@ -9,9 +9,9 @@
     "threat_monsters_gone": "The coast is clear... for now.",
 
     
-    "threat_horde_attacks_fortification_cabin": "The horde slams against the doors and windows of the cabin, dealing {totalDamage} damage!",
-    "threat_horde_attacks_fortification_campGate": "The horde attacks the foundations of the campsite gate, dealing {totalDamage} damage!",
-    "threat_horde_attacks_fortification_graveyardGate": "The horde damages the graveyard gate, dealing {totalDamage} damage!",
+    "threat_horde_attacks_fortification_cabin": "{monsterList} {slamVerb} against the doors and windows of the cabin, dealing {totalDamage} damage!",
+    "threat_horde_attacks_fortification_campGate": "{monsterList} {attackVerb} the foundations of the campsite gate, dealing {totalDamage} damage!",
+    "threat_horde_attacks_fortification_graveyardGate": "{monsterList} {damageVerb} the graveyard gate, dealing {totalDamage} damage!",
 
     "threat_fortification_breached_cabin": "The cabin door splinters and breaks! The monsters are inside!{noLongerHiding}",
     "threat_fortification_breached_campGate": "The campsite gate breaks down, no longer usable. The monsters rush towards the campfire.{noLongerHiding}",
