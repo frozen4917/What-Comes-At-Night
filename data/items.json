@@ -44,7 +44,7 @@
         "description_ref": "item_desc_first_aid_kit",
         "limit": 1,
         "type": "healing",
-        "effects": { "heal": 60 }
+        "effects": { "health": 60 }
     },
     "net": {
         "name": "Net",
@@ -102,7 +102,7 @@
         "description_ref": "item_desc_bandages",
         "limit": 4,
         "type": "healing",
-        "effects": { "heal": 20 }
+        "effects": { "health": 20 }
     },
     "bottle": {
         "name": "Empty Bottle",
@@ -127,7 +127,7 @@
         "description_ref": "item_desc_canned_food",
         "limit": 2,
         "type": "food",
-        "effects": { "heal": 10, "stamina": 15 }
+        "effects": { "health": 10, "stamina": 15 }
     },
     "salt": {
         "name": "Salt",
@@ -173,6 +173,6 @@
         "description_ref": "item_desc_cooked_mushrooms",
         "type": "cookable",
         "recipe": [ { "item": "mushrooms", "quantity": 2 } ],
-        "effects": { "heal": 15, "stamina": 20 }
+        "effects": { "health": 15, "stamina": 20 }
     }
 }

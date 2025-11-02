@@ -21,7 +21,7 @@
     "threat_fortification_non_existing_campGate": "The monsters move past the unfortified campsite gate rush towards the campfire.{noLongerHiding}",
     "threat_fortification_non_existing_graveyardGate": "The old graveyard gate opens as the monsters rush through it!{noLongerHiding}",
 
-    "threat_horde_attacks_player": "The horde swarms you, dealing {totalDamage} damage!",
+    "threat_horde_attacks_player": "{monsterList} {swarmVerb} you, dealing {totalDamage} damage!",
     "outcome_stop_hiding": "You are no longer hiding.",
 
     "outcome_fortify_campGate": "You fortify the campsite gate using wood. The fortification strength is now at {strength}.",

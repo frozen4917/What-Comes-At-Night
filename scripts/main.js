@@ -5,7 +5,7 @@ const prompt = promptSync({ sigint: true });
 import { loadGameData } from './loader.js';
 import { updateConsoleUI, buildPromptText } from './ui.js';
 import { getRandomInt, areConditionsMet } from './utils.js';
-import { trapMonster, processFortificationDamage, processTimedEvents, processNoiseSpawning, processNoiseDespawning } from "./monsterHandler.js";
+import { trapMonster, processFortificationDamage, processTimedEvents, processNoiseSpawning, processNoiseDespawning, processPlayerDamage } from "./monsterHandler.js";
 import { handleEffects } from "./effectsHandler.js";
 
 
@@ -164,6 +164,7 @@ async function runGameLoop(gameState, gameData) {
         gameState.world.previousLocation = gameState.world.currentLocation;
 
         handleEffects(chosenAction, gameState, gameData);
+        processPlayerDamage(gameState, gameData);
         tickClock(gameState);
         checkGameStatus(gameState, gameData);
         

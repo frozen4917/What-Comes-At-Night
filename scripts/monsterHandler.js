@@ -147,9 +147,10 @@ export function processFortificationDamage(gameState, gameData) {
         // array of monsters that can attack fortification
         const monsterTypes = Object.keys(allMonsters).filter(type => monsters[type].behavior.target.includes("fortification"));
         for (const type of monsterTypes) {
+            const count = allMonsters[type]
             const monsterData = monsters[type];
 
-            hordeAttackSummary.totalDamage += (monsterData.behavior.damage * allMonsters[type]) + (getRandomInt(-1 * allMonsters[type], allMonsters[type]));
+            hordeAttackSummary.totalDamage += (monsterData.behavior.damage * count) + getRandomInt(-1 * count, count);
         }
 
 
@@ -159,7 +160,6 @@ export function processFortificationDamage(gameState, gameData) {
         if (hordeAttackSummary.totalDamage > 0) {
             if (status.gameMode === 'combat') {
                 monsterListString = 'The horde';
-                totalMonsterCount = 2;
             } else {
                 let nameStrings = monsterTypes.map(type => {
                     const count = allMonsters[type];
@@ -241,7 +241,12 @@ export function processTimedEvents(gameState, gameData) {
     const spawnList = event.effect.spawn;
     let hordeCompositionText = [];
 
-    // TODO: Convert non-persistent to persistent
+    // Convert non-persistent to persistent
+    for (const monsterType in horde) {
+        horde[monsterType].forEach(monster => {
+            monster.persistent = true;
+        });
+    }
 
     // 1. Spawn new monsters
     for (const spawn of spawnList) {
@@ -414,4 +419,71 @@ export function processNoiseDespawning(gameState, gameData) {
     
 
     checkAndSetGracePeriod(gameState)
+}
+
+
+export function processPlayerDamage(gameState, gameData) {
+    const { world, horde, status } = gameState;
+    const { monsters } = gameData;
+
+    // --- 1. Guard Clause ---
+    // Only run if monsters are at the player's location
+    if (world.hordeLocation !== world.currentLocation) return;
+
+    // --- 2. Calculate Damage ---
+    let totalDamage = 0;
+
+    // Get all monsters at the player's location
+    const monsterCounter = countMonsters(horde, "all", gameData);
+    const monsterTypes = Object.keys(monsterCounter);
+
+    for (const type of monsterTypes) {
+        const monsterData = monsters[type];
+        
+        if (monsterData && monsterData.behavior.target.includes("player")) {
+        // TODO: BOSS SPECIAL ABILITY LOGIC
+        // ---
+        
+            const count = monsterCounter[type];
+            totalDamage += (monsterData.behavior.damage * count) + getRandomInt(-1 * count, count);
+        }
+    }
+    
+    if (totalDamage < 0) return; // No player-attacking monsters are present (for safety)
+
+    // --- 3. Text & Message ---
+    let monsterListString = "";
+    let totalMonsterCount = 0;
+    if (status.gameMode === 'combat') {
+        monsterListString = 'The horde';
+    } else {
+        let nameStrings = monsterTypes.map(type => {
+            const count = monsterCounter[type];
+            const name = monsters[type].name;
+
+            totalMonsterCount += count;
+            if (count > 1) return `the ${name}s`
+            return `the ${name}`
+        });
+
+        if (nameStrings.length === 1) {
+                    monsterListString = nameStrings[0];
+        } else if (nameStrings.length === 2) {
+            monsterListString = nameStrings.join(' and '); // e.g., "the Zombies and the Spirit"
+        } else {
+            monsterListString = nameStrings.slice(0, -1).join(', ') + ', and ' + nameStrings.slice(-1);
+        }
+    }
+
+    // --- 5. Apply Damage and Push Message ---
+    gameState.player.health -= totalDamage;
+    
+    gameState.status.messageQueue.push({
+        text_ref: "threat_horde_attacks_player",
+        params: {
+            totalDamage: totalDamage,
+            monsterList: monsterListString[0].toUpperCase() + monsterListString.substring(1),
+            swarmVerb: (totalMonsterCount > 1) ? "swarm" : "swarms"
+        }
+    });
 }
