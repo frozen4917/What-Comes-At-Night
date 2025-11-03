@@ -8,9 +8,9 @@
     },
     "initialGameState": {
         "fortifications": {
-            "campGate": 5,
-            "cabin": 10,
-            "graveyardGate": 5
+            "campGate": 10,
+            "cabin": 15,
+            "graveyardGate": 10
         },
         "noise": 0,
         "currentLocation": "campsite",

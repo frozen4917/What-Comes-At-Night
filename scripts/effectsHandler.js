@@ -113,12 +113,16 @@ export function handleEffects(chosenAction, gameState, gameData) {
                 } else {
                     // Pushes "outcome_wait_normal" (with stamina param)
                     const stamGain = 5;
-                    const currentValue = gameState.player.stamina;
+                    const noiseReduction = 8;
+                    const currentStaminaValue = gameState.player.stamina;
                     gameState.player.stamina = Math.min(100, gameState.player.stamina + stamGain);
-                    const netGain = gameState.player.stamina - currentValue;
+                    const netStaminaGain = gameState.player.stamina - currentStaminaValue;
+                    // Reduce noise by 8 (passive noise reduction)
+                    gameState.world.noise = Math.max(0, gameState.world.noise - noiseReduction);
+
                     gameState.status.messageQueue.push({ 
                         text_ref: "outcome_wait_normal",
-                        params: (netGain > 0) ? { staminaRegen: ` You regain ${netGain} stamina.` } : { staminaRegen: "" } 
+                        params: (netStaminaGain > 0) ? { staminaRegen: ` You regain ${netStaminaGain} stamina.` } : { staminaRegen: "" } 
                     });
                 }
                 break;

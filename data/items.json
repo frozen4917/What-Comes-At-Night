@@ -127,7 +127,7 @@
         "description_ref": "item_desc_canned_food",
         "limit": 2,
         "type": "food",
-        "effects": { "health": 10, "stamina": 15 }
+        "effects": { "health": 10, "stamina": 20 }
     },
     "salt": {
         "name": "Salt",
@@ -173,6 +173,6 @@
         "description_ref": "item_desc_cooked_mushrooms",
         "type": "cookable",
         "recipe": [ { "item": "mushrooms", "quantity": 2 } ],
-        "effects": { "health": 15, "stamina": 20 }
+        "effects": { "health": 15, "stamina": 25 }
     }
 }

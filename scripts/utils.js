@@ -23,6 +23,9 @@ export function areConditionsMet(conditions, gameState) {
             case "gameModeIs":
                 return gameState.status.gameMode === value;
 
+            case "minStamina":
+                return gameState.player.stamina >= value;
+
             case "hordeLocationNotIn":
                 // Checks if the current location is NOT in the forbidden list.
                 return !value.includes(gameState.world.hordeLocation);

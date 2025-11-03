@@ -88,8 +88,8 @@
     "action_text_fortify_cabin": "Fortify Cabin doors & windows",
     "action_text_fortify_graveyardGate": "Fortify Graveyard gate",
 
-    "action_text_rest_fire": "Rest by the campfire",
-    "action_text_rest_cabin": "Rest in the cabin",
+    "action_text_rest_by_fire": "Rest by the campfire",
+    "action_text_rest_in_cabin": "Rest in the cabin",
     "action_text_hide_in_tents": "Hide in a tent",
     "action_text_hide_in_cabin": "Hide in the cabin",
     "action_text_hide_in_hut": "Hide in the gravekeeper's hut",
