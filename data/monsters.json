@@ -5,18 +5,18 @@
     },
     "zombie": {
         "name": "Zombie", "health": 25,
-        "behavior": { "target": ["fortification", "player"], "damage": 8, "special": ["lingers_short"] }
+        "behavior": { "target": ["fortification", "player"], "damage": 6, "special": ["lingers_short"] }
     },
     "skeleton": {
         "name": "Skeleton", "health": 25,
-        "behavior": { "target": ["player"], "damage": 8, "special": ["lingers_long"] }
+        "behavior": { "target": ["player"], "damage": 7, "special": ["lingers_long"] }
     },
     "witch": {
         "name": "Witch", "health": 85,
-        "behavior": { "target": ["fortification", "player"], "damage": 10, "special": ["heals_horde", "throws_potions"] }
+        "behavior": { "target": ["fortification", "player"], "damage": 10, "special": ["heal_horde", "throw_potion"] }
     },
     "vampire": {
         "name": "Vampire", "health": 100,
-        "behavior": { "target": ["fortification", "player"], "damage": 15, "special": ["life_drain", "mesmerize"] }
+        "behavior": { "target": ["fortification", "player"], "damage": 12, "special": ["life_drain", "enfeebling"] }
     }
 }

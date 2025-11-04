@@ -136,6 +136,7 @@ export function handleEffects(chosenAction, gameState, gameData) {
             case "attackType":
                 // All attack effects are handled by one helper
                 processAttackEffect(effects, gameState, gameData);
+                gameState.world.flags.enfeebled = false;
                 specialMessageHandled = true;
                 break;
 
@@ -229,7 +230,8 @@ function processSingleAttack(effects, weaponID, gameState, gameData) {
 
     const weaponData = gameData.items[weaponID];
     const baseDamage = weaponData.effects.single_attack.damage;
-    const damage = baseDamage + getRandomInt(-2, 2);
+    const enfeebled = gameState.world.flags.enfeebled;
+    const damage = Math.floor((baseDamage + getRandomInt(-2, 2)) * (enfeebled ? 0.75 : 1));
     const target = effects.attackTarget;
     const hordeList = gameState.horde[target];
 
@@ -238,7 +240,11 @@ function processSingleAttack(effects, weaponID, gameState, gameData) {
         const monster = hordeList[randomIndex];
         monster.currentHealth -= damage;
 
-        let killParam = '';
+
+        let killParam = '', cursedParam = '';
+        if (enfeebled) {
+            cursedParam = " Your enfeebled swing lacks force.";
+        }
         if (monster.currentHealth <= 0) {
             hordeList.splice(randomIndex, 1); // Remove the defeated monster
             
@@ -251,7 +257,8 @@ function processSingleAttack(effects, weaponID, gameState, gameData) {
             params: {
                 weapon: weaponData.name,
                 damage: damage,
-                kill: killParam
+                kill: killParam,
+                cursed: cursedParam
             }
         });
     }
@@ -263,6 +270,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
     const weaponData = gameData.items[weaponID];
     const baseDamage = weaponData.effects.cleave_attack.damage;
     const maxTargets = weaponData.effects.cleave_attack.targets;
+    const enfeebled = gameState.world.flags.enfeebled;
 
     let allMonsters = Object.values(gameState.horde).flat();
     allMonsters.sort(() => 0.5 - Math.random());
@@ -272,7 +280,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
     let totalDamage = 0;
     // Attack each target
     targetsHit.forEach(monster => {
-        let damage = baseDamage + getRandomInt(-1, 2);
+        let damage = Math.floor((baseDamage + getRandomInt(-1, 2)) * (enfeebled ? 0.75 : 1));
         monster.currentHealth -= damage;
         totalDamage += damage;
         if (monster.currentHealth <= 0) {
@@ -284,10 +292,13 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
         gameState.horde[type] = gameState.horde[type].filter(m => m.currentHealth > 0);
     }
 
-    let killParam = '';
+    let killParam = '', cursedParam = '';
     if (defeatedCount > 0) {
         killParam = ` You defeated the ${defeatedCount} monsters.`;
         checkAndSetGracePeriod(gameState);
+    }
+    if (enfeebled) {
+        cursedParam = " Your heavy arms struggle to follow through with the sweeping attack."
     }
 
     gameState.status.messageQueue.push({
@@ -295,7 +306,8 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
         params: {
             numHit: targetsHit.length,
             damage: totalDamage,
-            kill: killParam
+            kill: killParam,
+            cursed: cursedParam
         }
     });
 }
@@ -308,7 +320,9 @@ function processShootAttack(effects, gameState, gameData) {
 
     gameState.player.inventory.arrow--;
     const weaponData = gameData.items.bow;
-    const damage = weaponData.effects.single_attack.damage + getRandomInt(-1, 1);
+    const enfeebled = gameState.world.flags.enfeebled;
+
+    const damage = Math.floor((weaponData.effects.single_attack.damage + getRandomInt(-1, 1)) * (enfeebled ? 0.75 : 1));
     const targetOrder = ["witch", "vampire", "zombie", "skeleton", "spirit"];
     let targetMonster = null;
     let targetName = null;
@@ -327,11 +341,14 @@ function processShootAttack(effects, gameState, gameData) {
 
     targetMonster.currentHealth -= damage;
 
-    let killParam = '';
+    let killParam = '', cursedParam = '';
     if (targetMonster.currentHealth <= 0) {
         targetList.splice(randomIndex, 1); // Remove the defeated monster
         killParam = ` You shot the ${targetName} to death.`;
         checkAndSetGracePeriod(gameState);
+    }
+    if (enfeebled) {
+        cursedParam = " Your tired arms struggle to draw the bowstring."
     }
 
     gameState.status.messageQueue.push({
@@ -339,7 +356,8 @@ function processShootAttack(effects, gameState, gameData) {
         params: {
             monster: targetName,
             damage: damage,
-            kill: killParam
+            kill: killParam,
+            cursed: cursedParam
         }
     });
 
@@ -354,14 +372,14 @@ function processIncinerateAttack(effects, gameState, gameData) {
     gameState.player.inventory.molotov--;
     const weaponData = gameData.items.molotov;
     const baseDamage = weaponData.effects.incinerate.damage;
-
+    const enfeebled = gameState.world.flags.enfeebled;
     let allMonsters = Object.values(gameState.horde).flat();
     
     let defeatedCount = 0;
     let totalDamage = 0;
     
     allMonsters.forEach(monster => {
-        let damage = baseDamage + getRandomInt(-4, 3);
+        let damage = Math.floor((baseDamage + getRandomInt(-4, 3)) * (enfeebled ? 0.75 : 1));
         monster.currentHealth -= baseDamage;
         totalDamage += damage;
         if (monster.currentHealth <= 0) {
@@ -373,7 +391,10 @@ function processIncinerateAttack(effects, gameState, gameData) {
         gameState.horde[type] = gameState.horde[type].filter(m => m.currentHealth > 0);
     } 
 
-    let killParam = '';
+    let killParam = '', cursedParam = '';
+    if (enfeebled) {
+        cursedParam = " Your throw, weakened by the curse, doesn't achieve its full potential."
+    }
     if (defeatedCount > 0) {
         killParam = ` The fire ends up killing ${defeatedCount} monsters.`;
         checkAndSetGracePeriod(gameState);
@@ -384,7 +405,8 @@ function processIncinerateAttack(effects, gameState, gameData) {
         params: {
             numHit: allMonsters.length,
             damage: totalDamage,
-            kill: killParam
+            kill: killParam,
+            cursed: cursedParam
         }
     });
 }

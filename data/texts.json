@@ -22,6 +22,15 @@
     "threat_fortification_non_existing_graveyardGate": "The old graveyard gate opens as the monsters rush through it!{noLongerHiding}",
 
     "threat_horde_attacks_player": "{monsterList} {swarmVerb} you, dealing {totalDamage} damage!",
+
+    "threat_vampire_life_drain": "The Vampire lunges forward. It bites deep, draining your vitality to mend its own wounds! You take {damage} damage, and the Vampire recovers {heal} health.",
+    "threat_vampire_enfeeble": "The Vampire hisses, weaving a dark gesture in the air. A wave of exhaustion washes over you, leaving your limbs heavy and weak. Your next attack will be enfeebled!",
+    "threat_vampire_presence": "[DEBUG]: Vampire present.",
+
+    "threat_witch_heal_horde": "The Witch cackles, chanting in the air as a green energy flows from her hands, washing over the horde. The horde is healed for {heal} health!",
+    "threat_witch_throw_potion": "From the back of the horde, the Witch hurls a bubbling red potion. The vial shatters near you, splashing a liquid that burns you, dealing {damage} damage!",
+    "threat_witch_presence": "[DEBUG]: Witch present.",
+
     "outcome_stop_hiding": "You are no longer hiding.",
 
     "outcome_fortify_campGate": "You fortify the campsite gate using wood. The fortification strength is now at {strength}.",
@@ -58,16 +67,16 @@
     "outcome_search_gravekeepers_hut": "You go inside the gravekeeper's hut, hoping he wouldn't mind. You find 2 bandages and a door key.",
     "outcome_search_shed": "You look through the old shed. You find a rather-well-maintained axe. It can definitely strike.",
 
-    "outcome_attack_single_zombie": "You swing at a zombie using your {weapon}. You deal {damage} HP of damage to it.{kill}",
-    "outcome_attack_single_skeleton": "You swing at a skeleton using your {weapon}. You deal {damage} HP of damage to it.{kill}",
-    "outcome_attack_single_spirit": "You swing at a spirit using your {weapon}. You deal {damage} HP of damage to it.{kill}",
-    "outcome_attack_cleave": "You perform a cleave attack at the horde. You deal a combined {damage} HP of damage to the horde and hit {numHit} monsters.{kill}",
-    "outcome_attack_incinerate": "You throw your molotov at the horde. A large fire erupts, catching {numHit} monsters ablaze and dealing a total of {damage} damage to the horde.{kill}",
-    "outcome_attack_shoot": "You take your bow and arrow and shoot at a {monster}. You deal {damage} HP of damage.{kill}",
-    "outcome_attack_boss_witch": "You try to attack the witch with your {weapon}. You manage to lower her health by {damage} HP.{kill}",
-    "outcome_attack_boss_vampire": "You use your {weapon} and attack the vampire, dealing {damage} HP of damage.{kill}",
-    "outcome_hurt_boss_witch": "You grab your Witch Ward that you crafted earlier and throw it towards the witch. It is very effective, dealing {damage} HP of damage to the witch.{kill}",
-    "outcome_hurt_boss_vampire": "You collect that black salt that you have been saving and hurl it towards the vampire. The salt goes everywhere. It inflicts {damage} HP of damage to the vampire.{kill}",
+    "outcome_attack_single_zombie": "You swing at a zombie using your {weapon}.{cursed} You deal {damage} HP of damage to it.{kill}",
+    "outcome_attack_single_skeleton": "You swing at a skeleton using your {weapon}.{cursed} You deal {damage} HP of damage to it.{kill}",
+    "outcome_attack_single_spirit": "You swing at a spirit using your {weapon}.{cursed} You deal {damage} HP of damage to it.{kill}",
+    "outcome_attack_cleave": "You perform a cleave attack at the horde.{cursed} You deal a combined {damage} HP of damage to the horde and hit {numHit} monsters.{kill}",
+    "outcome_attack_incinerate": "You throw your molotov at the horde.{cursed} A large fire erupts, catching {numHit} monsters ablaze and dealing a total of {damage} damage to the horde.{kill}",
+    "outcome_attack_shoot": "You take your bow and arrow and shoot at a {monster}.{cursed} You deal {damage} HP of damage.{kill}",
+    "outcome_attack_boss_witch": "You try to attack the Witch with your {weapon}.{cursed} You manage to lower her health by {damage} HP.{kill}",
+    "outcome_attack_boss_vampire": "You use your {weapon} and attack the Vampire.{cursed} You are able to deal {damage} HP of damage.{kill}",
+    "outcome_hurt_boss_witch": "You grab your Witch Ward that you crafted earlier and throw it towards the Witch. It is very effective, dealing {damage} HP of damage to the witch.{kill}",
+    "outcome_hurt_boss_vampire": "You collect that black salt that you have been saving and hurl it towards the Vampire. The salt goes everywhere. It inflicts {damage} HP of damage to the vampire.{kill}",
     "outcome_trap_triggered": "You hear {count} loud *SNAP!* outside. Your trap worked! The trap killed {monsterName}!",
 
     

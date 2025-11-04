@@ -137,3 +137,15 @@ export function countMonsters(horde, condition = "all", gameData) {
             return acc;
         }, {});
 }
+
+export function chooseWeightedMove(movePool) {
+    let roll = getRandomInt(1, 100);
+    let cumulativeWeight = 0;
+
+    for (const move of movePool) {
+        cumulativeWeight += move.weight;
+        if (roll <= cumulativeWeight) {
+            return move;
+        }
+    }
+}

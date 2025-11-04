@@ -2,7 +2,7 @@ import promptSync from "prompt-sync";
 import chalk from "chalk";
 const prompt = promptSync({ sigint: true });
 
-import { getRandomInt, checkAndSetGracePeriod, countMonsters } from './utils.js';
+import { getRandomInt, checkAndSetGracePeriod, countMonsters, chooseWeightedMove } from './utils.js';
 
 
 function getTargetFortification(world) {
@@ -426,9 +426,8 @@ export function processPlayerDamage(gameState, gameData) {
     const { world, horde, status } = gameState;
     const { monsters } = gameData;
 
-    // --- 1. Guard Clause ---
-    // Only run if monsters are at the player's location
-    if (world.hordeLocation !== world.currentLocation) return;
+    // --- 1. Location check ---
+    // ### REMOVED and TRANSFERED into the loop
 
     // --- 2. Calculate Damage ---
     let totalDamage = 0;
@@ -441,15 +440,28 @@ export function processPlayerDamage(gameState, gameData) {
         const monsterData = monsters[type];
         
         if (monsterData && monsterData.behavior.target.includes("player")) {
-        // TODO: BOSS SPECIAL ABILITY LOGIC
-        // ---
-        
+            let bossSpecialAttackPerformed = false;
+            switch (type) {
+                case "vampire": 
+                    bossSpecialAttackPerformed = handleVampireAttack(gameState, gameData);
+                    break;
+                
+                case "witch":
+                    bossSpecialAttackPerformed = handleWitchAttack(gameState, gameData);
+                    break;
+                
+                default:
+                    bossSpecialAttackPerformed = false;
+                    break;
+            }
+            if (bossSpecialAttackPerformed || world.hordeLocation !== world.currentLocation) continue;
+
             const count = monsterCounter[type];
             totalDamage += (monsterData.behavior.damage * count) + getRandomInt(-1 * count, count);
         }
     }
     
-    if (totalDamage < 0) return; // No player-attacking monsters are present (for safety)
+    if (totalDamage <= 0) return; // No player-attacking monsters are present (for safety)
 
     // --- 3. Text & Message ---
     let monsterListString = "";
@@ -486,4 +498,129 @@ export function processPlayerDamage(gameState, gameData) {
             swarmVerb: (totalMonsterCount > 1) ? "swarm" : "swarms"
         }
     });
+}
+
+function handleVampireAttack(gameState, gameData) {
+    const { player, horde, world, status } = gameState;
+    const vampireInstance = horde.vampire[0];
+    const vampireData = gameData.monsters.vampire;
+
+    let movePool = [];
+
+    // Special 1: Life Drain - 25% - Player HP > 60 + Vampire health < Max health + same location
+    if (player.health > 60 && vampireInstance.currentHealth < vampireData.health && world.currentLocation === world.hordeLocation) {
+        movePool.push({ name: "life_drain", weight: 25 });
+    }
+
+    // Special 2: Enfeebling - 25% - Player NOT cursed, Player Stamina > 45, Can occur from distance
+    if (player.stamina > 40 && !world.flags.enfeebled) {
+        movePool.push({ name: "enfeebling", weight: 25 });
+    }
+
+    const specialMovesWeight = movePool.reduce((sum, move) => sum + move.weight, 0);
+    movePool.push({ name: "default", weight: 100 - specialMovesWeight });
+
+    const chosenMove = chooseWeightedMove(movePool);
+    switch (chosenMove.name) {
+        case "life_drain":
+            const playerDamage = vampireData.behavior.damage + getRandomInt(-1, 1);
+            const vampireHeal = Math.min(playerDamage, vampireData.health - vampireInstance.currentHealth);
+            player.health -= playerDamage;
+            vampireInstance.currentHealth += vampireHeal;
+            status.messageQueue.push({ 
+                text_ref: "threat_vampire_life_drain", 
+                params: { 
+                    damage: playerDamage, 
+                    heal: vampireHeal
+                } 
+            });
+            return true;
+
+        case "enfeebling":
+            world.flags.enfeebled = true;
+            status.messageQueue.push({ 
+                text_ref: "threat_vampire_enfeeble" 
+            });
+            return true;
+
+        case "default":
+            status.messageQueue.push({ 
+                text_ref: "threat_vampire_presence" // TO REMOVE LATER
+            });
+            return false;
+    }
+}
+
+function handleWitchAttack(gameState, gameData) {
+    const { player, horde, world, status } = gameState;
+    const witchInstance = horde.witch[0];
+    const witchData = gameData.monsters.witch;
+
+    let movePool = [];
+
+    // Special 1: Heals Horde - 25% - Atleast 2 other non-boss are below 60% health
+    let healableMonsters = 0;
+    const monsterTypes = ["zombie", "skeleton", "spirit"];
+    for (const type of monsterTypes) {
+        if (!horde[type]) continue;
+
+        const typeMaxHealth = gameData.monsters[type].health;
+        for (const monster of horde[type]) {
+            if (monster.currentHealth < (typeMaxHealth * 0.6)) {
+                healableMonsters++;
+            }
+        }
+    }
+    if (healableMonsters >= 2) {
+        movePool.push({ name: "heal_horde", weight: 25 });
+    }
+
+    // Special 2: Throws potion - 30% - Player not too far away (not allowed condition - Player: cabin, Witch: campGate)
+    if (!(world.currentLocation === 'cabin' && world.hordeLocation === 'campGate')) {
+        movePool.push({ name: "throw_potion", weight: 30 });
+    }
+
+    const specialMovesWeight = movePool.reduce((sum, move) => sum + move.weight, 0);
+    movePool.push({ name: "default", weight: 100 - specialMovesWeight });
+
+    const chosenMove = chooseWeightedMove(movePool);
+    switch (chosenMove.name) {
+        case "heal_horde":
+            const healAmount = 8;
+            let totalHeal = 0;
+            for (const type of monsterTypes) {
+                if (!horde[type]) continue;
+                const typeMaxHealth = gameData.monsters[type].health;
+                for (const monster of horde[type]) {
+                    const originalHealth = monster.currentHealth;
+                    monster.currentHealth = Math.min(typeMaxHealth, originalHealth + healAmount);
+
+                    totalHeal += (monster.currentHealth - originalHealth);
+                }
+            }
+            status.messageQueue.push({ 
+                text_ref: "threat_witch_heal_horde", 
+                params: { 
+                    heal: totalHeal
+                } 
+            });
+            return true;
+
+        case "throw_potion":
+            const potionDamage = getRandomInt(6, 15);
+            player.health -= potionDamage;
+            status.messageQueue.push({ 
+                text_ref: "threat_witch_throw_potion",
+                params: {
+                    damage: potionDamage
+                }
+            });
+            return true;
+
+        case "default":
+            status.messageQueue.push({ 
+                text_ref: "threat_witch_presence" // TO REMOVE LATER
+            });
+            return false;
+    }
 }
