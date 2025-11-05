@@ -77,7 +77,7 @@
     "outcome_attack_boss_vampire": "You use your {weapon} and attack the Vampire.{cursed} You are able to deal {damage} HP of damage.{kill}",
     "outcome_hurt_boss_witch": "You grab your Witch Ward that you crafted earlier and throw it towards the Witch. It is very effective, dealing {damage} HP of damage to the witch.{kill}",
     "outcome_hurt_boss_vampire": "You collect that black salt that you have been saving and hurl it towards the Vampire. The salt goes everywhere. It inflicts {damage} HP of damage to the vampire.{kill}",
-    "outcome_trap_triggered": "You hear {count} loud *SNAP!* outside. Your trap worked! The trap killed {monsterName}!",
+    "outcome_trap_triggered": "You hear {count} loud *SNAP!* outside. Your trap worked! The trap killed {monsterList}!",
 
     
 

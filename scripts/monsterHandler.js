@@ -2,7 +2,7 @@ import promptSync from "prompt-sync";
 import chalk from "chalk";
 const prompt = promptSync({ sigint: true });
 
-import { getRandomInt, checkAndSetGracePeriod, countMonsters, chooseWeightedMove } from './utils.js';
+import { getRandomInt, checkAndSetGracePeriod, countMonsters, formatMonsterList, chooseWeightedMove } from './utils.js';
 
 
 function getTargetFortification(world) {
@@ -24,7 +24,7 @@ function getLoneMonsters(horde, type) {
 
 export function trapMonster(gameState, gameData) {
     const trapKey = gameState.world.hordeLocation; // "campGate" or "graveyardGate"
-    let trappedMonsters = []; // Store the types of monsters killed
+    let trappedCounter = {}; // Store the counter for monsters trapped
 
     while (gameState.world.traps && gameState.world.traps[trapKey] > 0) {
         
@@ -51,40 +51,28 @@ export function trapMonster(gameState, gameData) {
         gameState.horde[targetType] = gameState.horde[targetType].filter(m => m.id !== targetId);
 
         // Add the type to our list for the final message
-        trappedMonsters.push(targetType); 
+        trappedCounter[targetType] = (trappedCounter[targetType] || 0) + 1;
     }
 
-    if (trappedMonsters.length > 0) {
-        let messageParam = "";
+    const totalTrapped = Object.values(trappedCounter).reduce((sum, count) => sum + count, 0);
 
-        if (trappedMonsters.length === 1) {
+    if (totalTrapped > 0) {
+        let composition = "";
+
+        if (totalTrapped === 1) {
             // Single kill: "a Zombie"
-            messageParam = `a ${gameData.monsters[trappedMonsters[0]].name}`;
+            const monsterType = Object.keys(trappedCounter)[0];
+            composition = `a ${gameData.monsters[monsterType].name}`;
         } else {
             // Multiple kills: Count types
-            const counts = trappedMonsters.reduce((acc, type) => {
-                acc[type] = (acc[type] || 0) + 1;
-                return acc;
-            }, {}); // e.g., { zombie: 2, spirit: 1 }
-
-            const parts = Object.entries(counts).map(([type, count]) => {
-                const name = gameData.monsters[type].name;
-                return `${count} ${name}${count > 1 ? 's' : ''}`; // e.g., "2 Zombies", "1 Spirit"
-            });
-            
-            // Join with "and": "2 Zombies and 1 Spirit"
-            if (parts.length > 1) {
-                messageParam = parts.slice(0, -1).join(', ') + ' and ' + parts.slice(-1);
-            } else {
-                messageParam = parts[0]; // e.g., "2 Zombies"
-            }
+            composition = formatMonsterList(trappedCounter, gameData, { mode: 'counter' });
         }
 
         gameState.status.messageQueue.push({
             text_ref: "outcome_trap_triggered",
             params: {
-                count: (trappedMonsters.length === 2) ? 'two' : 'a',
-                monsterName: messageParam
+                count: (totalTrapped === 2) ? 'two' : 'a',
+                monsterList: composition
             }
         });
     }
@@ -136,7 +124,7 @@ export function processFortificationDamage(gameState, gameData) {
     
     // Only attack if the fortification is standing
     if (fortificationHP > 0) {
-        let hordeAttackSummary = { totalDamage: 0 };
+        let totalDamage = 0;
 
         // Loop through all monster types
         // If can attack fortification, good.
@@ -150,44 +138,40 @@ export function processFortificationDamage(gameState, gameData) {
             const count = allMonsters[type]
             const monsterData = monsters[type];
 
-            hordeAttackSummary.totalDamage += (monsterData.behavior.damage * count) + getRandomInt(-1 * count, count);
+            totalDamage += (monsterData.behavior.damage * count) + getRandomInt(-1 * count, count);
         }
 
 
         // --- Push Horde Attack Message ---
         let monsterListString = "";
-        let totalMonsterCount = 0;
-        if (hordeAttackSummary.totalDamage > 0) {
+        let totalAttackerCount = 0;
+        if (totalDamage > 0) {
             if (status.gameMode === 'combat') {
                 monsterListString = 'The horde';
             } else {
-                let nameStrings = monsterTypes.map(type => {
-                    const count = allMonsters[type];
-                    const name = monsters[type].name;
+                const attackerCounter = monsterTypes.reduce((acc, type) => {
+                    if (allMonsters[type] > 0) {
+                        acc[type] = allMonsters[type];
+                    }
+                    return acc;
+                }, {});
+                totalAttackerCount = Object.values(attackerCounter).reduce((sum, count) => sum + count, 0);
 
-                    totalMonsterCount += count;
-                    if (count > 1) return `the ${name}s`
-                    return `the ${name}`
+                monsterListString = formatMonsterList(attackerCounter, gameData, { 
+                    mode: 'determiner', 
+                    determiner: 'the' 
                 });
-
-                if (nameStrings.length === 1) {
-                    monsterListString = nameStrings[0];
-                } else if (nameStrings.length === 2) {
-                    monsterListString = nameStrings.join(' and '); // e.g., "the Zombies and the Spirit"
-                } else {
-                    monsterListString = nameStrings.slice(0, -1).join(', ') + ', and ' + nameStrings.slice(-1);
-                }
             }
 
-            fortificationHP -= hordeAttackSummary.totalDamage;
+            fortificationHP -= totalDamage;
             gameState.status.messageQueue.push({
                 text_ref: "threat_horde_attacks_fortification_" + fortificationID,
                 params: {
-                    totalDamage: hordeAttackSummary.totalDamage,
+                    totalDamage: totalDamage,
                     monsterList: monsterListString[0].toUpperCase() + monsterListString.substring(1),
-                    slamVerb: (totalMonsterCount > 1) ? "slam" : "slams",
-                    damageVerb: (totalMonsterCount > 1) ? "damage" : "damages",
-                    attackVerb: (totalMonsterCount > 1) ? "attack" : "attacks"
+                    slamVerb: (totalAttackerCount > 1) ? "slam" : "slams",
+                    damageVerb: (totalAttackerCount > 1) ? "damage" : "damages",
+                    attackVerb: (totalAttackerCount > 1) ? "attack" : "attacks"
                 }
             });
         }
@@ -239,7 +223,7 @@ export function processTimedEvents(gameState, gameData) {
 
     // --- A Horde Spawn Event is Triggered! ---
     const spawnList = event.effect.spawn;
-    let hordeCompositionText = [];
+    let spawnCounts = {};
 
     // Convert non-persistent to persistent
     for (const monsterType in horde) {
@@ -262,9 +246,25 @@ export function processTimedEvents(gameState, gameData) {
                     persistent: true
                 });
             }
-            hordeCompositionText.push(`${count} ${monsterData.name}(s)`);
+            spawnCounts[monsterType] = (spawnCounts[monsterType] || 0) + count;
+
+        } else if (spawn.bossPool) {
+            const bossPool = spawn.bossPool;
+            const count = spawn.count
+            const randomIndex = getRandomInt(0, bossPool.length - 1); // 0 or 1 here
+            const bossType = bossPool[randomIndex]; // "witch"/"vampire"
+            const monsterData = monsters[bossType];
+
+            for (let i = 0; i < count; i++) {
+                horde[bossType].push({
+                    id: `${bossType}_${world.currentPhaseId}_${i}`,
+                    currentHealth: monsterData.health + getRandomInt(-1, 1),
+                    persistent: true
+                });
+            }
+            
+            spawnCounts[bossType] = (spawnCounts[bossType] || 0) + count;
         }
-        // TODO: Add Boss Pool logic here
     }
 
     // 2. Set Horde Location (if not already set)
@@ -279,10 +279,13 @@ export function processTimedEvents(gameState, gameData) {
     gameState.status.gameMode = 'combat';
 
     // 3. Push the main spawn message
-    if (hordeCompositionText.length > 0) {
+    const composition = formatMonsterList(spawnCounts, gameData, { mode: 'counter' });
+    if (composition) {
         gameState.status.messageQueue.push({
             text_ref: "threat_horde_spawn_timed_" + world.currentPhaseId,
-            params: { composition: hordeCompositionText.join(', ') }
+            params: { 
+                composition: composition 
+            }
         });
     }
 }
@@ -384,29 +387,13 @@ export function processNoiseDespawning(gameState, gameData) {
     }
 
     // Generate the combined despawn message
-    let totalDespawned = 0;
-
-    // Convert types/counts to strings: e.g., ["the Zombies", "the Spirit"]
-    const nameStrings = despawnedTypes.map(type => {
-        const count = despawnedCounts[type];
-        const name = monsters[type].name; // Get name from gameData
-        
-        totalDespawned += count; // Add to the total count for grammar check
-        
-        if (count > 1) return `the ${name}s`
-        return `the ${name}`;
+    // Convert counter object to string
+    const monsterListString = formatMonsterList(despawnedCounts, gameData, { 
+        mode: 'determiner', 
+        determiner: 'the' 
     });
+    const totalDespawned = Object.values(despawnedCounts).reduce((sum, count) => sum + count, 0);    
 
-    // Combine strings into a final list
-    let monsterListString = "";
-    if (nameStrings.length === 1) {
-        monsterListString = nameStrings[0]; // e.g., "the Zombies"
-    } else if (nameStrings.length === 2) {
-        monsterListString = nameStrings.join(' and '); // e.g., "the Zombies and the Spirit"
-    } else {
-        monsterListString = nameStrings.slice(0, -1).join(', ') + ', and ' + nameStrings.slice(-1);
-    }
-    
     // Push the single, combined message to the queue
     gameState.status.messageQueue.push({
         text_ref: "threat_noise_despawn", // e.g., "{monsterList} {verb} off..."
@@ -435,11 +422,12 @@ export function processPlayerDamage(gameState, gameData) {
     // Get all monsters at the player's location
     const monsterCounter = countMonsters(horde, "all", gameData);
     const monsterTypes = Object.keys(monsterCounter);
-
+    const playerAttackerCounter = {};
     for (const type of monsterTypes) {
         const monsterData = monsters[type];
         
         if (monsterData && monsterData.behavior.target.includes("player")) {
+            playerAttackerCounter[type] = monsterCounter[type];
             let bossSpecialAttackPerformed = false;
             switch (type) {
                 case "vampire": 
@@ -461,30 +449,20 @@ export function processPlayerDamage(gameState, gameData) {
         }
     }
     
-    if (totalDamage <= 0) return; // No player-attacking monsters are present (for safety)
+    if (totalDamage <= 0) return; // No player-attacking monsters are present or no damage was dealt if vampire is the last monster and used a special ability
 
     // --- 3. Text & Message ---
     let monsterListString = "";
     let totalMonsterCount = 0;
+
     if (status.gameMode === 'combat') {
         monsterListString = 'The horde';
     } else {
-        let nameStrings = monsterTypes.map(type => {
-            const count = monsterCounter[type];
-            const name = monsters[type].name;
-
-            totalMonsterCount += count;
-            if (count > 1) return `the ${name}s`
-            return `the ${name}`
+        monsterListString = formatMonsterList(playerAttackerCounter, gameData, { 
+            mode: 'determiner', 
+            determiner: 'the' 
         });
-
-        if (nameStrings.length === 1) {
-                    monsterListString = nameStrings[0];
-        } else if (nameStrings.length === 2) {
-            monsterListString = nameStrings.join(' and '); // e.g., "the Zombies and the Spirit"
-        } else {
-            monsterListString = nameStrings.slice(0, -1).join(', ') + ', and ' + nameStrings.slice(-1);
-        }
+        totalMonsterCount = Object.values(playerAttackerCounter).reduce((sum, count) => sum + count, 0);
     }
 
     // --- 5. Apply Damage and Push Message ---

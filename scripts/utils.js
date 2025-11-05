@@ -113,6 +113,46 @@ export function checkAndSetGracePeriod(gameState) {
     status.repeatedSpawnCooldown = 0;
 }
 
+export function formatMonsterList(monsterCounts, gameData, options) {
+    const parts = [];
+    const monsterTypes = Object.keys(monsterCounts);
+
+    if (monsterTypes.length === 0) return "";
+
+    for (const type of monsterTypes) {
+        const count = monsterCounts[type];
+        if (count === 0) continue;
+        
+        const name = gameData.monsters[type].name; // e.g., "Witch"
+
+        // Handle pluralization
+        let pluralName;
+        if (count === 1) {
+            pluralName = name;
+        } else if (name.endsWith('h')) {
+            pluralName = name + 'es'; // Handles "Witch" -> "Witches"
+        } else {
+            pluralName = name + 's'; // Handles "Zombie" -> "Zombies"
+        }
+
+        if (options.mode === 'counter') {
+            parts.push(`${count} ${pluralName}`);
+        } else if (options.mode === 'determiner') {
+            const determiner = options.determiner || 'the';
+            parts.push(`${determiner} ${pluralName}`);
+        }
+    }
+
+    // Join the parts with correct grammar (commas and "and")
+    if (parts.length === 1) {
+        return parts[0];
+    } else if (parts.length === 2) {
+        return parts.join(' and ');
+    } else {
+        return parts.slice(0, -1).join(', ') + ', and ' + parts.slice(-1);
+    }
+}
+
 export function countMonsters(horde, condition = "all", gameData) {
     return Object.entries(horde)
         .filter(([type, monsters]) => {
