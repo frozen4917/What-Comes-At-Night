@@ -163,7 +163,7 @@ export function processFortificationDamage(gameState, gameData) {
                 });
             }
 
-            fortificationHP -= totalDamage;
+            fortificationHP = Math.max(0, fortificationHP - totalDamage)
             gameState.status.messageQueue.push({
                 text_ref: "threat_horde_attacks_fortification_" + fortificationID,
                 params: {
@@ -466,7 +466,7 @@ export function processPlayerDamage(gameState, gameData) {
     }
 
     // --- 5. Apply Damage and Push Message ---
-    gameState.player.health -= totalDamage;
+    gameState.player.health = Math.max(0, gameState.player.health - totalDamage);
     
     gameState.status.messageQueue.push({
         text_ref: "threat_horde_attacks_player",
@@ -503,7 +503,7 @@ function handleVampireAttack(gameState, gameData) {
         case "life_drain":
             const playerDamage = vampireData.behavior.damage + getRandomInt(-1, 1);
             const vampireHeal = Math.min(playerDamage, vampireData.health - vampireInstance.currentHealth);
-            player.health -= playerDamage;
+            player.health = Math.max(0, player.health - playerDamage);
             vampireInstance.currentHealth += vampireHeal;
             status.messageQueue.push({ 
                 text_ref: "threat_vampire_life_drain", 
@@ -586,7 +586,7 @@ function handleWitchAttack(gameState, gameData) {
 
         case "throw_potion":
             const potionDamage = getRandomInt(6, 15);
-            player.health -= potionDamage;
+            player.health = Math.max(0, player.health - potionDamage);
             status.messageQueue.push({ 
                 text_ref: "threat_witch_throw_potion",
                 params: {

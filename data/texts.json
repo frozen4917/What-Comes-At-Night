@@ -236,5 +236,11 @@
     "pre_dawn_flavor_2": "The shadows lose their depth and menace, becoming ordinary darkness once more. Birds begin their first tentative chirps.",
     "pre_dawn_flavor_1": "The pre-dawn light strengthens, turning the world into a landscape of grey, silver, and yellow. The moon sets as its night's work done, and the cold finally begins to lose its cruel edge.",
 
-    "phase_intro_dawn": "Dawn breaks like a golden sword cutting through the last remnants of darkness. The sun crests the horizon in a blaze of orange and pink and gold. The light is warm and real. The frost begins to melt immediately. Birds erupt into full chorus, celebrating the return of day with joyous abandon. The shadows retreat to their proper places. The cold breaks as warmth floods across the land, and you can finally breathe freely, deeply, without fear."
+    "phase_intro_dawn": "Dawn breaks like a golden sword cutting through the last remnants of darkness. The sun crests the horizon in a blaze of orange and pink and gold. The light is warm and real. The frost begins to melt immediately. Birds erupt into full chorus, celebrating the return of day with joyous abandon.",
+
+    "game_over_lose": "Your vision blurs as the wounds become too much. The last thing you feel is the cold, damp ground as the darkness finally, completely, takes you.",
+    
+    "game_over_win_monsters": "As the first warm rays of sunlight strike the horde, the creatures shriek. Their forms sizzle and smoke, and they flee in terror back into the shadows from whence they came.",
+    "game_over_win_critical": "You collapse against the wall as the adrenaline wears off. You see a dozen new wounds that you didn't feel earlier. You're exhausted, and barely conscious... but you are alive. You lay your head back, listening to the birds, and wait for rescue.",
+    "game_over_win_normal": "You are able to catch your breath now. You stand tall, feeling the deep exhaustion of the long night settle in, but a stronger sense of relief washes it all away. You don't feel the fear anymore. You have survived."
 }

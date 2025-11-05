@@ -32,7 +32,7 @@ export function handleEffects(chosenAction, gameState, gameData) {
                         messageParams[stat] = gameState.player[stat] - currentValue;
                     } else if (gameState.world.fortifications[stat] !== undefined) {
                         let currentFHP = gameState.world.fortifications[stat];
-                        let newFHP = currentFHP + change;
+                        let newFHP = Math.max(0, currentFHP + change);
                         gameState.world.fortifications[stat] = newFHP;
                         
                         // For texts like: "strength is now at {strength}"

@@ -89,7 +89,7 @@ export function buildPromptText(gameState, gameData) {
 export function updateConsoleUI(promptText, actions, prompt, gameState) {
     console.clear();
     console.log(chalk.redBright(`HP: ${gameState.player.health}, Stamina: ${gameState.player.stamina}`));
-    console.log(chalk.yellowBright(``))
+    console.log(chalk.yellow(`Noise: ${gameState.world.noise}`))
     console.log(chalk.blueBright(`${gameState.world.currentPhaseId} - ${gameState.world.actionsRemaining} Actions remaining`));
 
 
@@ -133,6 +133,33 @@ function debugEval(prompt, gameState) {
             if (exp === 'nightfall()') {
                 gameState.world.currentPhaseId = 'nightfall';
                 gameState.world.actionsRemaining = 8;
+                continue;
+            }
+            if (exp === 'witching()') {
+                gameState.world.currentPhaseId = 'witching_hour';
+                gameState.world.actionsRemaining = 10;
+                continue;
+            }
+            if (exp === 'vampire()') {
+                gameState.horde.vampire.push({ id: "vampire_commands_0", currentHealth: 100, persistent: true});
+                continue;
+            }
+            if (exp === 'witch()') {
+                gameState.horde.witch.push({ id: "witch_commands_0", currentHealth: 85, persistent: true});
+                continue;
+            }
+            if (exp === 'setup()') {
+                gameState.player.inventory.molotov = 2;
+                gameState.player.inventory.axe = 1;
+                gameState.player.inventory.black_salt = 2;
+                gameState.player.inventory.witch_ward = 2;
+                gameState.player.health = 300;
+                gameState.world.fortifications.campGate = 280;
+                continue;
+            }
+            if (exp === 'predawn()') {
+                gameState.world.currentPhaseId = 'witching_hour';
+                gameState.world.actionsRemaining = 1;
                 continue;
             }
             console.log(eval(exp));

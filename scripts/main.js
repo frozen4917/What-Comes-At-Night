@@ -4,13 +4,13 @@ const prompt = promptSync({ sigint: true });
 
 import { loadGameData } from './loader.js';
 import { updateConsoleUI, buildPromptText } from './ui.js';
-import { getRandomInt, areConditionsMet } from './utils.js';
+import { getRandomInt, areConditionsMet, renderText } from './utils.js';
 import { trapMonster, processFortificationDamage, processTimedEvents, processNoiseSpawning, processNoiseDespawning, processPlayerDamage } from "./monsterHandler.js";
 import { handleEffects } from "./effectsHandler.js";
 
 
 
-// WIP - NEW: Fetches available actions
+// Fetches available actions
 export function getCurrentActions(gameState, gameData) {
     const validActions = [];
     const locationData = gameData.locations[gameState.world.currentLocation]; // Location specific data
@@ -44,52 +44,31 @@ export function getCurrentActions(gameState, gameData) {
 export function initializeGameState(gameData) {
     const initialState = gameData.initialState;
 
+    // 1. Create the Player state
     const player = {
-        ...initialState.playerConfig.initialStats, // Spreads { health: 100, stamina: 100 }
-        inventory: { ...initialState.playerConfig.initialInventory } // Creates a fresh copy
+        ...initialState.player.initialStats,
+        inventory: { ...initialState.player.initialInventory }
     };
 
     // 2. Create the World state
-    const firstPhaseId = initialState.initialGameState.currentPhaseId;
+    const world = { ...initialState.world }; // Full copy
+    world.flags = { ...initialState.world.flags }; // Deep copy flags
+    world.fortifications = { ...initialState.world.fortifications }; // Deep copy fortifications
+    world.traps = { ...initialState.world.traps }; // Deep copy traps
+    world.visitedLocations = []; // Fresh arrays
+    world.scavengedLocations = []; // Fresh arrays
 
-    // Find the full data for the first phase to get its duration
-    const firstPhaseData = gameData.phases.phases.find(p => p.id === firstPhaseId);
+    // 3. Find and set the actions for the first phase
+    const firstPhaseData = gameData.phases.phases.find(p => p.id === world.currentPhaseId);
     if (!firstPhaseData) {
-        // This is a critical error, the game can't start if the phase data is missing.
-        console.error(chalk.red(`FATAL ERROR: Could not find phase data for initial phase ID: "${firstPhaseId}"`));
+        console.error(chalk.red(`FATAL ERROR: Could not find phase data for initial phase ID: "${world.currentPhaseId}"`));
         process.exit(1);
     }
-    
-    const world = {
-        ...initialState.initialGameState, // Spreads initial fortifications, noise, location, and flags
-        actionsRemaining: firstPhaseData.durationInActions,
-        visitedLocations: [],
-        scavengedLocations: [],
-        traps: {
-            campGate: 0,
-            graveyardGate: 0
-        },
-        hordeLocation: "" // Empty = No Horde
-    };
+    world.actionsRemaining = firstPhaseData.durationInActions;
 
-    // 3. Empty Horde
-    const horde = {
-        spirit: [],
-        zombie: [],
-        skeleton: [],
-        witch: [],
-        vampire: []
-    };
-
-    // 4. Create the initial Status state
-    const status = {
-        gameMode: "exploring", // Exploring or combat
-        playerState: "normal", // normal or hiding
-        messageQueue: [], // Consequence of previous action + threat + monster damages
-        noiseSpawnCount: 0,         // For unique monster IDs
-        repeatedSpawnCooldown: 0,   // Cooldown between spawns
-        gracePeriodCooldown: 0     // Cooldown after noise despawn/kill
-    };
+    // 4. Create Horde and Status (fresh copies)
+    const horde = { ...initialState.horde };
+    const status = { ...initialState.status };
     
     // 5. Assemble and return the complete gameState object
     return {
@@ -122,7 +101,7 @@ function tickClock(gameState) {
 
 function checkGameStatus(gameState, gameData) {
     if (gameState.player.health <= 0) {
-        //endGame('lose');
+        endGame('lose', gameState, gameData);
     }
     if (gameState.world.actionsRemaining === 0) {
         const nextIndex = gameData.phases.phases.findIndex(phase => phase.id === gameState.world.currentPhaseId) + 1;
@@ -132,8 +111,44 @@ function checkGameStatus(gameState, gameData) {
     }
 
     if (gameState.world.currentPhaseId === 'dawn') {
-        //endGame('win');
+        endGame('win', gameState, gameData);
     }
+}
+
+function endGame(outcome, gameState, gameData) {
+    prompt('Press Enter to continue to the next (mock) turn...');
+    console.clear();
+    const messageStrings = [];
+    if (gameState.status.messageQueue && gameState.status.messageQueue.length > 0) {
+        for (const messageObject of gameState.status.messageQueue) {
+            const template = gameData.texts[messageObject.text_ref];
+            if (template) {
+                const renderedMessage = renderText(template, messageObject.params);
+                messageStrings.push(renderedMessage);
+            }
+        }
+    }
+    const consequenceAndThreatText = messageStrings.join('\n')
+    const finalMessages = [];
+    if (outcome === 'lose') {
+        finalMessages.push(gameData.texts.game_over_lose);
+    } else if (outcome === 'win') {
+        finalMessages.push(gameData.texts.phase_intro_dawn);
+
+        const totalMonsters = Object.values(gameState.horde).reduce((sum, list) => sum + list.length, 0);
+        if (totalMonsters > 0) {
+            finalMessages.push(gameData.texts.game_over_win_monsters);
+        }
+        if (gameState.player.health <= 15) {
+            finalMessages.push(gameData.texts.game_over_win_critical);
+        } else {
+            finalMessages.push(gameData.texts.game_over_win_normal);
+        }
+    }
+    const endMessage = finalMessages.join(" ");
+
+    console.log(consequenceAndThreatText + "\n\n" + chalk.magenta.italic(endMessage));
+    process.exit(0);
 }
 
 // TODO Game loop

@@ -1,16 +1,16 @@
 {
-    "playerConfig": {
+    "player": {
         "initialStats": {
             "health": 100,
             "stamina": 100
         },
         "initialInventory": {}
     },
-    "initialGameState": {
+    "world": {
         "fortifications": {
-            "campGate": 10,
-            "cabin": 15,
-            "graveyardGate": 10
+            "campGate": 12,
+            "cabin": 18,
+            "graveyardGate": 14
         },
         "noise": 0,
         "currentLocation": "campsite",
@@ -19,7 +19,30 @@
         "flags": {
             "shed_locked": true,
             "woods_not_searched": true,
-            "enfeebled": false
-        }
+            "playerEnfeebled": false
+        },
+        "actionsRemaining": 0,
+        "visitedLocations": [],
+        "scavengedLocations": [],
+        "traps": {
+            "campGate": 0,
+            "graveyardGate": 0
+        },
+        "hordeLocation": ""
+    },
+    "horde": {
+        "spirit": [],
+        "zombie": [],
+        "skeleton": [],
+        "witch": [],
+        "vampire": []
+    },
+    "status": {
+        "gameMode": "exploring",
+        "playerState": "normal",
+        "messageQueue": [],
+        "noiseSpawnCount": 0,
+        "repeatedSpawnCooldown": 0,
+        "gracePeriodCooldown": 0
     }
 }
