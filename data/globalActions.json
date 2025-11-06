@@ -6,7 +6,7 @@
                 {
                     "id": "attack_single_zombie",
                     "text_ref": "action_text_attack_zombie",
-                    "showIf": [ { "monsterIsPresent": "zombie" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "minStamina": 12 } ],
+                    "showIf": [ { "monsterIsPresent": "zombie" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "isTargetAdjacent": true }, { "minStamina": 12 } ],
                     "effects": { 
                         "attackTarget": "zombie", 
                         "attackType": "single",
@@ -19,7 +19,7 @@
                 {
                     "id": "attack_single_skeleton",
                     "text_ref": "action_text_attack_skeleton",
-                    "showIf": [ { "monsterIsPresent": "skeleton" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "minStamina": 12 } ],
+                    "showIf": [ { "monsterIsPresent": "skeleton" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "isTargetAdjacent": true }, { "minStamina": 12 } ],
                     "effects": { 
                         "attackTarget": "skeleton", 
                         "attackType": "single",
@@ -31,7 +31,7 @@
                 {
                     "id": "attack_single_spirit",
                     "text_ref": "action_text_attack_spirit",
-                    "showIf": [ { "monsterIsPresent": "spirit" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "minStamina": 12 } ],
+                    "showIf": [ { "monsterIsPresent": "spirit" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "isTargetAdjacent": true }, { "minStamina": 12 } ],
                     "effects": { 
                         "attackTarget": "spirit", 
                         "attackType": "single",
@@ -44,7 +44,7 @@
                 {
                     "id": "attack_cleave",
                     "text_ref": "action_text_attack_cleave",
-                    "showIf": [ { "hordeSizeIsGreaterThan": 1 }, { "hasItem": "axe" }, { "minStamina": 12 } ],
+                    "showIf": [ { "hordeSizeIsGreaterThan": 1 }, { "hasItem": "axe" }, { "isTargetAdjacent": true }, { "minStamina": 12 } ],
                     "effects": { 
                         "attackType": "cleave", 
                         "changeStat": { "stamina": -12, "noise": 9 },
@@ -75,7 +75,7 @@
                 {
                     "id": "attack_boss_witch",
                     "text_ref": "action_text_attack_boss_witch",
-                    "showIf": [ { "bossIsPresent": "witch" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "minStamina": 12 } ],
+                    "showIf": [ { "bossIsPresent": "witch" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "isTargetAdjacent": true }, { "minStamina": 12 } ],
                     "effects": { 
                         "attackTarget": "witch", 
                         "attackType": "single",
@@ -87,7 +87,7 @@
                 {
                     "id": "attack_boss_vampire",
                     "text_ref": "action_text_attack_boss_vampire",
-                    "showIf": [ { "bossIsPresent": "vampire" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "minStamina": 12 } ],
+                    "showIf": [ { "bossIsPresent": "vampire" }, { "hasAnyItem": ["axe", "baseball_bat"] }, { "isTargetAdjacent": true }, { "minStamina": 12 } ],
                     "effects": { 
                         "attackTarget": "vampire", 
                         "attackType": "single",
