@@ -4,9 +4,14 @@ const prompt = promptSync({ sigint: true });
 import path from 'path';
 import { promises as fs } from 'fs';
 
-export async function loadGameData() { // Call in main.js
+/**
+ * Loads game-related data
+ * @returns {Object} gameData object comprising of all game data
+ */
+export async function loadGameData() {
     console.log(chalk.yellow("Loading all game data..."));
 
+    // All data files
     const fileNames = [
         'globalActions.json',
         'initialState.json',
@@ -23,8 +28,6 @@ export async function loadGameData() { // Call in main.js
             const fileContent = await fs.readFile(filePath, 'utf8');
             const data = JSON.parse(fileContent);
 
-            // Return an object with the name (without .json) and the data.
-            // e.g., { name: 'monsters', data: { ... } }
             return {
                 name: path.parse(fileName).name,
                 data: data
@@ -40,13 +43,12 @@ export async function loadGameData() { // Call in main.js
 
         console.log(chalk.yellow("Game data loaded successfully!"));
         prompt("> ");
-        return gameData;
+        return gameData; // Returns the actual gameData object
 
     } catch (error) {
         // If any file is missing or has a JSON error, the game will stop
-        // and tell you exactly what went wrong.
         console.error(chalk.red("FATAL ERROR: Could not load game data. Check your JSON files."));
         console.error(error);
-        process.exit(1); // Exits the application.
+        process.exit(1); // Exits the game.
     }
 }
