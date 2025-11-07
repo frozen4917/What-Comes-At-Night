@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 // --- Game Engine Imports ---
@@ -12,6 +12,8 @@ import {
 } from '@/game/main.js'
 import { buildPromptText } from '@/game/ui.js'
 import { renderText } from '@/game/utils.js'
+
+const SAVE_GAME_KEY = 'wcan_saveGame';
 
 /**
  * This is the "Controller" (the brain) of your game.
@@ -36,6 +38,13 @@ export const useGameStore = defineStore('game', () => {
     const isInventoryOpen = ref(false);
     const isOptionsOpen = ref(false);
     const isGameOver = ref(false);
+
+    // AUTO SAVE
+    watch(gameState, (newGameState) => {
+        // We stringify the object to save it as a string in localStorage.
+        localStorage.setItem(SAVE_GAME_KEY, JSON.stringify(newGameState));
+        console.log("Game state saved.");
+    }, { deep: true });
 
     // --- INTERNAL HELPER FUNCTIONS ---
 
@@ -101,13 +110,23 @@ export const useGameStore = defineStore('game', () => {
             gameData.value = await loadGameData();
             
             // 2. Initialize the game state (the "Game Board")
-            gameState.value = initializeGameState(gameData.value)
-            console.log("Game Store: State initialized", gameState.value);
+            // Check for saved game. 
+            const savedGame = localStorage.getItem(SAVE_GAME_KEY);
+            
+            if (savedGame) {
+                // If a save exists, load it
+                console.log("Game Store: Found saved game, loading...");
+                gameState.value = JSON.parse(savedGame);
+            } else {
+                // If no save, initialize a fresh game
+                console.log("Game Store: No saved game, initializing new game...");
+                gameState.value = initializeGameState(gameData.value);
+                
+                // Only run the monster turn on a *brand new* game
+                runMonsterTurn(gameState.value, gameData.value);
+            }
 
-            // 3. Run the initial monster turn to check for initial spawns, etc.
-            runMonsterTurn(gameState.value, gameData.value);
-
-            // 4. Update the UI with initial text and actions
+            // 3. Update the UI with initial text and actions
             _updateUI();
 
         } catch (error) {
@@ -134,6 +153,9 @@ export const useGameStore = defineStore('game', () => {
         if (status.isGameOver) {
             isGameOver.value = true;
             promptText.value = _buildEndGameText(status.outcome);
+
+            localStorage.removeItem(SAVE_GAME_KEY);
+            console.log("Game over, save file deleted.");
         } else {
             // Run monster's turn (spawning/despawning, fortification damage)
             runMonsterTurn(gameState.value, gameData.value);
@@ -153,6 +175,14 @@ export const useGameStore = defineStore('game', () => {
         isOptionsOpen.value = !isOptionsOpen.value;
     }
 
+    function restartGame() {
+        console.log("Restarting game, deleting save...");
+        // 1. Delete the save file
+        localStorage.removeItem(SAVE_GAME_KEY);
+        // 2. Reload the page
+        location.reload();
+    };
+
 
     // --- This exposes our state and functions to the components ---
     return {
@@ -169,6 +199,7 @@ export const useGameStore = defineStore('game', () => {
         startGame,
         handlePlayerAction,
         toggleInventory,
-        toggleOptions
+        toggleOptions,
+        restartGame
     };
 })
