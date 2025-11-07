@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 /**
  * Generates and returns a random integer between min and max, both inclusive
  * @param {number} min Lower bound
@@ -77,7 +75,7 @@ export function areConditionsMet(conditions, gameState) {
 
             default:
                 // If the condition is unknown, assume it's okay, but return a warning
-                console.log(chalk.red(`Unknown condition key: ${key}`));
+                console.error(`Unknown condition key: ${key}`);
                 return true;
         }
     });

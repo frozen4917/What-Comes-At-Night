@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 import { getRandomInt, checkAndSetGracePeriod } from "./utils.js";
 
 /**
@@ -158,7 +156,7 @@ export function handleEffects(chosenAction, gameState, gameData) {
                 break;
             
             default: // Any other condition, provide warning.
-                console.log(chalk.redBright(`Unhandled effect key: ${key}`));
+                console.error(`Unhandled effect key: ${key}`);
         }
     }
 
@@ -183,7 +181,7 @@ export function processCraftEffect(effects, gameState, gameData) {
 
     // Safety check: if the item or its recipe doesn't exist, do nothing.
     if (!craftableItem || !craftableItem.recipe) {
-        console.log(chalk.red(`Attempted to craft an item with no recipe: ${itemID}`));
+        console.error(`Attempted to craft an item with no recipe: ${itemID}`);
         return;
     }
 
@@ -203,7 +201,7 @@ export function processCraftEffect(effects, gameState, gameData) {
 
     // Add the newly crafted item to the inventory
     gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + 1;
-    console.log(chalk.green(`Crafted ${itemID}`)); // For Debugging and Feedback
+    console.log(`Crafted ${itemID}`); // For Debugging and Feedback
 
     if (effects.result_ref) {
         gameState.status.messageQueue.push({
@@ -367,7 +365,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
 function processShootAttack(effects, gameState, gameData) {
     // Safety clause in case player doesn't have arrows. Shouldn't be executed as areConditionsMet() should handle it
     if (gameState.player.inventory.arrow <= 0) {
-        console.log(chalk.redBright("ERROR: No arrows - [processShootAttack()]"));
+        console.error("ERROR: No arrows - [processShootAttack()]");
         return;
     }
 
@@ -429,7 +427,7 @@ function processShootAttack(effects, gameState, gameData) {
 function processIncinerateAttack(effects, gameState, gameData) {
     // Safety clause in case player doesn't have arrows. Shouldn't be executed as areConditionsMet() should handle it
     if (gameState.player.inventory.molotov <= 0) {
-        console.log(chalk.redBright("ERROR: No Molotovs - [processIncinerateAttack()]"));
+        console.error("ERROR: No Molotovs - [processIncinerateAttack()]");
         return;
     }
 
