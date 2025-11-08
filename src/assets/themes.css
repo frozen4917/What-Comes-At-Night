@@ -98,6 +98,19 @@ body {
     gap: 25px;
 }
 
+/* NEW: Style for the labels (e.g., "HP:") */
+#stats-bar strong {
+    color: var(--accent-color);
+    margin-right: 8px;
+    /* Add some space between label and value */
+}
+
+/* NEW: Style for the values (e.g., "100") */
+#stats-bar .value {
+    color: #d1d1d1;
+    /* Default text color */
+}
+
 /* Style for the monster count from StatsBar.vue */
 .stats-middle div {
     color: var(--accent-color);
@@ -327,4 +340,29 @@ body {
     color: #0a0a0a;
     /* Dark background color */
     font-weight: bold;
+}
+
+/* --- 13. CRITICAL PULSE ANIMATION --- */
+@keyframes pulse-red {
+    0% {
+        color: #ff4444;
+        text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+    }
+
+    50% {
+        color: #d1d1d1;
+        /* Fade to default color */
+        text-shadow: none;
+    }
+
+    100% {
+        color: #ff4444;
+        text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+    }
+}
+
+/* This is the class we will apply to the value */
+.critical {
+    /* A faster, more urgent pulse than our old one */
+    animation: pulse-red 1.2s infinite ease-in-out;
 }
