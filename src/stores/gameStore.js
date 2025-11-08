@@ -41,11 +41,21 @@ export const useGameStore = defineStore('game', () => {
 
     // AUTO SAVE
     watch(gameState, (newGameState) => {
+        
+        // --- THE FIX ---
+        // Check for a "game over" state. If the player is dead or has won,
+        // DO NOT save the game. This prevents the "zombie" state on reload.
+        if (newGameState.player.health <= 0 || newGameState.world.currentPhaseId === 'dawn') {
+            console.log("Game over state detected, not saving.");
+            return; // Stop here, do not save
+        }
+        // --- END FIX ---
+
         // We stringify the object to save it as a string in localStorage.
         localStorage.setItem(SAVE_GAME_KEY, JSON.stringify(newGameState));
         console.log("Game state saved.");
     }, { deep: true });
-
+    
     // --- INTERNAL HELPER FUNCTIONS ---
 
     /**
