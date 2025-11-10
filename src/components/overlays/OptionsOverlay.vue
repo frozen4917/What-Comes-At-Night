@@ -22,5 +22,8 @@ const gameStore = useGameStore();
 <style scoped>
 .overlay {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Add this for vertical centering */
 }
 </style>

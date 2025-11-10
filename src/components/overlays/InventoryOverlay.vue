@@ -51,15 +51,19 @@ const inventoryItems = computed(() => {
 
 <style scoped>
 .overlay {
-  display: flex; /* This makes it visible, since it's only rendered via v-if */
+    display: flex;
+    justify-content: center;
+    align-items: center;  /* Add this for vertical centering */
 }
 
 /* NEW: Add this rule */
 .inventory-list {
-  max-height: 40vh; /* Max height of 40% of the screen */
-  overflow-y: auto; /* Add a scrollbar if it gets taller */
+    max-height: 40vh;
+    /* Max height of 40% of the screen */
+    overflow-y: auto;
+    /* Add a scrollbar if it gets taller */
 
-  /* A little padding to look nice */
-  padding-right: 10px;
+    /* A little padding to look nice */
+    padding-right: 10px;
 }
 </style>
