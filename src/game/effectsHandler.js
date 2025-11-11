@@ -337,7 +337,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
 
     let killParam = '', cursedParam = '';
     if (defeatedCount > 0) {
-        killParam = ` You defeated the ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback if player defeates atleast one monster
+        killParam = ` You defeated ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback if player defeates atleast one monster
         checkAndSetGracePeriod(gameState); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
     if (enfeebled) {
