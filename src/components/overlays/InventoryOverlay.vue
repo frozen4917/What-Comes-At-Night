@@ -53,17 +53,16 @@ const inventoryItems = computed(() => {
 .overlay {
     display: flex;
     justify-content: center;
-    align-items: center;  /* Add this for vertical centering */
+    align-items: center;
 }
 
-/* NEW: Add this rule */
-.inventory-list {
-    max-height: 40vh;
-    /* Max height of 40% of the screen */
-    overflow-y: auto;
-    /* Add a scrollbar if it gets taller */
+.overlay-content {
+    font-family: 'Special Elite', monospace;
+}
 
-    /* A little padding to look nice */
-    padding-right: 10px;
+.inventory-list {
+    max-height: 40rem; /* Was 40vh */
+    overflow-y: auto;
+    padding-right: 1rem; /* Was 10px */
 }
 </style>

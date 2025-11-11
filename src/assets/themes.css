@@ -3,6 +3,10 @@
     --accent-color: #b91c1c;
 }
 
+html {
+    font-size: 72.5%;
+}
+
 .theme-dusk {
     --accent-color: #e08666;
 }
@@ -35,20 +39,19 @@ body {
     background-color: #0a0a0a;
     color: #d1d1d1;
     font-family: 'Roboto Condensed', sans-serif;
-    /* UI Font */
-    font-size: 17px;
+    font-size: 1.7rem;
+    /* Was 17px */
     margin: 0;
     overflow: hidden;
 }
 
 /* --- 2. CUSTOM SCROLLBAR --- */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 0.8rem;
 }
 
 ::-webkit-scrollbar-track {
-    background: #222;
-    /* Visible track */
+    background: #111;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -63,16 +66,8 @@ body {
 /* --- 3. MAIN APP LAYOUT (CSS GRID) --- */
 #app {
     display: grid;
-    
-    /* THIS IS THE FIX:
-      - 'auto' makes the header/footer fit their content.
-      - '43fr' and '40fr' make the content panels
-        flexibly split the *remaining* space, respecting
-        your desired 43/40 ratio.
-    */
     grid-template-rows: 12fr 43fr 40fr 5fr;
-    
-    height: 100svh; /* Use smallest viewport height */
+    height: 100svh;
     position: relative;
     box-sizing: border-box;
     padding-bottom: env(safe-area-inset-bottom);
@@ -83,18 +78,19 @@ body {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: 0 25px;
+    padding: 0 2.5rem;
     border-bottom: 1px solid var(--accent-color);
     height: 100%;
     box-sizing: border-box;
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 1.1em;
+    font-size: 1.6rem;
     text-transform: uppercase;
 }
 
 #stats-bar>div {
     display: flex;
-    gap: 25px;
+    gap: 2.5rem;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
 }
 
 #stats-bar>.stats-left {
@@ -107,7 +103,7 @@ body {
 
 #stats-bar strong {
     color: var(--accent-color);
-    margin-right: 8px;
+    margin-right: 0.8rem;
 }
 
 #stats-bar .value {
@@ -116,13 +112,12 @@ body {
 
 /* --- 5. CONTENT DISPLAY (MIDDLE) --- */
 #content-display {
-    padding: 25px;
+    padding: 2.5rem;
     height: 100%;
     box-sizing: border-box;
     overflow-y: auto;
     font-family: 'Special Elite', monospace;
-    /* Story Font */
-    font-size: 1.2em;
+    font-size: 1.8rem;
     line-height: 1.7;
     display: block;
 }
@@ -139,19 +134,19 @@ body {
 #action-categories {
     flex-basis: 35%;
     border-right: 1px solid #222;
-    padding: 20px;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.8rem;
     overflow-y: auto;
 }
 
 #action-sub-options {
     flex-basis: 65%;
-    padding: 20px;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.8rem;
     overflow-y: auto;
 }
 
@@ -161,33 +156,34 @@ body {
     border: none;
     color: #d1d1d1;
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 1.1em;
+    font-size: 1.6rem;
     text-align: left;
-    padding: 10px 5px;
+    padding: 1rem 0.5rem;
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
+.action-button:hover {
+    color: var(--accent-color);
+    transform: translateX(0.5rem);
+}
+
 .action-button.category-button {
-    font-size: 1.15em;
+    font-size: 1.7rem;
     color: #777;
     text-transform: uppercase;
 }
 
 .action-button.category-button.active {
-    color: #d1d1d1;
+    /* color: #d1d1d1; */
+    color: var(--accent-color);
     font-weight: bold;
     border-left: 3px solid var(--accent-color);
-    padding-left: 10px;
-}
-
-.action-button:hover {
-    color: var(--accent-color);
-    transform: translateX(5px);
+    padding-left: 1rem;
 }
 
 .action-button.category-button:hover {
-    color: #d1d1d1;
+    color: var(--accent-color);
     transform: translateX(0);
 }
 
@@ -198,7 +194,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 3rem;
     border-top: 1px solid var(--accent-color);
     background-color: #0a0a0a;
 }
@@ -209,7 +205,7 @@ body {
     color: #777;
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
-    font-size: 0.9em;
+    font-size: 1.4rem;
     cursor: pointer;
     transition: all 0.15s ease;
     letter-spacing: 0.5px;
@@ -229,21 +225,19 @@ body {
     height: 100%;
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
     z-index: 100;
-    /* Add flex centering */
-    justify-content: center;
-    align-items: flex-start;
 }
 
 .overlay-content {
     background-color: #0a0a0a;
     border: 1px solid #333;
-    padding: 25px;
+    padding: 2.5rem;
     width: 90%;
-    max-width: 400px;
+    max-width: 40rem;
     text-align: center;
     font-family: 'Special Elite', monospace;
+    margin: auto; /* This centers the popup */
 }
 
 .overlay-content h2 {
@@ -257,17 +251,17 @@ body {
     list-style: none;
     padding: 0;
     text-align: left;
-    font-size: 1.1em;
+    font-size: 1.6rem;
 }
 
 .inventory-list li {
-    padding: 8px 0;
+    padding: 0.8rem 0;
     border-bottom: 1px solid #222;
 }
 
 .close-button {
-    margin-top: 20px;
-    font-size: 1em;
+    margin-top: 2rem;
+    font-size: 1.5rem;
 }
 
 /* --- 10. STATE CHANGE CLASSES --- */
@@ -316,13 +310,13 @@ body {
     background: transparent;
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
-    padding: 12px 24px;
+    padding: 1.2rem 2.4rem;
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 1.1em;
+    font-size: 1.6rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
-    margin-top: 40px;
+    margin-top: 4rem;
     transition: all 0.2s ease;
 }
 
@@ -333,10 +327,44 @@ body {
 }
 
 /* --- 14. MOBILE RESPONSIVENESS --- */
-@media (max-width: 480px) {
-  /* On small mobile screens, reduce the base font size.
-     All 'em' units will now scale down from this. */
-  body {
-    font-size: 14px;
-  }
+@media (max-width: 48rem) {
+
+    /* On small mobile screens, reduce the base font size. */
+    body {
+        font-size: 1.5rem;
+    }
+
+    #stats-bar {
+        grid-template-columns: 1fr auto 1fr; /* 3-column grid, like desktop */
+        align-items: center; /* Vertically center all 3 columns */
+        gap: 1.0rem;
+        padding: 1.0rem;
+    }
+
+    #stats-bar>.stats-left {
+        grid-column: 1 / 2; /* Column 1 */
+        flex-direction: column;
+        gap: 1.0rem;
+        align-items: flex-start; /* Aligns text left */
+    }
+
+    #stats-bar>.stats-right {
+        grid-column: 3 / 4; /* Column 3 */
+        flex-direction: column;
+        gap: 1.0rem;
+        align-items: flex-end; /* Aligns text right */
+    }
+
+    #stats-bar>.stats-center-icon {
+        grid-column: 2 / 3; /* Column 2 (The Middle) */
+        grid-row: 1; /* Stay on the first row */
+        height: 4.0rem; /* Use a fixed rem height on mobile */
+    }
+
+    /* Reduce padding on content panels */
+    #content-display,
+    #action-categories,
+    #action-sub-options {
+        padding: 1.5rem;
+    }
 }

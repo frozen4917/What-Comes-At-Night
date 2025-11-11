@@ -77,7 +77,6 @@ const totalMonsters = computed(() => {
 </template>
 
 <style scoped>
-/* NEW: Styles for the center icon */
 .stats-center-icon {
     display: flex;
     justify-content: center;
@@ -86,26 +85,21 @@ const totalMonsters = computed(() => {
 }
 
 .phase-icon {
-    /* This is the CSS Mask technique */
     background-color: var(--accent-color);
     mask-image: var(--icon-url);
     mask-size: contain;
     mask-repeat: no-repeat;
     mask-position: center;
 
-    /* This is for -webkit browsers like Chrome/Safari */
     -webkit-mask-image: var(--icon-url);
     -webkit-mask-size: contain;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
 
-    /* Set the icon size */
-    height: 80%;
-    /* 80% of the Stats Bar height */
-    width: 60px;
-    /* Fixed width to maintain aspect ratio */
+    /* UPDATED: Converted to rem */
+    height: 6.0rem;
+    width: 6.0rem;
 
-    /* Just to be safe */
     display: block;
 }
 </style>

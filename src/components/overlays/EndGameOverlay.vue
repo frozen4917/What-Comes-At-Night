@@ -49,48 +49,32 @@ const finalParagraphs = computed(() => {
 </template>
 
 <style scoped>
-/* THIS IS THE LAYOUT FIX
-*/
 .overlay {
-    /* Use display: flex to enable centering */
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    
-    /* Make the *overlay itself* scrollable */
+    align-items: flex-start; /* Align to top */
     overflow-y: auto;
-    padding-top: 5vh;
+    padding-top: 5rem;
 }
 
 .end-game-content {
-    /* Use flex to center its children (icon, button) */
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    /* Sizing */
     width: 90%;
-    max-width: 1000px;
-    padding: 0 20px;  /* Add horizontal padding here instead */
-    box-sizing: border-box;  /* Ensure padding is included in width */
-
-    /* Text styles */
+    max-width: 100rem;
     font-family: 'Special Elite', monospace;
-    font-size: 1.3em;
+    font-size: 1.8rem;
     line-height: 1.8;
     margin: 0;
-
-    padding-bottom: 20vh;
+    padding-bottom: 15rem;
 }
 
 .end-game-content p {
-    /* This ensures all paragraphs inside the end game screen
-     are left-aligned, but the icon/button can be centered. */
     text-align: left;
     width: 100%;
 }
 
-/* This is the icon style */
 .end-game-icon {
     background-color: var(--accent-color);
     mask-image: var(--icon-url);
@@ -103,27 +87,9 @@ const finalParagraphs = computed(() => {
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
 
-    width: 100px;
-    height: 100px;
-    margin-bottom: 40px;
+    width: 10rem;
+    height: 10rem; 
+    margin-bottom: 4rem; 
     flex-shrink: 0;
-}
-
-/* This forces the scrollbar to be visible */
-.overlay::-webkit-scrollbar {
-    width: 8px;
-}
-
-.overlay::-webkit-scrollbar-track {
-    background: #222;
-}
-
-.overlay::-webkit-scrollbar-thumb {
-    background: var(--accent-color);
-    border-radius: 0;
-}
-
-.overlay::-webkit-scrollbar-thumb:hover {
-    filter: brightness(1.2);
 }
 </style>
