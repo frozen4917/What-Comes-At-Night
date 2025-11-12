@@ -4,13 +4,15 @@
             "id": "dusk",
             "name": "Dusk",
             "durationInActions": 10,
-            "noiseSpawnPool": ["spirit", "zombie"]
+            "noiseSpawnPool": ["spirit", "zombie"],
+            "fortificationDamageMultiplier": 0.4
         },
         {
             "id": "evening",
             "name": "Evening",
             "durationInActions": 8,
-            "noiseSpawnPool": ["skeleton", "zombie", "spirit"]
+            "noiseSpawnPool": ["skeleton", "zombie", "spirit"],
+            "fortificationDamageMultiplier": 0.45
         },
         {
             "id": "nightfall",
@@ -26,7 +28,8 @@
                         "spawn": [ {"monster": "zombie", "count": 2}, {"monster": "spirit", "count": 1}, {"monster": "skeleton", "count": 1} ]
                     }
                 }
-            ]
+            ],
+            "fortificationDamageMultiplier": 0.55
         },
         {
             "id": "deep_night",
@@ -42,7 +45,8 @@
                         "spawn": [ {"monster": "zombie", "count": 3}, {"monster": "spirit", "count": 2},{"monster": "skeleton", "count": 2} ]
                     }
                 }
-            ]
+            ],
+            "fortificationDamageMultiplier": 0.6
         },
         {
             "id": "witching_hour",
@@ -58,7 +62,8 @@
                         "spawn": [ {"bossPool": ["witch", "vampire"], "count": 1}, {"monster": "zombie", "count": 4}, {"monster": "spirit", "count": 4},{"monster": "skeleton", "count": 3} ]
                     }
                 }
-            ]
+            ],
+            "fortificationDamageMultiplier": 0.75
         },
         {
             "id": "pre_dawn",
@@ -75,7 +80,8 @@
                         "spawn": [ {"monster": "skeleton", "count": 2}, {"monster": "spirit", "count": 2} ]
                     }
                 }
-            ]
+            ],
+            "fortificationDamageMultiplier": 0.75
         },
         {
             "id": "dawn",

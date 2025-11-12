@@ -86,7 +86,7 @@ export function trapMonster(gameState, gameData) {
  */
 export function processFortificationDamage(gameState, gameData) {
     const { world, horde, status } = gameState;
-    const { monsters } = gameData;
+    const { monsters, phases } = gameData;
     
     // If there's no horde, do nothing.
     if (!world.hordeLocation) return; 
@@ -139,13 +139,15 @@ export function processFortificationDamage(gameState, gameData) {
         const allMonsters = countMonsters(horde, "all", gameData); // Monster counter of "all" type, e.g. { zombie: 2, skeleton: 1, witch: 1 }
 
         const monsterTypes = Object.keys(allMonsters).filter(type => monsters[type].behavior.target.includes("fortification")); // Filters through allMonsters's keys to find only those who can attack the fortification, e.g. [ "zombie", "witch" ]
+
+        const currentPhaseIndex = phases.phases.findIndex(phase => phase.id === gameState.world.currentPhaseId); // Current phase's index in the phases array
         // Loop though the above list and calculate damage
         for (const type of monsterTypes) {
             const count = allMonsters[type]
             const monsterData = monsters[type];
 
             // Total damage = (Damage from one monster * number of monsters) + randomiser
-            totalDamage += (monsterData.behavior.damage * count) + getRandomInt(-1 * count, count);
+            totalDamage += Math.floor(((monsterData.behavior.damage * count) + getRandomInt(-1 * count, count)) * phases.phases[currentPhaseIndex].fortificationDamageMultiplier);
         }
 
 

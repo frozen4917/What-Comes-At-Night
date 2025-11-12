@@ -57,7 +57,7 @@
 
 
     "outcome_search_rec_tent": "You rummage through the recreational tent. You find some useful items, including a baseball bat, a bow, and 5 arrows.",
-    "outcome_search_woods": "You look through the woods beyond the campsite's perimeter. You collect 4 mushrooms, 2 garlics from the patch, and 1 wood.",
+    "outcome_search_woods": "You look through the woods beyond the campsite's perimeter. You collect 4 mushrooms, 2 garlics from the patch, and 2 wood.",
     "outcome_search_woods_again": "You quietly look through the woods again. You are able to find {quantity} wood.",
     "outcome_search_food_tent": "You go through the food tent. You manage to gather 2 empty bottles, 2 salt shakers, and 2 cans of food.",
     "outcome_search_utility_tent": "You look into the utility tent for any items. You find 2 old rags and 2 bandages.",

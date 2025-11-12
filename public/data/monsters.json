@@ -9,7 +9,7 @@
     },
     "skeleton": {
         "name": "Skeleton", "health": 25,
-        "behavior": { "target": ["player"], "damage": 7, "special": ["lingers_long"] }
+        "behavior": { "target": ["fortification", "player"], "damage": 7, "special": ["lingers_long"] }
     },
     "witch": {
         "name": "Witch", "health": 85,

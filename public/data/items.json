@@ -78,7 +78,7 @@
         "type": "weapon",
         "effects": {
             "single_attack": {
-                "damage": 28,
+                "damage": 22,
                 "targets": 1,
                 "ammo": "arrow",
                 "noise": 10
@@ -143,7 +143,7 @@
         "recipe": [ { "item": "fuel", "quantity": 1 }, { "item": "rag", "quantity": 1 }, { "item": "bottle", "quantity": 1 } ],
         "effects": {
             "incinerate": {
-                "damage": 25,
+                "damage": 24,
                 "targets": "all"
             }
         }
@@ -155,7 +155,7 @@
         "recipe": [ { "item": "garlic", "quantity": 1 }, { "item": "salt", "quantity": 1 } ],
         "effects": {
             "hurt_boss": "vampire",
-            "damage": 40
+            "damage": 35
         }
     },
     "witch_ward": {
@@ -165,7 +165,7 @@
         "recipe": [ { "item": "rowan_berries", "quantity": 1 }, { "item": "twine", "quantity": 1 }, { "item": "wood", "quantity": 1 } ],
         "effects": {
             "hurt_boss": "witch",
-            "damage": 40
+            "damage": 35
         }
     },
     "cooked_mushrooms": {
