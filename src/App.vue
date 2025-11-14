@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, computed } from 'vue';
 import { useGameStore } from './stores/gameStore';
+import { unlockAudio } from './game/audioService';
 
 // 1. Import all our components
 import StatsBar from './components/layout/StatsBar.vue';
@@ -30,7 +31,7 @@ const themeClass = computed(() => {
 </script>
 
 <template>
-    <div id="app" :class="themeClass">
+    <div id="app" :class="themeClass" @click.once="unlockAudio">
 
         <EndGameOverlay v-if="gameStore.isGameOver" />
 

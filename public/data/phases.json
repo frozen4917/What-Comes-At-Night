@@ -5,7 +5,8 @@
             "name": "Dusk",
             "durationInActions": 10,
             "noiseSpawnPool": ["spirit", "zombie"],
-            "fortificationDamageMultiplier": 0.4
+            "fortificationDamageMultiplier": 0.4,
+            "musicTrack": "Fading Light.mp3"
         },
         {
             "id": "evening",
@@ -29,7 +30,8 @@
                     }
                 }
             ],
-            "fortificationDamageMultiplier": 0.55
+            "fortificationDamageMultiplier": 0.55,
+            "musicTrack": "Shadows in the Forest.mp3"
         },
         {
             "id": "deep_night",
@@ -63,7 +65,8 @@
                     }
                 }
             ],
-            "fortificationDamageMultiplier": 0.75
+            "fortificationDamageMultiplier": 0.75,
+            "musicTrack": "Blood Moon.mp3"
         },
         {
             "id": "pre_dawn",
@@ -81,12 +84,14 @@
                     }
                 }
             ],
-            "fortificationDamageMultiplier": 0.75
+            "fortificationDamageMultiplier": 0.75,
+            "musicTrack": "Distant Star.mp3"
         },
         {
             "id": "dawn",
             "name": "Dawn",
-            "introText_ref": "phase_intro_dawn"
+            "introText_ref": "phase_intro_dawn",
+            "musicTrack": "Rise.mp3"
         }
     ]
 }

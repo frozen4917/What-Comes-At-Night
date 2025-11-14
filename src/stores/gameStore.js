@@ -2,6 +2,8 @@ import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 // --- Game Engine Imports ---
+import * as audio from '@/game/audioService.js';
+
 import { loadGameData } from '@/game/loader.js'
 import { 
     initializeGameState,
@@ -13,7 +15,9 @@ import {
 import { buildPromptText } from '@/game/ui.js'
 import { renderText } from '@/game/utils.js'
 
-const SAVE_GAME_KEY = 'wcan_saveGame';
+const SAVE_GAME_KEY = 'wcan_saveGame'; // For saving game data
+const SETTINGS_KEY = 'wcan_settings'; // For saving volume
+const MAX_VOLUME = 0.3; // 100% --> 0.3
 
 /**
  * This is the "Controller" (the brain) of your game.
@@ -38,6 +42,10 @@ export const useGameStore = defineStore('game', () => {
     const isInventoryOpen = ref(false);
     const isOptionsOpen = ref(false);
     const isGameOver = ref(false);
+
+    // --- SETTINGS ---
+    const savedSettings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+    const volume = ref(savedSettings.volume !== undefined ? savedSettings.volume : 100);
 
     // AUTO SAVE
     watch(gameState, (newGameState) => {
@@ -108,6 +116,18 @@ export const useGameStore = defineStore('game', () => {
         return finalMessages.join('\n\n'); // Use newlines for final display
     }
 
+    /**
+     * Calculates the true volume and sends it to the audio service
+     */
+    function _setVolume() {
+        // This maps your 0-100 slider to 0-0.3 real volume
+        const actualVolume = (volume.value / 100) * MAX_VOLUME;
+        audio.setMasterVolume(actualVolume);
+        
+        // Save the setting
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify({ volume: volume.value }));
+    };
+
     // --- CORE GAME FUNCTIONS ---
 
     /**
@@ -116,6 +136,9 @@ export const useGameStore = defineStore('game', () => {
     async function startGame() {
         console.log("Game Store: startGame() called")
         try {
+            // 0. Fetch and set volume
+            _setVolume();
+
             // 1. Load all game data (the "Rulebook")
             gameData.value = await loadGameData();
             
@@ -138,6 +161,10 @@ export const useGameStore = defineStore('game', () => {
 
             // 3. Update the UI with initial text and actions
             _updateUI();
+
+            // 4. Play the music for the phase the game loaded into
+            const currentPhaseData = gameData.value.phases.phases.find(p => p.id === gameState.value.world.currentPhaseId);
+            audio.playMusic(currentPhaseData.musicTrack);
 
         } catch (error) {
             console.error("Game Store: Failed to start game", error);
@@ -166,11 +193,25 @@ export const useGameStore = defineStore('game', () => {
 
             localStorage.removeItem(SAVE_GAME_KEY);
             console.log("Game over, save file deleted.");
+
+            // Handle end-game music. Play dawn track if "win"
+            if (status.outcome === 'win') {
+                const dawnPhaseData = gameData.value.phases.phases.find(p => p.id === 'dawn');
+                if (dawnPhaseData.musicTrack) {
+                    audio.playMusic(dawnPhaseData.musicTrack);
+                }
+            }
         } else {
             // Run monster's turn (spawning/despawning, fortification damage)
             runMonsterTurn(gameState.value, gameData.value);
             // 5. Update the UI for the next turn
             _updateUI();
+            // 6. Check for and play new music for the new phase
+            const newPhaseData = gameData.value.phases.phases.find(p => p.id === gameState.value.world.currentPhaseId);
+            if (newPhaseData.musicTrack) {
+                // Play new track on phase change. If the track is the same or doesn't exist, Howler will just keep playing it.
+                audio.playMusic(newPhaseData.musicTrack);
+            }
         }
     }
 
@@ -189,8 +230,19 @@ export const useGameStore = defineStore('game', () => {
         console.log("Restarting game, deleting save...");
         // 1. Delete the save file
         localStorage.removeItem(SAVE_GAME_KEY);
-        // 2. Reload the page
+        // 2. Stop all music
+        audio.stopAllMusic();
+        // 3. Reload the page
         location.reload();
+    };
+
+    /**
+     * Called by the slider in OptionsOverlay.
+     * @param {string} newVolume The new value from the slider (0-100)
+     */
+    function updateVolume(newVolume) {
+        volume.value = parseInt(newVolume, 10);
+        _setVolume();
     };
 
 
@@ -204,12 +256,14 @@ export const useGameStore = defineStore('game', () => {
         isInventoryOpen,
         isOptionsOpen,
         isGameOver,
+        volume,
 
         // Functions
         startGame,
         handlePlayerAction,
         toggleInventory,
         toggleOptions,
-        restartGame
+        restartGame,
+        updateVolume
     };
 })
