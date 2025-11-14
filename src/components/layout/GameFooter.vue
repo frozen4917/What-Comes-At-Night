@@ -16,9 +16,6 @@ const gameStore = useGameStore();
         <button class="footer-button" @click="gameStore.restartGame()">
             Restart
         </button>
-        <button class="footer-button" onclick="window.open('https://github.com/frozen4917/', '_blank')">
-            Github
-        </button>
 
     </nav>
 </template>
