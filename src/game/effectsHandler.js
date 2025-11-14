@@ -106,6 +106,12 @@ export function handleEffects(chosenAction, gameState, gameData) {
                 gameState.world.traps[value] +=  1; // Increment trap counter for that location
                 gameState.player.inventory.wood -= 1; // Remove materials
                 gameState.player.inventory.net -= 1; // Remove materials
+                if (gameState.player.inventory.wood <= 0) {
+                    delete gameState.player.inventory.wood;
+                }
+                if (gameState.player.inventory.net <= 0) {
+                    delete gameState.player.inventory.net;
+                }
                 break;
             
             case "wait": // Handles the "do nothing" option, always available
