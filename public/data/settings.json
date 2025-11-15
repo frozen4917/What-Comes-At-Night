@@ -1,0 +1,37 @@
+{
+    "NOISE": {
+        "SPAWN": 50,
+        "DESPAWN": {
+            "SHORT": 35,
+            "LONG": 25
+        }
+    },
+    "STATUS_WARNINGS": {
+        "CRITICAL": 15,
+        "LOW": 35
+    },
+    "GAME_OVER": {
+        "WIN_CRITICAL": 15
+    },
+    "PLAYER": {
+        "ENFEEBLE_MULTIPLIER": 0.75
+    },
+    "COOLDOWNS": {
+        "GRACE_PERIOD": 3,
+        "REPEAT_SPAWN": 3
+    },
+    "BOSS_ATTACKS": {
+        "vampire": {
+            "LIFE_DRAIN_WEIGHTAGE": 25,
+            "ENFEEBLE_WEIGHTAGE": 25
+        },
+        "witch": {
+            "HEAL_HORDE_WEIGHTAGE": 25,
+            "HEAL_HORDE_AMOUNT": 8,
+            "HEAL_HORDE_HEALTH_CUTOFF": 0.6,
+            "THROW_POTION_WEIGHTAGE": 30,
+            "POTION_DAMAGE_MIN": 6,
+            "POTION_DAMAGE_MAX": 15
+        }
+    }
+}

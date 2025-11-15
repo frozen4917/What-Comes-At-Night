@@ -8,7 +8,7 @@ import { getRandomInt, renderText } from "./utils.js";
  */
 export function buildPromptText(gameState, gameData) {
     const { player, world, status } = gameState; // Deconstruct gameState
-    const { texts } = gameData;
+    const { texts, settings } = gameData;
 
     // --- TIMELINE TEXT ---
     // This is purely flavor text based on the current phase and actions remaining
@@ -77,16 +77,16 @@ export function buildPromptText(gameState, gameData) {
     const statusMessages = [];
     
     // Health Warnings
-    if (player.health <= 15) {
+    if (player.health <= settings.STATUS_WARNINGS.CRITICAL) {
         statusMessages.push(texts.status_health_critical);
-    } else if (player.health <= 35) {
+    } else if (player.health <= settings.STATUS_WARNINGS.LOW) {
         statusMessages.push(texts.status_health_low);
     }
 
     // Stamina Warnings
-    if (player.stamina <= 15) {
+    if (player.stamina <= settings.STATUS_WARNINGS.CRITICAL) {
         statusMessages.push(texts.status_stamina_critical);
-    } else if (player.stamina <= 35) {
+    } else if (player.stamina <= settings.STATUS_WARNINGS.LOW) {
         statusMessages.push(texts.status_stamina_low);
     }
     

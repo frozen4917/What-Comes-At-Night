@@ -326,10 +326,10 @@ export function processTimedEvents(gameState, gameData) {
  */
 export function processNoiseSpawning(gameState, gameData) {
     const { world, status, horde } = gameState;
-    const { phases, monsters } = gameData;
+    const { phases, monsters, settings } = gameData;
 
     // Check if noise threshold is met. If not, exit early
-    if (world.noise < 50) return;
+    if (world.noise < settings.NOISE.SPAWN) return;
     
     // Check if a "grace period" is active (after killing all monsters or letting them despawn)
     if (status.gracePeriodCooldown > 0) return; // Player is in a grace period
@@ -360,7 +360,7 @@ export function processNoiseSpawning(gameState, gameData) {
     // Step 3: Add monster to the horde list and update status
     horde[monsterType].push(newMonster);
     status.gameMode = "combat_lone"; // Change game mode to "combat_lone"
-    status.repeatedSpawnCooldown = 3; // Set the 3-turn REPEAT cooldown. This prevents repeated spawn if the noise is continuously above the threshold
+    status.repeatedSpawnCooldown = settings.COOLDOWNS.REPEAT_SPAWN; // Set the (3-turn) REPEAT cooldown. This prevents repeated spawn if the noise is continuously above the threshold
     status.noiseSpawnCount++; // Increment the unique ID counter 
 
     // Step 4: Set horde location if not already set by another lone monster
@@ -388,6 +388,7 @@ export function processNoiseSpawning(gameState, gameData) {
  */
 export function processNoiseDespawning(gameState, gameData) {
     const { world, horde, status } = gameState;
+    const { settings } = gameData;
 
     // Only despawn if the combat mode is 'combat_lone'
     if (status.gameMode !== 'combat_lone') return;
@@ -401,13 +402,13 @@ export function processNoiseDespawning(gameState, gameData) {
     const despawnedCounts = {};
 
     // Check for short-lingering monsters and add them to the list if noise is low enough.
-    if (world.noise < 35) {
+    if (world.noise < settings.NOISE.DESPAWN.SHORT) {
         const shortLingerers = countMonsters(horde, "lingers_short", gameData);
         Object.assign(despawnedCounts, shortLingerers);
     }
 
     // Check for long-lingering monsters and add them to the list if noise is low enough.
-    if (world.noise < 25) {
+    if (world.noise < settings.NOISE.DESPAWN.LONG) {
         const longLingerers = countMonsters(horde, "lingers_long", gameData);
         Object.assign(despawnedCounts, longLingerers);
     }
@@ -441,7 +442,7 @@ export function processNoiseDespawning(gameState, gameData) {
     });
     
 
-    checkAndSetGracePeriod(gameState); // The horde is empty now. Set cooldowns and change game mode
+    checkAndSetGracePeriod(gameState, gameData); // The horde is empty now. Set cooldowns and change game mode
 }
 
 /**
@@ -529,6 +530,7 @@ export function processPlayerDamage(gameState, gameData) {
  */
 function handleVampireAttack(gameState, gameData) {
     const { player, horde, world, status } = gameState;
+    const { settings } = gameData;
     const vampireInstance = horde.vampire[0];
     const vampireData = gameData.monsters.vampire;
 
@@ -536,12 +538,12 @@ function handleVampireAttack(gameState, gameData) {
 
     // Special 1: Life Drain - 25% - Player HP > 60 & Vampire health < Max health & same location
     if (player.health > 60 && vampireInstance.currentHealth < vampireData.health && world.currentLocation === world.hordeLocation) {
-        movePool.push({ name: "life_drain", weight: 25 });
+        movePool.push({ name: "life_drain", weight: settings.BOSS_ATTACKS.vampire.LIFE_DRAIN_WEIGHTAGE });
     }
 
     // Special 2: Enfeebling - 25% - Player NOT cursed & Player Stamina > 40. Can occur from distance
     if (player.stamina > 40 && !world.flags.enfeebled) {
-        movePool.push({ name: "enfeebling", weight: 25 });
+        movePool.push({ name: "enfeebling", weight: settings.BOSS_ATTACKS.vampire.ENFEEBLE_WEIGHTAGE });
     }
 
     const specialMovesWeight = movePool.reduce((sum, move) => sum + move.weight, 0);
@@ -587,7 +589,8 @@ function handleVampireAttack(gameState, gameData) {
  */
 function handleWitchAttack(gameState, gameData) {
     const { player, horde, world, status } = gameState;
-
+    const { settings } = gameData;
+ 
     let movePool = []; // Stores all the moves
 
     // Special 1: Heals Horde - 25% - Atleast 2 other non-boss are below 60% health
@@ -598,18 +601,18 @@ function handleWitchAttack(gameState, gameData) {
 
         const typeMaxHealth = gameData.monsters[type].health;
         for (const monster of horde[type]) {
-            if (monster.currentHealth < (typeMaxHealth * 0.6)) {
-                healableMonsters++; // If the monster health is less than 60% of its max health, it can be healed.
+            if (monster.currentHealth < (typeMaxHealth * settings.BOSS_ATTACKS.witch.HEAL_HORDE_HEALTH_CUTOFF)) {
+                healableMonsters++; // If the monster health is less than the cutoff(60%) of its max health, it can be healed.
             }
         }
     }
     if (healableMonsters >= 2) {
-        movePool.push({ name: "heal_horde", weight: 25 });
+        movePool.push({ name: "heal_horde", weight: settings.BOSS_ATTACKS.witch.HEAL_HORDE_WEIGHTAGE });
     }
 
     // Special 2: Throws potion - 30% - Player is not too far away (Not allowed condition: Player at cabin, Witch at campGate)
     if (!(world.currentLocation === 'cabin' && world.hordeLocation === 'campGate')) {
-        movePool.push({ name: "throw_potion", weight: 30 });
+        movePool.push({ name: "throw_potion", weight: settings.BOSS_ATTACKS.witch.THROW_POTION_WEIGHTAGE });
     }
 
     const specialMovesWeight = movePool.reduce((sum, move) => sum + move.weight, 0);
@@ -619,7 +622,7 @@ function handleWitchAttack(gameState, gameData) {
     
     switch (chosenMove.name) {
         case "heal_horde":
-            const healAmount = 8;
+            const healAmount = settings.BOSS_ATTACKS.witch.HEAL_HORDE_AMOUNT;
             let totalHeal = 0;
             for (const type of monsterTypes) {
                 if (!horde[type]) continue; // If no monsters of that type, skip it
@@ -642,7 +645,7 @@ function handleWitchAttack(gameState, gameData) {
             return true; // Special attack was performed
 
         case "throw_potion":
-            const potionDamage = getRandomInt(6, 15);
+            const potionDamage = getRandomInt(settings.BOSS_ATTACKS.witch.POTION_DAMAGE_MIN, settings.BOSS_ATTACKS.witch.POTION_DAMAGE_MAX);
             player.health = Math.max(0, player.health - potionDamage); // Damage the player from a distance using the potion
             status.messageQueue.push({ 
                 text_ref: "threat_witch_throw_potion",

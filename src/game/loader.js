@@ -13,6 +13,7 @@ export async function loadGameData() {
         'locations.json',
         'monsters.json',
         'phases.json',
+        'settings.json',
         'texts.json'
     ];
 

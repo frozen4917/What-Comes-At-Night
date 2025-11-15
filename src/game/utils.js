@@ -107,8 +107,9 @@ export function renderText(template, params) {
 /**
  * Checks for absence of monsters and updates gameMode, hordeLocation, and cooldowns
  * @param {Object} gameState Current dynamic game state
+ * @param {Object} gameData Game-related data
  */
-export function checkAndSetGracePeriod(gameState) {
+export function checkAndSetGracePeriod(gameState, gameData) {
     const { status, horde, world } = gameState;
 
     if (status.gameMode === 'exploring') return;
@@ -128,7 +129,7 @@ export function checkAndSetGracePeriod(gameState) {
     world.hordeLocation = "";
 
     // Cooldowns
-    status.gracePeriodCooldown = 3;
+    status.gracePeriodCooldown = gameData.settings.COOLDOWNS.GRACE_PERIOD;
     status.repeatedSpawnCooldown = 0;
 }
 

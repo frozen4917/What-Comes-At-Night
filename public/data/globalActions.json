@@ -129,7 +129,7 @@
                     "id": "wait",
                     "text_ref": "action_text_wait",
                     "effects": { 
-                        "wait": true
+                        "wait": { "staminaGain": 5, "noiseReduction": 8, "hidingNoiseReduction": 15 }
                     }
                 },
                 {

@@ -119,15 +119,15 @@ export function handleEffects(chosenAction, gameState, gameData) {
 
                 if (gameState.status.playerState === "hiding") {
                     // --- Player is hiding ---
-                    const noiseReduction = 15; // Noise reduction
+                    const noiseReduction = value.hidingNoiseReduction; // Noise reduction
                     let currentNoise = gameState.world.noise;
                     gameState.world.noise = Math.max(0, currentNoise - noiseReduction);
 
                     gameState.status.messageQueue.push({ text_ref: "outcome_wait_hiding" }); // Pushes unique message
                 } else {
                     // --- Player is not hiding (Stamina gain condition) ---
-                    const stamGain = 5; // Add bonus stamina
-                    const noiseReduction = 8; // Noise reduction
+                    const stamGain = value.staminaGain; // Add bonus stamina
+                    const noiseReduction = value.noiseReduction; // Noise reduction
                     const currentStaminaValue = gameState.player.stamina;
                     gameState.player.stamina = Math.min(100, gameState.player.stamina + stamGain);
                     const netStaminaGain = gameState.player.stamina - currentStaminaValue;
@@ -269,7 +269,7 @@ function processSingleAttack(effects, weaponID, gameState, gameData) {
     const baseDamage = weaponData.effects.single_attack.damage;
     const enfeebled = gameState.world.flags.enfeebled;
     // Damage = Base Damage + small randomiser. If enfeebled, the damage is only 3/4th of the actual value.
-    const damage = Math.floor((baseDamage + getRandomInt(-2, 2)) * (enfeebled ? 0.75 : 1));
+    const damage = Math.floor((baseDamage + getRandomInt(-2, 2)) * (enfeebled ? gameData.settings.PLAYER.ENFEEBLE_MULTIPLIER : 1));
     const target = effects.attackTarget; // Fetch the target
     const hordeList = gameState.horde[target];
 
@@ -287,7 +287,7 @@ function processSingleAttack(effects, weaponID, gameState, gameData) {
             hordeList.splice(randomIndex, 1); // Remove the defeated monster
             
             killParam = ` You killed the ${gameData.monsters[target].name}.`; // Add feedback
-            checkAndSetGracePeriod(gameState); // Check if it was the last monster in the horde. If so, set cooldowns and change game mode
+            checkAndSetGracePeriod(gameState, gameData); // Check if it was the last monster in the horde. If so, set cooldowns and change game mode
         }
 
         // Push the final text
@@ -329,7 +329,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
     // Attack each target
     targetsHit.forEach(monster => {
         // Damage = Base Damage + small randomiser. If enfeebled, the damage is only 3/4th of the actual value. 
-        let damage = Math.floor((baseDamage + getRandomInt(-1, 2)) * (enfeebled ? 0.75 : 1));
+        let damage = Math.floor((baseDamage + getRandomInt(-1, 2)) * (enfeebled ? gameData.settings.PLAYER.ENFEEBLE_MULTIPLIER : 1));
         monster.currentHealth -= damage;
         totalDamage += damage;
         if (monster.currentHealth <= 0) {
@@ -345,7 +345,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
     let killParam = '', cursedParam = '';
     if (defeatedCount > 0) {
         killParam = ` You defeated ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback if player defeates atleast one monster
-        checkAndSetGracePeriod(gameState); // Check if the horde is empty now. If so, set cooldowns and change game mode
+        checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
     if (enfeebled) {
         cursedParam = " Your heavy arms struggle to follow through with the sweeping attack." // If enfeebled, add feedback text
@@ -381,7 +381,7 @@ function processShootAttack(effects, gameState, gameData) {
     const enfeebled = gameState.world.flags.enfeebled;
 
     // Damage = Base Damage + small randomiser. If enfeebled, the damage is only 3/4th of the actual value. 
-    const damage = Math.floor((weaponData.effects.single_attack.damage + getRandomInt(-1, 1)) * (enfeebled ? 0.75 : 1));
+    const damage = Math.floor((weaponData.effects.single_attack.damage + getRandomInt(-1, 1)) * (enfeebled ? gameData.settings.PLAYER.ENFEEBLE_MULTIPLIER : 1));
     const targetOrder = ["witch", "vampire", "zombie", "skeleton", "spirit"]; // Pre-defined target order. It will target the monster with higher priority (lower index)
     let targetMonster = null;
     let targetName = null;
@@ -406,7 +406,7 @@ function processShootAttack(effects, gameState, gameData) {
     if (targetMonster.currentHealth <= 0) {
         targetList.splice(randomIndex, 1); // Remove the defeated monster
         killParam = ` You shot the ${targetName} to death.`; // Add feedback
-        checkAndSetGracePeriod(gameState); // Check if the horde is empty now. If so, set cooldowns and change game mode
+        checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
     if (enfeebled) {
         cursedParam = " Your tired arms struggle to draw the bowstring." // If enfeebled, add feedback text
@@ -450,7 +450,7 @@ function processIncinerateAttack(effects, gameState, gameData) {
     allMonsters.forEach(monster => {
         // Damage each monster separately
         // Damage = Base damage + randomiser. If enfeebled, the damage is only 3/4th of the actual value.
-        let damage = Math.floor((baseDamage + getRandomInt(-4, 3)) * (enfeebled ? 0.75 : 1));
+        let damage = Math.floor((baseDamage + getRandomInt(-4, 3)) * (enfeebled ? gameData.settings.PLAYER.ENFEEBLE_MULTIPLIER : 1));
         monster.currentHealth -= baseDamage;
         totalDamage += damage;
         if (monster.currentHealth <= 0) {
@@ -469,7 +469,7 @@ function processIncinerateAttack(effects, gameState, gameData) {
     }
     if (defeatedCount > 0) {
         killParam = ` The fire ends up killing ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback
-        checkAndSetGracePeriod(gameState); // Check if the horde is empty now. If so, set cooldowns and change game mode
+        checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
 
     // Push the final text
@@ -507,7 +507,7 @@ function processSpecialAttack(effects, gameState, gameData) {
             bossList.shift(); // Remove the boss from the horde if dead.
             
             killParam = ` You defeated the ${gameData.monsters[bossType].name}.` // Add feedback if boss is killed
-            checkAndSetGracePeriod(gameState); // Check if the horde is empty now. If so, set cooldowns and change game mode
+            checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
         }
 
         // Push the final text
