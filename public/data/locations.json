@@ -106,7 +106,7 @@
                         "text_ref": "action_text_search_food_tent",
                         "showIf": [ { "notScavenged": "search_food_tent" }, { "minStamina": 6 } ],
                         "effects": {
-                            "addItems": { "canned_food": 2, "bottle": 2, "salt": 2 },
+                            "addItems": { "canned_food": 2, "bottle": 1, "salt": 2 },
                             "changeStat": { "stamina": -6, "noise": 4 },
                             "addScavengedFlag": "search_food_tent",
                             "result_ref": "outcome_search_food_tent"
@@ -117,7 +117,7 @@
                         "text_ref": "action_text_search_utility_tent",
                         "showIf": [ { "notScavenged": "search_utility_tent" }, { "minStamina": 6 } ],
                         "effects": {
-                            "addItems": { "bandages": 2, "rag": 2 },
+                            "addItems": { "bandages": 2, "rag": 1 },
                             "changeStat": { "stamina": -6, "noise": 4 },
                             "addScavengedFlag": "search_utility_tent",
                             "result_ref": "outcome_search_utility_tent"
@@ -190,7 +190,7 @@
                         "text_ref": "action_text_fortify_cabin",
                         "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["cabin"] }, { "minStamina": 12 } ],
                         "effects": { 
-                            "changeStat": { "cabin": 25, "stamina": -12, "noise": 10 }, 
+                            "changeStat": { "cabin": 30, "stamina": -12, "noise": 10 }, 
                             "removeItem": "wood", 
                             "result_ref": "outcome_fortify_cabin" 
                         }
@@ -229,7 +229,7 @@
                         "text_ref": "action_text_search_cabin_items",
                         "showIf": [ { "notScavenged": "search_cabin_items" }, { "minStamina": 6 } ],
                         "effects": {
-                            "addItems": { "first_aid_kit": 1, "fuel": 2 },
+                            "addItems": { "first_aid_kit": 1, "fuel": 1 },
                             "changeStat": { "stamina": -6, "noise": 4 },
                             "addScavengedFlag": "search_cabin_items",
                             "result_ref": "outcome_search_cabin_items"
@@ -266,7 +266,7 @@
                         "text_ref": "action_text_fortify_graveyardGate",
                         "showIf": [ { "hasItem": "wood" }, { "hordeLocationNotIn": ["graveyard"] }, { "minStamina": 12 } ],
                         "effects": { 
-                            "changeStat": { "graveyardGate": 20, "stamina": -12, "noise": 10 }, 
+                            "changeStat": { "graveyardGate": 30, "stamina": -12, "noise": 10 }, 
                             "removeItem": "wood",
                             "result_ref": "outcome_fortify_graveyardGate"
                         }

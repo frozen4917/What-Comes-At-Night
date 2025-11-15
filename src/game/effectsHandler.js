@@ -315,13 +315,14 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
 
     const weaponData = gameData.items[weaponID]; // Weapon's data from items.json
     const baseDamage = weaponData.effects.cleave_attack.damage;
-    const maxTargets = weaponData.effects.cleave_attack.targets; // Number of monsters that can be attacked at once
+    const targetLimits = weaponData.effects.cleave_attack.targets; // { "min": ..., "max": ... }
+    const maxSwingTargets = getRandomInt(targetLimits.min, targetLimits.max); // Max Number of monsters that can be attacked at once ON THIS TURN 
     const enfeebled = gameState.world.flags.enfeebled;
 
     let allMonsters = Object.values(gameState.horde).flat(); // Get an array of all monsters
     allMonsters.sort(() => 0.5 - Math.random()); // Randomise the array
 
-    let targetsHit = allMonsters.slice(0, maxTargets); // Selects targets based on maxTargets
+    let targetsHit = allMonsters.slice(0, maxSwingTargets); // Selects targets based on maxSwingTargets
     let defeatedCount = 0;
     let totalDamage = 0;
 
@@ -467,7 +468,7 @@ function processIncinerateAttack(effects, gameState, gameData) {
         cursedParam = " Your throw, weakened by the curse, doesn't achieve its full potential." // If enfeebled, add feedback text
     }
     if (defeatedCount > 0) {
-        killParam = ` The fire ends up killing ${defeatedCount} monsters.`; // Add feedback
+        killParam = ` The fire ends up killing ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback
         checkAndSetGracePeriod(gameState); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
 

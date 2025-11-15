@@ -28,15 +28,15 @@
                 "targets": 1
             },
             "cleave_attack": {
-                "damage": 12,
-                "targets": 3
+                "damage": 15,
+                "targets": { "min": 4, "max": 4 }
             }
         }
     },
     "fuel": {
         "name": "Fuel",
         "description_ref": "item_desc_fuel",
-        "limit": 2,
+        "limit": 1,
         "type": "crafting"
     },
     "first_aid_kit": {
@@ -65,7 +65,7 @@
         "type": "weapon",
         "effects": {
             "single_attack": {
-                "damage": 12,
+                "damage": 16,
                 "targets": 1
             }
         },
@@ -107,13 +107,13 @@
     "bottle": {
         "name": "Empty Bottle",
         "description_ref": "item_desc_bottle",
-        "limit": 2,
+        "limit": 1,
         "type": "crafting"
     },
     "rag": {
         "name": "Rag",
         "description_ref": "item_desc_rag",
-        "limit": 2,
+        "limit": 1,
         "type": "crafting"
     },
     "mushrooms": {
@@ -143,7 +143,7 @@
         "recipe": [ { "item": "fuel", "quantity": 1 }, { "item": "rag", "quantity": 1 }, { "item": "bottle", "quantity": 1 } ],
         "effects": {
             "incinerate": {
-                "damage": 24,
+                "damage": 18,
                 "targets": "all"
             }
         }

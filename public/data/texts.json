@@ -59,10 +59,10 @@
     "outcome_search_rec_tent": "You rummage through the recreational tent. You find some useful items, including a baseball bat, a bow, and 5 arrows.",
     "outcome_search_woods": "You look through the woods beyond the campsite's perimeter. You collect 4 mushrooms, 2 garlics from the patch, and 2 wood.",
     "outcome_search_woods_again": "You quietly look through the woods again. You are able to find {quantity} wood.",
-    "outcome_search_food_tent": "You go through the food tent. You manage to gather 2 empty bottles, 2 salt shakers, and 2 cans of food.",
-    "outcome_search_utility_tent": "You look into the utility tent for any items. You find 2 old rags and 2 bandages.",
+    "outcome_search_food_tent": "You go through the food tent. You manage to gather an empty bottle, 2 salt shakers, and 2 cans of food.",
+    "outcome_search_utility_tent": "You look into the utility tent for any items. You find an old rag and 2 bandages.",
     "outcome_search_pier": "You wander off to the water body. You look near the pier for any items that could be helpful. You recover 2 nets and 2 twines.",
-    "outcome_search_cabin_items": "You explore through the wooden cabin. You find 2 cans of fuel as well as a first-aid kit. They can come in handy.",
+    "outcome_search_cabin_items": "You explore through the wooden cabin. You find a can of fuel as well as a first-aid kit. They can come in handy.",
     "outcome_gather_rowan_tree": "Knowing a witch's weakness, you gather some berries from the rowan tree in the graveyard. You collect 2 rowan berries.",
     "outcome_search_gravekeepers_hut": "You go inside the gravekeeper's hut, hoping he wouldn't mind. You find 2 bandages and a door key.",
     "outcome_search_shed": "You look through the old shed. You find a rather-well-maintained axe. It can definitely strike.",
@@ -144,7 +144,7 @@
     "loc_desc_campsite_first": "A group of monsters is hot on your tail. The night is dangerous. You've managed to outrun the horde and get some time to get yourself under control. You find yourself in a campsite amidst a rough clearing through the woods as the sun begins to set. Several tents are pitched around a warm campfire. A wooden cabin stands at the far west. A small wooden pier extends over the dark water ahead.",
     "loc_desc_campsite_current": [
         "You remain at the campsite. The campfires burn bright, enough to provide you with some warmth.",
-        "The campsite remains your position. Overhead, the trees sway gently, their branches creating shifting patterns of light and shadow across the tents and cabin",
+        "The campsite remains your position. Overhead, the trees sway gently, their branches creating shifting patterns of light and shadow across the tents and cabin.",
         "You remain at the campsite, staying close to the fire's warmth. The flames pop and hiss occasionally, sending sparks spiraling upward into the night sky.",
         "You stay put at the campsite, the familiar surroundings offering what comfort they can."
     ],

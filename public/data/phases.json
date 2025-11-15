@@ -61,11 +61,11 @@
                         "value": 8
                     },
                     "effect": {
-                        "spawn": [ {"bossPool": ["witch", "vampire"], "count": 1}, {"monster": "zombie", "count": 4}, {"monster": "spirit", "count": 4},{"monster": "skeleton", "count": 3} ]
+                        "spawn": [ {"bossPool": ["witch", "vampire"], "count": 1}, {"monster": "zombie", "count": 3}, {"monster": "spirit", "count": 2},{"monster": "skeleton", "count": 4} ]
                     }
                 }
             ],
-            "fortificationDamageMultiplier": 0.75,
+            "fortificationDamageMultiplier": 0.7,
             "musicTrack": "Blood Moon.mp3"
         },
         {
