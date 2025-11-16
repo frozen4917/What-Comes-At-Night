@@ -13,7 +13,7 @@ const gameStore = useGameStore();
         <button class="footer-button" @click="gameStore.toggleOptions()">
             Options
         </button>
-        <button class="footer-button" @click="gameStore.restartGame()">
+        <button class="footer-button" @click="gameStore.toggleRestartConfirm()">
             Restart
         </button>
 

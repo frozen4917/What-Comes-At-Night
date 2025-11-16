@@ -42,6 +42,7 @@ export const useGameStore = defineStore('game', () => {
     const isInventoryOpen = ref(false);
     const isOptionsOpen = ref(false);
     const isGameOver = ref(false);
+    const isRestartConfirmOpen = ref(false);
 
     // --- SETTINGS ---
     const savedSettings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
@@ -225,6 +226,9 @@ export const useGameStore = defineStore('game', () => {
     function toggleOptions() {
         isOptionsOpen.value = !isOptionsOpen.value;
     }
+    function toggleRestartConfirm() {
+        isRestartConfirmOpen.value = !isRestartConfirmOpen.value;
+    };
 
     function restartGame() {
         console.log("Restarting game, deleting save...");
@@ -256,6 +260,7 @@ export const useGameStore = defineStore('game', () => {
         isInventoryOpen,
         isOptionsOpen,
         isGameOver,
+        isRestartConfirmOpen,
         volume,
 
         // Functions
@@ -263,6 +268,7 @@ export const useGameStore = defineStore('game', () => {
         handlePlayerAction,
         toggleInventory,
         toggleOptions,
+        toggleRestartConfirm,
         restartGame,
         updateVolume
     };

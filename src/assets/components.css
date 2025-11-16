@@ -105,3 +105,36 @@
 .tooltip-line:last-child {
     margin-bottom: 0;
 }
+
+/* --- C4. MODAL BUTTON STYLES --- */
+.modal-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.modal-button {
+    /* Reset button styles */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    /* Font and Theme */
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    color: #777; /* Default: faded grey */
+}
+.modal-button:hover {
+    color: #d1d1d1;
+    transform: scale(1.05);
+}
+
+/* Special style for the "confirm" or "danger" option */
+.modal-button.confirm {
+    color: var(--accent-color);
+    font-weight: bold;
+}

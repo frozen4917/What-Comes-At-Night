@@ -8,9 +8,11 @@ import StatsBar from './components/layout/StatsBar.vue';
 import ContentDisplay from './components/layout/ContentDisplay.vue';
 import ActionMenu from './components/layout/ActionMenu.vue';
 import GameFooter from './components/layout/GameFooter.vue';
+
 import InventoryOverlay from './components/overlays/InventoryOverlay.vue';
 import OptionsOverlay from './components/overlays/OptionsOverlay.vue';
 import EndGameOverlay from './components/overlays/EndGameOverlay.vue';
+import RestartConfirmationOverlay from './components/overlays/RestartConfirmationOverlay.vue';
 
 // 2. Initialize the game store (our "Controller")
 const gameStore = useGameStore();
@@ -44,6 +46,7 @@ const themeClass = computed(() => {
 
             <InventoryOverlay v-if="gameStore.isInventoryOpen" />
             <OptionsOverlay v-if="gameStore.isOptionsOpen" />
+            <RestartConfirmationOverlay v-if="gameStore.isRestartConfirmOpen" />
 
         </template>
     </div>

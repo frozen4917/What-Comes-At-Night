@@ -48,12 +48,13 @@
 }
 
 /* --- O2. STATE CHANGE CLASSES --- */
-.inventory-is-open #inventory-overlay,
-.options-is-open #options-overlay {
+/* .inventory-is-open #inventory-overlay,
+.options-is-open #options-overlay
+.restart-confirm-is-open #restart-confirm-overlay {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .game-is-over #end-game-overlay {
     display: flex;
