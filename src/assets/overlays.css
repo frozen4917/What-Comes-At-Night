@@ -1,0 +1,67 @@
+/* --- O1. OVERLAY STYLES --- */
+.overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(3px);
+    z-index: 100;
+}
+
+.overlay-content {
+    background-color: #0a0a0a;
+    border: 1px solid #333;
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 40rem;
+    text-align: center;
+    font-family: 'Special Elite', monospace;
+    margin: auto; /* This centers the popup */
+}
+
+.overlay-content h2 {
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-top: 0;
+}
+
+.inventory-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    font-size: 1.6rem;
+}
+
+.inventory-list li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #222;
+}
+
+.close-button {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+}
+
+/* --- O2. STATE CHANGE CLASSES --- */
+.inventory-is-open #inventory-overlay,
+.options-is-open #options-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-is-over #end-game-overlay {
+    display: flex;
+}
+
+.game-is-over #stats-bar,
+.game-is-over #content-display,
+.game-is-over #action-menu,
+.game-is-over #game-footer {
+    display: none;
+}

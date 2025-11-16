@@ -1,0 +1,86 @@
+/* --- G1. THEME & GLOBAL SETTINGS --- */
+:root {
+    --accent-color: #b91c1c;
+}
+
+html {
+    font-size: 72.5%;
+}
+
+.theme-dusk {
+    --accent-color: #e08666;
+}
+
+.theme-evening {
+    --accent-color: #8c76ab;
+}
+
+.theme-nightfall {
+    --accent-color: #5876a6;
+}
+
+.theme-deep_night {
+    --accent-color: #3e4f8f;
+}
+
+.theme-witching_hour {
+    --accent-color: #b91c1c;
+}
+
+.theme-pre_dawn {
+    --accent-color: #add8e6;
+}
+
+.theme-dawn {
+    --accent-color: #ffefba;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #d1d1d1;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.7rem;
+    /* Was 17px */
+    margin: 0;
+    overflow: hidden;
+}
+
+/* --- G2. CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar {
+    width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+    background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    filter: brightness(1.2);
+}
+
+/* --- G3. PULSE ANIMATION --- */
+@keyframes pulse-red {
+    0% {
+        color: #ff4444;
+        text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+    }
+
+    50% {
+        color: #d1d1d1;
+        text-shadow: none;
+    }
+
+    100% {
+        color: #ff4444;
+        text-shadow: 0 0 5px rgba(255, 68, 68, 0.5);
+    }
+}
+
+.critical {
+    animation: pulse-red 1.2s infinite ease-in-out;
+}

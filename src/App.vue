@@ -50,5 +50,5 @@ const themeClass = computed(() => {
 </template>
 
 <style>
-@import './assets/themes.css';
+@import './assets/main.css';
 </style>

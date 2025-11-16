@@ -1,0 +1,42 @@
+/* --- R1. MOBILE RESPONSIVENESS --- */
+@media (max-width: 48rem) {
+
+    /* On small mobile screens, reduce the base font size. */
+    body {
+        font-size: 1.5rem;
+    }
+
+    #stats-bar {
+        grid-template-columns: 1fr auto 1fr; /* 3-column grid, like desktop */
+        align-items: center; /* Vertically center all 3 columns */
+        gap: 1.0rem;
+        padding: 1.0rem;
+    }
+
+    #stats-bar>.stats-left {
+        grid-column: 1 / 2; /* Column 1 */
+        flex-direction: column;
+        gap: 1.0rem;
+        align-items: flex-start; /* Aligns text left */
+    }
+
+    #stats-bar>.stats-right {
+        grid-column: 3 / 4; /* Column 3 */
+        flex-direction: column;
+        gap: 1.0rem;
+        align-items: flex-end; /* Aligns text right */
+    }
+
+    #stats-bar>.stats-center-icon {
+        grid-column: 2 / 3; /* Column 2 (The Middle) */
+        grid-row: 1; /* Stay on the first row */
+        height: 4.0rem; /* Use a fixed rem height on mobile */
+    }
+
+    /* Reduce padding on content panels */
+    #content-display,
+    #action-categories,
+    #action-sub-options {
+        padding: 1.5rem;
+    }
+}

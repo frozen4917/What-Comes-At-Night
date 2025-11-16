@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 
 import App from './App.vue';
-import './assets/themes.css'; // Import your main stylesheet
+import './assets/main.css'; // Import your main stylesheet
 
 // 1. Create the Vue app instance
 const app = createApp(App);

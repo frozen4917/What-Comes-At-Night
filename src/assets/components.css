@@ -1,0 +1,107 @@
+/* --- C1. ACTION BUTTONS --- */
+.action-button {
+    background: transparent;
+    border: none;
+    color: #d1d1d1;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.6rem;
+    text-align: left;
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.action-button:hover {
+    color: var(--accent-color);
+    transform: translateX(0.5rem);
+}
+
+.action-button.category-button {
+    font-size: 1.7rem;
+    color: #777;
+    text-transform: uppercase;
+}
+
+.action-button.category-button.active {
+    /* color: #d1d1d1; */
+    color: var(--accent-color);
+    font-weight: bold;
+    border-left: 3px solid var(--accent-color);
+    padding-left: 1rem;
+}
+
+.action-button.category-button:hover {
+    color: var(--accent-color);
+    transform: translateX(0);
+}
+
+/* --- C2. END GAME BUTTON STYLE --- */
+.end-game-button {
+    background: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 1.2rem 2.4rem;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    margin-top: 4rem;
+    transition: all 0.2s ease;
+}
+
+.end-game-button:hover {
+    background: var(--accent-color);
+    color: #0a0a0a;
+    font-weight: bold;
+}
+
+/* --- C3. ACTION TOOLTIP STYLES --- */
+
+/* The info button (!) */
+.info-button {
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    padding: 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    filter: brightness(0.8);
+}
+.info-button:hover {
+    filter: brightness(1);
+    transform: scale(1.1);
+}
+
+/* The tooltip popup itself */
+.tooltip-popup {
+    position: fixed;
+    transform: translateY(-80%) translateX(-5%); 
+    
+    background: #0a0a0a;
+    border: 1px solid var(--accent-color);
+    padding: 1rem;
+    z-index: 2000;
+    
+    width: 16rem;
+    
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1rem;
+    line-height: 1.1;
+    color: #d1d1d1;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.tooltip-line {
+    white-space: pre-line;
+    margin-bottom: 0.5rem;
+}
+
+.tooltip-line:last-child {
+    margin-bottom: 0;
+}
