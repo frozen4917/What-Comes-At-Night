@@ -97,3 +97,142 @@ export function buildPromptText(gameState, gameData) {
     const parts = [timelineText, locationDescription, consequenceAndThreatText, statusText];
     return parts.filter(part => part).join('\n\n'); // Filter out empty parts and join
 }
+
+function getItemName(itemId, gameData) {
+    return gameData.items[itemId] ? gameData.items[itemId].name : itemId;
+}
+
+/**
+ * Generates an array of strings for the action tooltip.
+ * @param {object} action - The action object from validActions
+ * @param {Object} gameState Current dynamic game state
+ * @param {Object} gameData Game-related data
+ * @returns {string[]} An array of formatted info lines.
+ */
+export function generateTooltipText(action, gameState, gameData) {
+    const { effects } = action;
+
+    if (!effects || !gameData) return ["No info available."]; // No data, use default text and return
+
+    let costs = [], damage = [], stats = []; // Containers for effects
+
+    // Loop through all keys in the effect object
+    for (const key in effects) {
+        const value = effects[key]; // Get value of an effect change
+        switch (key) {
+            
+            case "wait":
+                if (gameState.status.playerState === "hiding" && gameState.status.gameMode === "combat_lone") {
+                    stats.push(`-${value.hidingNoiseReduction} Noise`);
+                } else {
+                    stats.push(`+${value.staminaGain} Stamina`);
+                    stats.push(`-${value.noiseReduction} Noise`);
+                }
+                break;
+
+            // --- Costs / Gains ---
+            case "changeStat":
+                for (const stat in value) {
+                    const change = value[stat];
+                    if (stat === 'stamina' && change < 0) {
+                        costs.push(`${Math.abs(change)} Stamina`);
+                    }
+                    if (stat === 'noise' && change !== 0) {
+                        const sign = change > 0 ? '+' : '';
+                        stats.push(`${sign}${change} Noise`);
+                    }
+                    if (stat === 'health' && change > 0) {
+                        stats.push(`+${change} HP`);
+                    }
+                    if (stat === 'stamina' && change > 0) {
+                        stats.push(`+${change} Stamina`);
+                    }
+                    if (gameData.initialState.world.fortifications[stat] !== undefined && change > 0) {
+                        stats.push(`+${change} Fortification HP`);
+                    }
+                }
+                break;
+
+            case "removeItem":
+                costs.push(`1 ${gameData.items[value].name}`);
+                break;
+                
+            case "craft":
+                const recipe = gameData.items[value]?.recipe;
+                if (recipe) {
+                    recipe.forEach(ingredient => {
+                        costs.push(`${ingredient.quantity} ${gameData.items[ingredient.item].name}`);
+                    });
+                }
+                break;
+
+            case "addTrap":
+                costs.push(`1 ${gameData.items["wood"].name}`);
+                costs.push(`1 ${gameData.items["net"].name}`);
+                break;
+
+            // --- Damage ---
+            case "attackType":
+                let weapon = null;
+                if (effects.weaponPriority) {
+                    for (const id of effects.weaponPriority) {
+                    // Find if the weapon exists in the inventory. If it does, break out from the loop. Better weapon will be used. (axe > baseball bat)
+                    if (gameState.player.inventory[id] > 0) {
+                        weapon = gameData.items[id];
+                        break;
+                    }
+                }
+                }
+
+                switch (effects.attackType) {
+                    case "single":
+                        damage.push(`Damage: ${weapon.effects.single_attack.damage} (1 Target)`);
+                        break;
+
+                    case "cleave":
+                        const minTargetCount = weapon.effects.cleave_attack.targets.min;
+                        const maxTargetCount = weapon.effects.cleave_attack.targets.max;
+                        let targetCount = '';
+                        if (minTargetCount == maxTargetCount) {
+                            targetCount = maxTargetCount;
+                        } else {
+                            targetCount = `${minTargetCount}-${maxTargetCount}`
+                        }
+                        damage.push(`Damage: ${weapon.effects.cleave_attack.damage} (${targetCount} Targets)`);
+                        break;
+
+                    case "shoot":
+                        costs.push(`1 Arrow`);
+                        damage.push(`Damage: ${gameData.items.bow.effects.single_attack.damage} (1 Target)`);
+                        break;
+
+                    case "incinerate":
+                        costs.push(`1 Molotov`);
+                        damage.push(`Damage: ${gameData.items.molotov.effects.incinerate.damage} (All Targets)`);
+                        break;
+
+                    case "special":
+                        const item = gameData.items[effects.removeItem];
+                        damage.push(`Damage: ${item.effects.damage} (Boss)`);
+                        break;
+                }
+                break;
+            
+            // Default: Ignore keys that don't have tooltips
+            default:
+                break;
+        }
+    }
+
+    // --- Assemble Final Lines ---
+    const lines = [];
+    if (costs.length > 0) lines.push(`Costs: ${costs.join(', ')}`);
+    if (stats.length > 0) lines.push(`Stats: ${stats.join(', ')}`);
+    if (damage.length > 0) lines.push(damage.join(', '));
+
+    if (lines.length === 0) {
+        return ["No significant cost or effect."];
+    }
+    
+    return lines;
+};
