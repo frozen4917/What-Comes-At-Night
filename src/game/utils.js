@@ -127,6 +127,7 @@ export function checkAndSetGracePeriod(gameState, gameData) {
 
     status.gameMode = 'exploring';
     world.hordeLocation = "";
+    status.playerState = "normal";
 
     // Cooldowns
     status.gracePeriodCooldown = gameData.settings.COOLDOWNS.GRACE_PERIOD;

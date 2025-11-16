@@ -117,7 +117,7 @@ export function handleEffects(chosenAction, gameState, gameData) {
             case "wait": // Handles the "do nothing" option, always available
                 specialMessageHandled = true; // Special message is handled here itself. Avoids duplicate message after the 'switch' statement
 
-                if (gameState.status.playerState === "hiding") {
+                if (gameState.status.playerState === "hiding" && gameState.status.gameMode === "combat_lone") {
                     // --- Player is hiding ---
                     const noiseReduction = value.hidingNoiseReduction; // Noise reduction
                     let currentNoise = gameState.world.noise;
