@@ -31,6 +31,29 @@ const totalMonsters = computed(() => {
     }
     return Object.values(gameStore.gameState.horde).reduce((sum, list) => sum + list.length, 0);
 });
+const fortificationMap = {
+    'campsite': 'campGate',
+    'cabin': 'cabin',
+    'graveyard': 'graveyardGate'
+};
+
+// Finds the display name of the current location
+const locationName = computed(() => {
+    if (!gameStore.gameData) return 'Loading...';
+    const locationId = gameStore.gameState.world.currentLocation;
+    return gameStore.gameData.locations[locationId]?.name || locationId;
+});
+
+// Finds the correct fortification HP to display
+const fortificationHP = computed(() => {
+    const locationId = gameStore.gameState.world.currentLocation;
+    const fortId = fortificationMap[locationId]; // e.g., 'campGate'
+    
+    if (fortId) {
+        return gameStore.gameState.world.fortifications[fortId];
+    }
+    return null; // No fortification at this location
+});
 </script>
 
 <template>
@@ -47,6 +70,10 @@ const totalMonsters = computed(() => {
             <div v-if="totalMonsters > 0">
                 <strong>Monsters:</strong>
                 <span class_="value">{{ totalMonsters }}</span>
+            </div>
+            <div v-if="gameStore.gameState.world">
+                <strong>Location:</strong>
+                <span class="value">{{ locationName }}</span>
             </div>
         </div>
 
@@ -67,6 +94,10 @@ const totalMonsters = computed(() => {
                 <span class="value" :class="{ critical: gameStore.gameState.player.stamina <= 15 }">
                     {{ gameStore.gameState.player.stamina }}
                 </span>
+            </div>
+            <div v-if="gameStore.gameState.world">
+                <strong>Fortification HP:</strong>
+                <span class="value">{{ fortificationHP }}</span>
             </div>
             <div v-if="gameStore.gameState.world">
                 <strong>Noise:</strong>

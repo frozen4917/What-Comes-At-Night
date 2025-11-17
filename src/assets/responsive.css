@@ -11,6 +11,7 @@
         align-items: center; /* Vertically center all 3 columns */
         gap: 1.0rem;
         padding: 1.0rem;
+        font-size: 1.4rem;
     }
 
     #stats-bar>.stats-left {
@@ -30,7 +31,7 @@
     #stats-bar>.stats-center-icon {
         grid-column: 2 / 3; /* Column 2 (The Middle) */
         grid-row: 1; /* Stay on the first row */
-        height: 4.0rem; /* Use a fixed rem height on mobile */
+        height: -50%;
     }
 
     /* Reduce padding on content panels */
