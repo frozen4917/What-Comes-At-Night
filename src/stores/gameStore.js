@@ -13,7 +13,7 @@ import {
     checkGameStatus 
 } from '@/game/main.js'
 import { buildPromptText } from '@/game/ui.js'
-import { renderText } from '@/game/utils.js'
+import { renderText, getRandomText } from '@/game/utils.js'
 
 const SAVE_GAME_KEY = 'wcan_saveGame'; // For saving game data
 const SETTINGS_KEY = 'wcan_settings'; // For saving volume
@@ -81,7 +81,7 @@ export const useGameStore = defineStore('game', () => {
     }
 
     /**
-     * Replicates the logic from your original endGame() function to build the final win/loss text.
+     * Replicates the logic from original endGame() function to build the final win/loss text.
      */
     function _buildEndGameText(outcome) {
         const finalMessages = [];
@@ -89,8 +89,10 @@ export const useGameStore = defineStore('game', () => {
         // 1. Get any leftover messages from the queue
         if (gameState.value.status.messageQueue && gameState.value.status.messageQueue.length > 0) {
             for (const messageObject of gameState.value.status.messageQueue) {
-                const template = gameData.value.texts[messageObject.text_ref];
+                console.log(`Rendering ${messageObject.text_ref}`)
+                const template = getRandomText(messageObject.text_ref, gameData.value);
                 if (template) {
+                    console.log(`Pushing ${messageObject.text_ref}`)
                     finalMessages.push(renderText(template, messageObject.params));
                 }
             }
@@ -98,18 +100,18 @@ export const useGameStore = defineStore('game', () => {
         
         // 2. Add the specific win/loss text
         if (outcome === 'lose') {
-            finalMessages.push(gameData.value.texts.game_over_lose);
+            finalMessages.push(getRandomText("game_over_lose", gameData.value));
         } else if (outcome === 'win') {
             finalMessages.push(gameData.value.texts.phase_intro_dawn);
 
             const totalMonsters = Object.values(gameState.value.horde).reduce((sum, list) => sum + list.length, 0);
             if (totalMonsters > 0) {
-                finalMessages.push(gameData.value.texts.game_over_win_monsters);
+                finalMessages.push(getRandomText("game_over_win_monsters", gameData.value));
             }
             if (gameState.value.player.health <= 15) {
-                finalMessages.push(gameData.value.texts.game_over_win_critical);
+                finalMessages.push(getRandomText("game_over_win_critical", gameData.value));
             } else {
-                finalMessages.push(gameData.value.texts.game_over_win_normal);
+                finalMessages.push(getRandomText("game_over_win_normal", gameData.value));
             }
         }
         

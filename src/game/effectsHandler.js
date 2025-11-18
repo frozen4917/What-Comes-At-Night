@@ -25,6 +25,9 @@ export function handleEffects(chosenAction, gameState, gameData) {
                 break;
             
             case "changeStat": // Change player stats, noise, fortification
+                let staminaGainText = "";
+                let healthGainText = "";
+
                 for (const stat in value) {
                     const change = value[stat];
 
@@ -32,9 +35,19 @@ export function handleEffects(chosenAction, gameState, gameData) {
                         // --- Player stats update ---
                         let currentValue = gameState.player[stat];
                         gameState.player[stat] = Math.max(0, Math.min(100, currentValue + change));
-                        
-                        messageParams[stat] = gameState.player[stat] - currentValue; // For texts like: "gain {health} HP" or "gain {stamina} stamina"
+                        let actualChange = gameState.player[stat] - currentValue; // Change in player's stat from initial to final
 
+                        if (stat === 'health' && actualChange > 0) {
+                            // Health increase > 0
+                            healthGainText = ` You regain ${actualChange} HP.`;
+                        }
+                        if (stat === 'stamina' && actualChange > 0) {
+                            // Stamina increase > 0
+                            staminaGainText = ` You regain ${actualChange} stamina.`;
+                        }
+
+                        messageParams.healthGain = healthGainText;
+                        messageParams.staminaGain = staminaGainText;
                     } else if (gameState.world.fortifications[stat] !== undefined) {
                         // --- Fortification update ---
                         let currentFHP = gameState.world.fortifications[stat];
@@ -344,7 +357,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
 
     let killParam = '', cursedParam = '';
     if (defeatedCount > 0) {
-        killParam = ` You defeated ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback if player defeates atleast one monster
+        killParam = ` You manage to kill ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback if player defeates atleast one monster
         checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
     if (enfeebled) {

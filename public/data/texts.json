@@ -1,90 +1,239 @@
 {
-    "threat_horde_spawn_timed_nightfall": "A distant growl rolls across the land! A horde ({composition}) stirs from their hiding places, moving closer with growing hunger.",
-    "threat_horde_spawn_timed_deep_night": "You catch glimpses of movement between the trees. A horde ({composition}) is closing in fast!",
-    "threat_horde_spawn_timed_witching_hour": "The air splits with unholy shrieks! A massive horde ({composition}) emerges from the dark!",
-    "threat_horde_spawn_timed_pre_dawn": "Just when you think it is over, another small horde ({composition}) moves closer!",
+    "threat_horde_spawn_timed_nightfall": "A distant growl rolls across the darkening land! The sound of footsteps gets louder as a horde comprising of {composition} emerges from the treeline, moving closer with growing hunger.",
+    "threat_horde_spawn_timed_deep_night": "You catch glimpses of movement between the trees and vines. The shadows themselves seem to be moving. You notice a horde, which includes {composition} coming towards your location!",
+    "threat_horde_spawn_timed_witching_hour": "Reality fractures with a cacophony of unholy wails that split the air like breaking glass! The very earth trembles as a massive horde comprising of {composition} emerges from the eternal darkness.",
+    "threat_horde_spawn_timed_pre_dawn": "Just as hope of survival arrives, the cruel night delivers another blow. A small horde consisting of {composition} moves closer!",
 
-    "threat_noise_spawn": "You create a lot of noise. A lone {monsterName} emerges from the darkness, intrigued by the noise.",
-    "threat_noise_despawn": "The noise reduces and {monsterList} {loseVerb} interest and {wanderVerb} off.",
-    "threat_monsters_gone": "The coast is clear... for now.",
 
+    "threat_noise_spawn": [
+        "Your commotion pierces the silence. From the murky darkness, a lone {monsterName} turns its attention toward the source of the disturbance.",
+        "The racket you've made ripples through the night. A solitary {monsterName} emerges from its hiding place having its predatory instincts piqued by the sound.",
+        "Your noise reverberates through the stillness, and something hears it. A {monsterName} appears from the shadows, stalking toward the origin of the sound."
+    ],
+    "threat_noise_despawn": [
+        "The silence returns and {monsterList} {loseVerb} focus on the fading disturbance and {wanderVerb} back into the consuming darkness.",
+        "As the noise fades to nothing, {monsterList} {loseVerb} interest in the hunt and slowly {wanderVerb} away, melting back into the shadows",
+        "The commotion dies down, and {monsterList} {loseVerb} the scent and {wanderVerb} off into the night, seeking other prey.",
+        "Your surroundings quiet once more causing {monsterList} to {loseVerb} all curiosity and {wanderVerb} aimlessly back into the depths of the darkness."
+    ],
     
-    "threat_horde_attacks_fortification_cabin": "{monsterList} {slamVerb} against the doors and windows of the cabin, dealing {totalDamage} damage!",
-    "threat_horde_attacks_fortification_campGate": "{monsterList} {attackVerb} the foundations of the campsite gate, dealing {totalDamage} damage!",
-    "threat_horde_attacks_fortification_graveyardGate": "{monsterList} {damageVerb} the graveyard gate, dealing {totalDamage} damage!",
 
-    "threat_fortification_breached_cabin": "The cabin door splinters and breaks! The monsters are inside!{noLongerHiding}",
-    "threat_fortification_breached_campGate": "The campsite gate breaks down, no longer usable. The monsters rush towards the campfire.{noLongerHiding}",
-    "threat_fortification_breached_graveyardGate": "The old graveyard gate becomes unstable and falls apart. The monsters enter the graveyard!{noLongerHiding}",
+    "threat_horde_attacks_fortification_cabin": [
+        "{monsterList} {hurlVerb} against the cabin with force, claws raking across wood and fists hammering at the windows. The structure takes {totalDamage} damage!",
+        "{monsterList} {tearVerb} at the cabin's defenses with relentless hunger, dealing {totalDamage} damage to the fortifications!",
+        "{monsterList} {slamVerb} into the doors and windows of the cabin with monstrous strength. The fortification takes {totalDamage} damage!",
+        "{monsterList} {assaultVerb} the wooden cabin in a frenzy. The barriers crack and buckle, sustaining {totalDamage} damage!"
+    ],
+    "threat_horde_attacks_fortification_campGate": [
+        "{monsterList} {crashVerb} into the campsite gate with brutal momentum. The fortification takes {totalDamage} damage!",
+        "{monsterList} {slamVerb} at the campsite gate repeatedly, each impact sending shockwaves through the barrier. The gate sustains {totalDamage} damage from the onslaught!",
+        "{monsterList} {tearVerb} at the barricade, causing the foundations to shake and dealing {totalDamage} damage!"
+    ],
+    "threat_horde_attacks_fortification_graveyardGate": [
+        "{monsterList} {attackVerb} at the graveyard gate with relentless hunger, splintering the wood. The fortification sustains {totalDamage} damage!",
+        "{monsterList} {hammerVerb} against the graveyard gate. The old structure suffers {totalDamage} damage from the attack!"
+    ],
 
-    "threat_fortification_non_existing_cabin": "The monsters rush in through the unprotected cabin door!{noLongerHiding}",
-    "threat_fortification_non_existing_campGate": "The monsters move past the unfortified campsite gate rush towards the campfire.{noLongerHiding}",
-    "threat_fortification_non_existing_graveyardGate": "The old graveyard gate opens as the monsters rush through it!{noLongerHiding}",
+    "threat_fortification_breached_cabin": "With a final, splintering crack, the cabin door explodes inward in a shower of wood. The monsters surge through the ruined entrance!{noLongerHiding}",
+    "threat_fortification_breached_campGate": "The campsite gate collapses with a loud crash and its supports give way completely. The barrier crumbles as the monsters pour through the breach, racing toward the campfire's light.{noLongerHiding}",
+    "threat_fortification_breached_graveyardGate": "The graveyard gate becomes unstable and finally snaps. The structure topples sideways and the monsters flood through into hallowed ground!{noLongerHiding}",
 
-    "threat_horde_attacks_player": "{monsterList} {swarmVerb} you, dealing {totalDamage} damage!",
-
-    "threat_vampire_life_drain": "The Vampire lunges forward. It bites deep, draining your vitality to mend its own wounds! You take {damage} damage, and the Vampire recovers {heal} health.",
-    "threat_vampire_enfeeble": "The Vampire hisses, weaving a dark gesture in the air. A wave of exhaustion washes over you, leaving your limbs heavy and weak. Your next attack will be enfeebled!",
-    "threat_vampire_presence": "[DEBUG]: Vampire present.",
-
-    "threat_witch_heal_horde": "The Witch cackles, chanting in the air as a green energy flows from her hands, washing over the horde. The horde is healed for {heal} health!",
-    "threat_witch_throw_potion": "From the back of the horde, the Witch hurls a bubbling red potion. The vial shatters near you, splashing a liquid that burns you, dealing {damage} damage!",
-    "threat_witch_presence": "[DEBUG]: Witch present.",
-
-    "outcome_stop_hiding": "You are no longer hiding.",
-
-    "outcome_fortify_campGate": "You fortify the campsite gate using wood. The fortification strength is now at {strength}.",
-    "outcome_fortify_cabin": "You barricade the cabin windows and door. The fortification strength is now at {strength}.",
-    "outcome_fortify_graveyardGate": "You fortify the graveyard gate to make it resistant to monster attacks. The fortification strength is now at {strength}.",
-
-    "outcome_rest_by_fire": "You rest by the campfire, catching your breath and gaining a moment to think. You gain {stamina} stamina.",
-    "outcome_rest_in_cabin": "You rest inside the wooden cabin's structure. With the much needed rest, you gain {stamina} stamina.",
-    "outcome_hide_in_tents": "You hide in the tents to avoid being spotted. The noise you create now reduces.",
-    "outcome_hide_in_cabin": "You hide inside the cabin. You won't be spotted. Your actions do not create noise.",
-    "outcome_hide_in_hut": "You scurry yourself over into the gravekeeper's hut. You avoid creating noise to not attract the monsters.",
-    "outcome_wait_normal": "You take a moment to pause and recollect your thoughts.{staminaRegen}",
-    "outcome_wait_hiding": "You remain hidden, waiting and watching.",
-    "outcome_heal_bandages": "You carefully open and use one of the bandages to heal yourself. You regain {health} HP.",
-    "outcome_heal_first_aid": "You open the first aid kit. You find some antiseptic, bandages, and some gauze rolls. You use it and regain {health} HP.",
-    "outcome_eat_canned_food": "You open the can of food you have been storing. You consume its content, giving you {stamina} stamina and {health} HP.",
-    "outcome_eat_cooked_mushrooms": "You eat the mushrooms you had cooked earlier. You gain {stamina} stamina and {health} HP.",
-    "outcome_craft_molotov": "You fill the empty bottle with some fuel and use the old rag to craft a molotov. It is dangerous and can cause a large fire, dealing a large amount of damage to any monster horde.",
-    "outcome_craft_witch_ward": "Using wood, twine, and the rowan berries, you carefully craft a Witch Ward. Witches can be hurt when they come in contact with this ward.",
-    "outcome_craft_black_salt": "You combine the salt and a garlic to create black salt. Vampires are vulnerable to black salt.",
-    "outcome_cook_mushrooms": "You put two mushrooms on a stick and cook them by the campfire. After a while, you collect the cooked mushrooms.",
-    "outcome_set_trap_campGate": "You spend time setting up a strong trap near the campsite gate. This should stop at least one of them.",
-    "outcome_set_trap_graveyardGate": "You rig a net trap to the graveyard gate, hoping it's strong enough to hold.",
+    "threat_fortification_non_existing_cabin": "With no barrier to stop them, the monsters rush through the undefended cabin doorway. The open entrance offers no resistance to their invasion!{noLongerHiding}",
+    "threat_fortification_non_existing_campGate": "The monsters surge past the unfortified gate, streaming through the opening like a dark tide. Nothing stands between them and the campfire's vulnerable glow.{noLongerHiding}",
+    "threat_fortification_non_existing_graveyardGate": "The graveyard gate, left undefended, welcomes the monsters as they pour through the opening!{noLongerHiding}",
 
 
-    "outcome_search_rec_tent": "You rummage through the recreational tent. You find some useful items, including a baseball bat, a bow, and 5 arrows.",
-    "outcome_search_woods": "You look through the woods beyond the campsite's perimeter. You collect 4 mushrooms, 2 garlics from the patch, and 2 wood.",
-    "outcome_search_woods_again": "You quietly look through the woods again. You are able to find {quantity} wood.",
-    "outcome_search_food_tent": "You go through the food tent. You manage to gather an empty bottle, 2 salt shakers, and 2 cans of food.",
-    "outcome_search_utility_tent": "You look into the utility tent for any items. You find an old rag and 2 bandages.",
-    "outcome_search_pier": "You wander off to the water body. You look near the pier for any items that could be helpful. You recover 2 nets and 2 twines.",
-    "outcome_search_cabin_items": "You explore through the wooden cabin. You find a can of fuel as well as a first-aid kit. They can come in handy.",
-    "outcome_gather_rowan_tree": "Knowing a witch's weakness, you gather some berries from the rowan tree in the graveyard. You collect 2 rowan berries.",
-    "outcome_search_gravekeepers_hut": "You go inside the gravekeeper's hut, hoping he wouldn't mind. You find 2 bandages and a door key.",
-    "outcome_search_shed": "You look through the old shed. You find a rather-well-maintained axe. It can definitely strike.",
+    "threat_horde_attacks_player": [
+        "{monsterList} {swarmVerb} over you, striking from every angle. You take {totalDamage} damage from the brutal assault!",
+        "{monsterList} {surgeVerb} forward and {overwhelmVerb} you with sheer force. The attack lands hard, dealing {totalDamage} damage!",
+        "{monsterList} {closeVerb} the distance and {strikeVerb} without mercy. The impact leaves you reeling, taking {totalDamage} damage!"
+    ],
 
-    "outcome_attack_single_zombie": "You swing at a zombie using your {weapon}.{cursed} You deal {damage} HP of damage to it.{kill}",
-    "outcome_attack_single_skeleton": "You swing at a skeleton using your {weapon}.{cursed} You deal {damage} HP of damage to it.{kill}",
-    "outcome_attack_single_spirit": "You swing at a spirit using your {weapon}.{cursed} You deal {damage} HP of damage to it.{kill}",
-    "outcome_attack_cleave": "You perform a cleave attack at the horde.{cursed} You deal a combined {damage} HP of damage to the horde and hit {numHit} monsters.{kill}",
-    "outcome_attack_incinerate": "You throw your molotov at the horde.{cursed} A large fire erupts, catching {numHit} monsters ablaze and dealing a total of {damage} damage to the horde.{kill}",
-    "outcome_attack_shoot": "You take your bow and arrow and shoot at a {monster}.{cursed} You deal {damage} HP of damage.{kill}",
-    "outcome_attack_boss_witch": "You try to attack the Witch with your {weapon}.{cursed} You manage to lower her health by {damage} HP.{kill}",
-    "outcome_attack_boss_vampire": "You use your {weapon} and attack the Vampire.{cursed} You are able to deal {damage} HP of damage.{kill}",
-    "outcome_hurt_boss_witch": "You grab your Witch Ward that you crafted earlier and throw it towards the Witch. It is very effective, dealing {damage} HP of damage to the witch.{kill}",
-    "outcome_hurt_boss_vampire": "You collect that black salt that you have been saving and hurl it towards the Vampire. The salt goes everywhere. It inflicts {damage} HP of damage to the vampire.{kill}",
-    "outcome_trap_triggered": "You hear {count} loud *SNAP!* outside. Your trap worked! The trap killed {monsterList}!",
+    "threat_vampire_life_drain": [
+        "The Vampire moves with inhuman speed, closing the gap. Its fangs pierce deep into your flesh as it feeds, draining your very essence! You take {damage} damage while the Vampire's wounds knit together, recovering {heal} health.",
+        "The Vampire lunges forward, biting deep and draining your vitality to mend its own wounds! You take {damage} damage, while the Vampire recovers {heal} health.",
+        "The Vampire strikes like a serpent, its cold hands gripping you as it bites down hard. Your blood is pulled from you in agonizing waves. You take {damage} damage while the Vampire regenerates {heal} health from your stolen vitality."
+    ],
+    "threat_vampire_enfeeble": [
+        "The Vampire's eyes flash crimson as it traces an arcane symbol in the air with clawed fingers. A wave of crushing fatigue slams into you, sapping the strength from your muscles and leaving your limbs trembling. Your next attack will be severely weakened!",
+        "The Vampire hisses, weaving a dark gesture in the air. A wave of exhaustion washes over you, leaving your limbs heavy and weak. Your next attack will be enfeebled!",
+        "The Vampire's lips curl into a cruel smile as it weaves a gesture of decay. An invisible force washes over you, draining your vigor and leaving you gasping. Your muscles refuse to respond properly. Your next attack will lack its usual power!"
+    ],
 
-    
+    "threat_witch_heal_horde": [
+        "The Witch throws back her head and cackles with glee. Her gnarled hands weave intricate patterns. A sickly green light erupts from her fingertips, cascading over the horde like corrupted rain. Wounds close and broken bones snap back into place as the monsters are healed for {heal} health!",
+        "The Witch raises her hands, preparing her spell. A pulse of emerald energy explodes outward, washing over the horde in waves of unnatural restoration. The creatures' injuries mend as they recover {heal} health!",
+        "The Witch's cackling fills the air as she channels dark magic through her twisted fingers. Wisps of energy snake through the horde. The monsters surge forward with renewed strength, healed for {heal} health!"
+    ],
+    "threat_witch_throw_potion": [
+        "From her position, the Witch produces a glass vial filled with bubbling crimson liquid. With a shriek of malice, she hurls it in your direction. The potion explodes near you in a spray of caustic fluid that sears exposed skin, dealing {damage} damage!",
+        "The Witch reaches into her robes and withdraws a smoking potion bottle. She launches it through the air with surprising accuracy. It shatters at your feet, releasing a splash of alchemical fire that burns like liquid agony. You take {damage} damage!"
+    ],
+
+
+
+    "outcome_stop_hiding": [
+        "You are no longer hiding.",
+        "Your hiding spot no longer conceals you.",
+        "You emerge from the shadows, no longer hidden from view."
+    ],
+
+    "outcome_fortify_campGate": [
+        "You hammer planks across the gate's weak points, reinforcing the structure with whatever wood you have. Sweat drips down your face as you secure the final board. The fortification strength is now at {strength}.",
+        "Working quickly, you brace the gate with additional supports. The structure feels more solid under your hands. The fortification strength is now at {strength}.",
+        "You wedge logs against the gate posts and bind them tight with whatever you can find. It's exhausting work, but the barrier is holding better now. The fortification strength is now at {strength}."
+    ],
+    "outcome_fortify_cabin": [
+        "Piece by piece, you barricade the cabin's vulnerable points. Your hands are raw, but the structure is more secure. The fortification strength is now at {strength}.",
+        "You work methodically, covering each window with crossed boards and bracing the door with everything you can move. The cabin feels like a proper fortress now. The fortification strength is now at {strength}."
+    ],
+    "outcome_fortify_graveyardGate": [
+        "You lash wooden beams to the gate's frame and reinforce the hinges. The ancient structure holds firm under your additions. The fortification strength is now at {strength}.",
+        "Working against the gate's deteriorating condition, you shore up its weak points with fresh timber. It won't win any beauty contests, but it's stronger. The fortification strength is now at {strength}.",
+        "You wedge support beams against the gate. The gate becomes a bit more sturdy. The fortification strength is now at {strength}."
+    ],
+
+    "outcome_rest_by_fire": [
+        "You rest beside the campfire, letting its warmth seep into your aching muscles. The crackling flames provide a moment of comfort in the darkness.{staminaGain}",
+        "You rest near the fire's glow, watching the embers dance as you catch your breath. The heat helps ease the tension from your body.{staminaGain}",
+        "You settle by the campfire. Its light pushes back the shadows. For a brief moment, you allow yourself to relax.{staminaGain}"
+    ],
+    "outcome_rest_in_cabin": [
+        "You sit on the worn sofa inside the cabin, grateful for the solid walls around you. The relative safety lets your guard down just enough to recover.{staminaGain}",
+        "You lean against the cabin's interior wall and slide down to sit. The enclosed space feels safer, allowing you to rest more easily.{staminaGain}",
+        "You find a corner in the cabin and settle in, the sturdy structure providing both shelter and peace of mind as you recuperate.{staminaGain}"
+    ],
+    "outcome_hide_in_tents": [
+        "You slip quietly into one of the tents, pulling the flap closed behind you. You move carefully now, mindful that any sound could give you away.",
+        "You crawl into a tent and crouch low, controlling your breathing. Hidden among the camping gear, you reduce the noise you make."
+    ],
+    "outcome_hide_in_cabin": [
+        "You duck inside the cabin and press yourself against the wall, away from the windows. Concealed by walls and shadow, you're invisible to whatever lurks outside.",
+        "You retreat into the cabin's interior and find a spot in the darkness. Hidden from view, your movements no longer draw attention."
+    ],
+    "outcome_hide_in_hut": [
+        "You slip through the door of the gravekeeper's hut and tuck yourself into the corner. You force yourself to stay absolutely still and silent.",
+        "You hurry into the gravekeeper's hut and crouch behind the sparse furniture. Every movement is deliberate and quiet. You can't risk being discovered."
+    ],
+    "outcome_wait_normal": [
+        "You stand still for a moment, letting your racing heart slow. The brief pause helps clear your mind.{staminaRegen}",
+        "You take a few deep breaths and gather your thoughts.{staminaRegen}"
+    ],
+    "outcome_wait_hiding": [
+        "You hold your position, barely breathing. Through the gaps in your hiding spot, you keep watch on the darkness outside.",
+        "You remain perfectly still, listening intently to every sound. Patience might be what keeps you alive."
+    ],
+    "outcome_heal_bandages": [
+        "You unwrap a bandage with trembling hands and press it firmly against your wounds. The bleeding slows as you tie it off.{healthGain}",
+        "You carefully apply the bandage to your injuries, wincing as you pull it tight. It's not perfect, but it'll keep you going.{healthGain}"
+    ],
+    "outcome_heal_first_aid": [
+        "You flip open the first-aid-kit and quickly work through its contents: antiseptic stings as you clean the wounds, then gauze and bandages to wrap them. The supplies are a godsend.{healthGain}",
+        "You pour antiseptic from the first-aid-kit over your injuries. You follow up with clean bandages and gauze, doing your best to patch yourself up properly.{healthGain}"
+    ],
+    "outcome_eat_canned_food": [
+        "You pry open one of the cans and eat its contents cold. It's not appetizing, but your body desperately needs the sustenance.{staminaGain}{healthGain}",
+        "You force down the canned food quickly, not bothering to taste it. The nutrition works its way through your system, restoring some energy.{staminaGain}{healthGain}"
+    ],
+    "outcome_eat_cooked_mushrooms": [
+        "You bite into the cooked mushrooms, savoring the earthy flavor. The warm food settles in your stomach, renewing your strength.{staminaGain}{healthGain}",
+        "You eat the mushrooms you prepared earlier. They're simple, but the cooked food provides real nourishment that your body craves.{staminaGain}{healthGain}"
+    ],
+
+    "outcome_craft_molotov": [
+        "You carefully pour the fuel into the empty bottle, filling it about three-quarters full. The fumes make your eyes water as you stuff the old rag into the neck, leaving enough hanging out to serve as a wick. The weight of it in your hand feels dangerous: one spark and this becomes a weapon of devastating fire.",
+        "With steady hands, you funnel fuel into the glass bottle, then tear a strip from the rag and wedge it tight into the opening. The makeshift incendiary device sloshes ominously. One throw, one flame, and the horde will burn."
+    ],
+    "outcome_craft_witch_ward": [
+        "You work methodically, binding the rowan berries to a frame of crossed wooden sticks with twine. The traditional pattern takes shape under your fingers. The ward is an ancient protection against dark magic. As you tie off the final knot, the ward seems to pulse with quiet power. Witches cannot abide the touch of rowan.",
+        "Your fingers weave twine around wood and rowan berries, creating the intricate pattern of a Witch Ward. The crimson berries stand out against the pale wood like drops of blood. This old charm carries weight... Witches have feared rowan since time immemorial, and this ward will make them suffer for drawing near."
+    ],
+    "outcome_craft_black_salt": [
+        "You crush the garlic cloves and mix them thoroughly with the salt. A pungent aroma fills your nostrils. The combination turns darker as you work it together to prepare the Black Salt: a traditional deterrent against Vampires. The undead recoil from garlic's essence, and salt burns their unnatural flesh. This mixture will make an effective weapon.",
+        "You grind the garlic into the salt with focused intensity, watching as the white crystals take on a grey-black hue. The sharp, acrid smell is almost overwhelming. Black Salt: Vampire's bane. The creatures of the night cannot stand against this ancient defense."
+    ],
+    "outcome_cook_mushrooms": [
+        "You skewer two mushrooms on a stick and hold them over the campfire's flames. They sizzle and brown as the heat works through them, releasing an earthy aroma. After a few minutes, you pull them back, ready to eat.",
+        "You place the mushrooms near the fire's edge and let them roast slowly, turning them occasionally. The heat transforms them into something more palatable and nourishing. You collect the Cooked Mushrooms once they're done."
+    ],
+    "outcome_set_trap_campGate": [
+        "You construct a sturdy trap near the campsite gate, using wood to create a weighted mechanism. It's crude but effective, designed to crush or impale anything that triggers it. One monster, at least, won't make it past this point.",
+        "You work quickly to assemble a deadly trap at the gate's entrance. You setup a trigger mechanism that will release with the slightest pressure. The first creature through won't know what hit it.",
+        "You rig a brutal trap using the available wood. A trap that will almost certainly kill the first thing that passes through. One pull, and something dies."
+    ],
+    "outcome_set_trap_graveyardGate": [
+        "You string up the net above the graveyard gate, securing it to wooden supports on either side. When the net falls, it will trap and kill anything caught into it.",
+        "You weave the net between wooden posts above the gate entrance, creating a snare that will collapse on command. The trap is supposed to . This trap will claim at least one victim."
+    ],
+
+    "outcome_search_rec_tent": "You push aside the tent flap and search through the recreational area, digging through duffel bags and storage bins. Your efforts pay off as you uncover a baseball bat, a hunting bow in surprisingly good condition, and a quiver containing 5 arrows.",
+    "outcome_search_woods": "You venture into the woods beyond the campsite's perimeter, moving carefully through the undergrowth. You harvest 4 mushsooms growing near rotting logs, discover 2 garlic bulbs in a wild patch, and gather 2 pieces of usable wood from fallen branches.",
+    "outcome_search_woods_again": [
+        "You return to the woods and search more thoroughly this time, scanning the ground and low-hanging branches. Your persistence is rewarded as you manage to collect {quantity} wood.",
+        "You venture back into the woods, combing through the underbrush for anything useful. After some searching, you find {quantity} wood worth taking.",
+        "You make another trip into the woods, checking areas you might have missed before. Your efforts yield {quantity} wood."
+    ],
+    "outcome_search_food_tent": "You rifle through the food storage tent, checking coolers and supply crates. Among the provisions, you find an empty glass bottle, 2 salt shakers that are still half-full, and 2 cans of preserved food.",
+    "outcome_search_utility_tent": "You investigate the utility tent, sorting through equipment and supply boxes. Your search yields an old cleaning rag and 2 individually wrapped bandages. They are basic supplies, but valuable nonetheless.",
+    "outcome_search_pier": "You make your way to the water's edge and search around the wooden pier, checking the posts and storage boxes nearby. You recover 2 fishing nets and 2 coils of sturdy twine.",
+    "outcome_search_cabin_items": "You thoroughly search the cabin's interior, opening drawers and checking cabinets. You discover a can of fuel stored under the sink and a well-stocked first-aid-kit mounted on the wall.",
+    "outcome_gather_rowan_tree": "You approach the rowan tree in the graveyard, its branches heavy with clusters of bright berries. You climb carefully, testing each foothold, and manage to pluck 2 handfuls of rowan berries before descending.",
+    "outcome_search_gravekeepers_hut": "You enter the gravekeeper's hut and look through its sparse contents. On a shelf, you find 2 bandages in decent condition, and hanging by the door is an old iron key.",
+    "outcome_search_shed": "You pry open the shed's warped door and peer inside through the dusty gloom. Leaning against the back wall is a wood-cutting axe, its blade still sharp and ready for use.",
+
+    "outcome_attack_single_zombie": [
+        "You swing your {weapon} at a Zombie with determination.{cursed} The strike connects solidly, dealing {damage} HP of damage.{kill}",
+        "You bring your {weapon} down on the Zombie, putting your weight behind the blow.{cursed} You deal {damage} HP of damage to it.{kill}"
+    ],
+    "outcome_attack_single_skeleton": [
+        "You strike at the Skeleton with your {weapon}, aiming for its exposed bones.{cursed} The impact deals {damage} HP of damage.{kill}",
+        "You swing your {weapon} at the Skeleton's rattling frame.{cursed} You deal {damage} HP of damage to it.{kill}"
+    ],
+    "outcome_attack_single_spirit": [
+        "You swing your {weapon} at the Spirit.{cursed} The weapon passes through, somehow dealing {damage} HP of damage.{kill}",
+        "You strike at the Spirit with your {weapon}, the blade cutting through its ghostly essence.{cursed} You deal {damage} HP of damage.{kill}"
+    ],
+    "outcome_attack_cleave": [
+        "You wind up and swing your weapon in a wide arc through the horde.{cursed} The cleaving strike connects with multiple targets, dealing a combined {damage} HP of damage and hitting {numHit} monsters.{kill}",
+        "You execute a sweeping attack, your blade cutting through the horde's front line.{cursed} The cleave hits {numHit} monsters for a total of {damage} HP of damage.{kill}",
+        "You put all your strength into a horizontal slash that tears through the horde.{cursed} Your cleaving blow strikes {numHit} monsters, dealing {damage} HP of damage total.{kill}"
+    ],
+    "outcome_attack_incinerate": [
+        "You light the rag and hurl your Molotov into the center of the horde.{cursed} The bottle shatters on impact, erupting into a massive fireball that engulfs {numHit} monsters. Flames spread rapidly through their ranks, dealing a devastating {damage} damage total.{kill}",
+        "You ignite the Molotov and throw it with precision at the horde's densest point.{cursed} Glass explodes and fuel ignites in a roaring inferno, catching {numHit} monsters in the blaze. The fire spreads hungrily, dealing {damage} damage as the creatures shriek and burn.{kill}",
+        "You set the rag ablaze and launch the bottle toward the horde.{cursed} The Molotov detonates in a brilliant explosion of flame, immediately engulfing {numHit} monsters. Fire cascades through their ranks like a living thing, inflicting {damage} damage total.{kill}"
+    ],
+    "outcome_attack_shoot": [
+        "You nock an arrow, draw back the bowstring, and release.{cursed} The arrow flies true, striking a {monster} squarely. You deal {damage} HP of damage.{kill}",
+        "You take aim with your bow and loose an arrow at a {monster}.{cursed} The shot connects, dealing {damage} HP of damage.{kill}",
+        "You pull back your bow and let the arrow fly toward a {monster}.{cursed} It hits its mark, dealing {damage} HP of damage.{kill}"
+    ],
+    "outcome_attack_boss_witch": [
+        "You charge at the Witch and swing your {weapon} with all your might.{cursed} She attempts to dodge but you manage to strike her, lowering her health by {damage} HP.{kill}",
+        "You close the distance and attack the Witch with your {weapon}.{cursed} Your weapon finds its mark, dealing {damage} HP of damage.{kill}"
+    ],
+    "outcome_attack_boss_vampire": [
+        "You lunge at the Vampire and strike with your {weapon}.{cursed} The blow lands, dealing {damage} HP of damage to the creature.{kill}",
+        "You attack the Vampire with your {weapon}, moving quickly before it can counter.{cursed} You successfully deal {damage} HP of damage.{kill}"
+    ],
+    "outcome_hurt_boss_witch": [
+        "You produce the Witch Ward you crafted and hurl it directly at the Witch. The rowan-woven charm strikes her and she recoils with a piercing shriek... the sacred wood burns her dark essence. The Ward deals {damage} HP of damage, far more effective than any mundane weapon.{kill}",
+        "You throw the Witch Ward at her with precision. The moment it makes contact, the Witch screams in agony as the rowan berries sear through her magical defenses. The Ward inflicts {damage} HP of damage, exploiting her ancient weakness.{kill}"
+    ],
+    "outcome_hurt_boss_vampire": [
+        "You grab your Black Salt and fling it at the Vampire in a wide arc. The blessed mixture scatters across its undead flesh, causing it to hiss and smoke where it lands. The garlic-infused salt burns through its supernatural resilience, inflicting {damage} HP of damage.{kill}",
+        "You hurl the Black Salt directly at the Vampire. The creature shrieks as the salt makes contact, its flesh sizzling and recoiling from the garlic-laced grains. The traditional Vampire's bane deals {damage} HP of damage, far more than any ordinary weapon could manage.{kill}"
+    ],
+    "outcome_trap_triggered": [
+        "You hear {count} loud *SNAP!* from outside. The trap mechanism worked perfectly, catching and killing {monsterList} before they could reach you!",
+        "The sound of {count} loud *SNAP!* fills the air. Your preparation paid off, stopping {monsterList} which triggered the mechanism!"
+    ],
+
 
 
     "status_health_low": "Your health is low. You should find a way to heal.",
     "status_health_critical": "CRITICAL: Your health is dangerously low! Heal immediately!",
-    "status_stamina_low": "You are feeling exhausted and sluggish.",
+    "status_stamina_low": "You are feeling exhausted and sluggish. Find a way to regain your stamina.",
     "status_stamina_critical": "CRITICAL: You are about to collapse from exhaustion! You must rest!",
 
 
@@ -104,15 +253,15 @@
     "action_text_hide_in_hut": "Hide in the gravekeeper's hut",
     "action_text_wait": "Wait and do nothing",
     "action_text_heal_bandages": "Heal using bandages",
-    "action_text_heal_first_aid": "Heal using first aid kit",
+    "action_text_heal_first_aid": "Heal using first-aid-kit",
     "action_text_eat_canned_food": "Eat canned food",
     "action_text_eat_cooked_mushrooms": "Eat cooked mushrooms",
     "action_text_craft_molotov": "Craft a Molotov",
     "action_text_craft_witch_ward": "Craft a Witch Ward",
     "action_text_craft_black_salt": "Craft some Black Salt",
     "action_text_cook_mushrooms": "Cook mushrooms by the campfire",
-    "action_text_set_trap_campGate": "Set a trap at the campsite gate",
-    "action_text_set_trap_graveyardGate": "Set a trap at the graveyard gate",
+    "action_text_set_trap_campGate": "Set a trap at the Campsite gate",
+    "action_text_set_trap_graveyardGate": "Set a trap at the Graveyard gate",
 
     "action_text_search_rec_tent": "Search the recreational tent",
     "action_text_search_woods": "Search in the woods",
@@ -138,46 +287,54 @@
 
 
 
-
-
-
     "loc_desc_campsite_first": "A group of monsters is hot on your tail. The night is dangerous. You've managed to outrun the horde and get some time to get yourself under control. You find yourself in a campsite amidst a rough clearing through the woods as the sun begins to set. Several tents are pitched around a warm campfire. A wooden cabin stands at the far west. A small wooden pier extends over the dark water ahead.",
     "loc_desc_campsite_current": [
-        "You remain at the campsite. The campfires burn bright, enough to provide you with some warmth.",
-        "The campsite remains your position. Overhead, the trees sway gently, their branches creating shifting patterns of light and shadow across the tents and cabin.",
-        "You remain at the campsite, staying close to the fire's warmth. The flames pop and hiss occasionally, sending sparks spiraling upward into the night sky.",
-        "You stay put at the campsite, the familiar surroundings offering what comfort they can."
+        "You remain at the campsite. The campfire burns bright, its flames crackling and popping as they provide warmth against the night's chill.",
+        "The campsite remains your position. Overhead, the trees sway gently, their branches creating shifting patterns of light and shadow across the tents and clearing.",
+        "You stay put at the campsite, keeping close to the fire's warmth. The flames dance and hiss occasionally, sending sparks spiraling upward into the dark sky.",
+        "You remain here in the clearing, the familiar layout of tents and equipment surrounding you. The fire's glow pushes back the darkness, creating a small circle of relative safety.",
+        "You stay at the campsite, the generator's steady hum blending with the crackling of burning wood. The pier extends into darkness ahead, and the cabin's lights glow to the west."
     ],
     "loc_desc_campsite_return": [
-        "You return to the campsite, relieved to see the fire still burning strong. The generator's hum continues to be nothing but just background noise for you.",
-        "You make your way back to the centre of the campsite. The glow of the fire and cabin lights guides you in, a beacon of relative safety in the darkness.",
-        "You return to the clearing, the familiar layout of the campsite greeting you. The pier stretches out into darkness and the fire burns straight ahead."
+        "You return to the campsite, relieved to see the fire still burning strong. The familiar clearing opens before you, the generator's hum a constant backdrop.",
+        "You make your way back to the center of the campsite. The glow of the campfire and cabin lights guides you in, a beacon of relative safety in the surrounding darkness.",
+        "You return to the clearing, the familiar arrangement of tents and fire greeting you. The warmth of the flames reaches out as you step back into the circle of light.",
+        "You head back to the campsite, the crackling fire and scattered tents coming into view. Everything remains as you left it, the space still holding back the night.",
+        "You return to the campsite's heart, where the fire burns steadily. The pier stretches out into shadow to your right, and the cabin stands solid to the west."
     ],
 
     "loc_desc_cabin_first": "You step into the wooden cabin and close the door behind you, muffling the sounds of the night outside. The interior is cozy and well-maintained. A worn sofa faces a cold fireplace, and someone's jacket hangs on a peg by the door. Maps and a schedule are pinned to a corkboard near the window. The cabin smells of pine wood, lamp oil, and the faint mustiness of a place that's lived-in but currently empty. Through the windows, you can see the campfire outside, but in here, the generator's hum is more muted. It feels safer somehow, with walls between you and whatever's out there.",
     "loc_desc_cabin_current": [
-        "You remain inside the cabin, the solid walls around you providing a sense of security.",
-        "You stay inside the cabin, listening to the muffled sounds of the night beyond the walls. The wooden floor creaks slightly as you shift your weight.",
-        "You're still inside, grateful for the barrier between you and the darkness."
+        "You remain inside the cabin, the solid walls around you providing a sense of security. The lamplight flickers gently, casting familiar shadows across the worn furniture.",
+        "You stay inside the cabin, listening to the muffled sounds of the night beyond the walls. The wooden floor creaks slightly as you shift your weight, the only sound in the quiet interior.",
+        "You're still inside, grateful for the barrier between you and the darkness. Through the windows, you can see the campfire's glow outside, but in here it feels safer.",
+        "You remain in the cabin's shelter, the musty smell of pine and old fabric a comforting constant. The generator's hum is barely audible through the walls.",
+        "You stay put inside the wooden structure. The maps on the corkboard flutter slightly in a draft, and the cold fireplace sits dark and empty, but the space still feels like a refuge."
     ],
     "loc_desc_cabin_return": [
-        "You return to the cabin and step back inside, pulling the door shut behind you. The lamplight welcomes you back, unchanged since you left.",
-        "You return to the cabin's shelter, closing the door firmly behind you. Through the windows, you can see the campfire still burning outside, but in here feels safer.",
-        "You make your way back to the cabin and enter. Everything is exactly as you left it."
+        "You return to the cabin and step back inside, pulling the door shut behind you. The lamplight welcomes you back, and the enclosed space immediately feels safer than being outside.",
+        "You make your way back to the cabin and enter, closing the door firmly behind you. Everything is exactly as you left it... the sofa, the maps, the jacket on its peg.",
+        "You return to the cabin's shelter, relieved to have walls around you again. Through the windows, you can see the campfire still burning outside, but the interior provides better protection.",
+        "You step back into the cabin, the familiar creak of the floorboards greeting your return. The lamplight casts the same warm glow across the room, unchanged since you left.",
+        "You head back to the cabin and slip inside. The generator's muted hum resumes its background presence, and the pine-scented air wraps around you like a blanket."
     ],
 
-    "loc_desc_graveyard_first": "You arrive at the graveyard, and a chill runs down your spine that has nothing to do with the temperature. You remember glimpsing this place earlier when you were fleeing towards the campsite. Now here you are, standing among the dead. The graveyard sprawls across uneven ground, dotted with tombstones of varying ages. A gravekeeper's hut stands near the entrance and a small locked shed sits further back.",
+    "loc_desc_graveyard_first": "You arrive at the graveyard, and a chill runs down your spine that has nothing to do with the temperature. You remember glimpsing this place earlier when you were fleeing towards the campsite. Now here you are, standing among the dead. The graveyard sprawls across uneven ground, dotted with tombstones of varying ages. A gravekeeper's hut stands near the entrance, and a small locked shed sits further back.",
     "loc_desc_graveyard_current": [
-        "You remain in the graveyard, acutely aware of how exposed you are here.",
-        "You're still among the graves. The wind picks up slightly, making the loose shutter on the gravekeeper's hut bang.",
-        "You stay in the graveyard, though every instinct screams at you to leave.",
-        "You stay among the graves, counting the tombstones you can see, anything to keep your mind occupied."
+        "You remain in the graveyard, acutely aware of how exposed you are among the tombstones. The wind whispers through the monuments, carrying an unnatural chill.",
+        "You're still among the graves, surrounded by weathered stone and crumbling markers. The wind picks up slightly, making the loose shutter on the gravekeeper's hut bang rhythmically.",
+        "You stay in the graveyard, though every instinct screams at you to leave this place of the dead. The shadows between tombstones seem deeper here, darker.",
+        "You remain among the uneven rows of graves, counting the tombstones you can see... anything to keep your mind occupied and away from darker thoughts.",
+        "You stay put in the cemetery. The gravekeeper's hut and distant shed are your only company besides the silent dead. The rowan tree's branches sway overhead, a dark silhouette against the sky."
     ],
     "loc_desc_graveyard_return": [
-        "You make your way back to the graveyard along the path. The iron gates come into view, and beyond them, the familiar arrangement of graves and monuments.",
-        "You return to the graveyard, emerging from the path into the open area among the graves.",
-        "You visit the graveyard once again. You hope that you can survive an ambush here."
+        "You make your way back to the graveyard along the gravel path. The iron gates come into view, and beyond them, the familiar arrangement of graves and weathered monuments.",
+        "You return to the graveyard, emerging from the path into the open area among the graves. The air feels colder here, heavy with an oppressive stillness.",
+        "You approach the cemetery once again, the iron gate creaking as you pass through. The tombstones stand like silent sentinels, and you hope you can handle whatever comes.",
+        "You head back to the graveyard, the path leading you past the iron gates and into the sprawl of graves. The gravekeeper's hut sits near the entrance, and the rowan tree looms in the distance.",
+        "You return to the cemetery grounds, the uneven terrain and weathered headstones spreading out before you. The shed sits in the back, and the whole place feels wrong in the darkness."
     ],
+
     
 
     "dusk_flavor_10": "The sun bleeds orange across the horizon, its dying light casting long shadows that stretch like grasping fingers across the ground. The air still holds the day's warmth, but there's a whisper of something colder creeping in.",
@@ -193,7 +350,7 @@
 
     "evening_flavor_8": "Evening arrives with a blanket of darker blue-grey across the heavens. The stars are now clearly visible, scattered like diamonds across velvet, and the moon begins its ascent. The comfortable warmth of day is gone, replaced by a chill that makes you pull your clothing tighter.",
     "evening_flavor_7": "The sky deepens to a rich cobalt, with the brightest stars forming their familiar constellations.",
-    "evening_flavor_6": "Darkness settles more. Night sounds begin: crickets chirping and the distant hoot of an owl setting out to hunt.",
+    "evening_flavor_6": "Darkness settles more heavily. Night sounds begin: crickets chirping and the distant hoot of an owl setting out to hunt.",
     "evening_flavor_5": "The moon climbs higher, casting everything in shades of silver and shadow. Trees become dark silhouettes against the star-filled sky, their branches like skeletal hands reaching upward.",
     "evening_flavor_4": "Evening's grip tightens as the last traces of twilight vanish from the western horizon. The night is fully awake now, and every sound seems amplified in the quiet darkness.",
     "evening_flavor_3": "The moon's light creates a patchwork of illumination and shadow across the ground. A cold breeze rustles through the vegetation, carrying sounds that are harder to identify in the dark.",
@@ -213,7 +370,7 @@
     "deep_night_flavor_8": "Shadows seem to pulse and breathe at the periphery of vision, never quite still when you're not looking directly at them.",
     "deep_night_flavor_7": "An unnatural mist begins to rise from the ground, curling around rocks and tree roots like grasping fingers.",
     "deep_night_flavor_6": "The moonlight takes on an eerie quality, turning everything it touches into shades of grey and white.",
-    "deep_night_flavor_5": "The Deep Night continues as the time passes. Sounds that shouldn't exist drift through the air: whispers without words, footsteps without feet.",
+    "deep_night_flavor_5": "Deep Night continues as the time passes. Sounds that shouldn't exist drift through the air: whispers without words, footsteps without feet.",
     "deep_night_flavor_4": "The night sky deepens into absolute black, like a void, dotted with stars.",
     "deep_night_flavor_3": "The cold mist continues to form. Something feels fundamentally wrong about this hour.",
     "deep_night_flavor_2": "The moon's light wavers, as if something massive is passing between it and the earth.",
@@ -226,7 +383,7 @@
     "witching_hour_flavor_6": "Time feels distorted, stretching and compressing. Seconds last hours, minutes pass in heartbeats.",
     "witching_hour_flavor_5": "The Witching Hour reaches its apex. The boundary between worlds is paper-thin now, and things press against it from the other side.",
     "witching_hour_flavor_4": "Dead leaves swirl in spirals without wind to move them. Every sound seems swallowed by the oppressive stillness. The ground itself seems to hold its breath.",
-    "witching_hour_flavor_3": "The Witching Hour continues. The stars trace paths slowly, offering no sign of hope or dawn to come.",
+    "witching_hour_flavor_3": "The Witching Hour continues. The stars trace paths slowly, offering no hope of dawn to come.",
     "witching_hour_flavor_2": "The stars begin their slow wheel toward morning positions, though dawn is still impossibly far away.",
     "witching_hour_flavor_1": "The witching hour's grip begins to weaken... barely. The absolute stillness starts to break as the faintest breath of wind stirs. The moon's color begins its slow fade back toward normal silver.",
 
@@ -234,13 +391,24 @@
     "pre_dawn_flavor_4": "The eastern horizon shows a line of slightly lighter grey, barely distinguishable from the darkness above it.",
     "pre_dawn_flavor_3": "The stars begin to fade, the brightest ones clinging to visibility as the sky slowly lightens.",
     "pre_dawn_flavor_2": "The shadows lose their depth and menace, becoming ordinary darkness once more. Birds begin their first tentative chirps.",
-    "pre_dawn_flavor_1": "The pre-dawn light strengthens, turning the world into a landscape of grey, silver, and yellow. The moon sets as its night's work done, and the cold finally begins to lose its cruel edge.",
+    "pre_dawn_flavor_1": "The Pre-Dawn light strengthens, turning the world into a landscape of grey, silver, and yellow. The moon sets, its night's work done, and the cold finally begins to lose its cruel edge.",
 
     "phase_intro_dawn": "Dawn breaks like a golden sword cutting through the last remnants of darkness. The sun crests the horizon in a blaze of orange and pink and gold. The light is warm and real. The frost begins to melt immediately. Birds erupt into full chorus, celebrating the return of day with joyous abandon.",
 
-    "game_over_lose": "Your vision blurs as the wounds become too much. The last thing you feel is the cold, damp ground as the darkness finally, completely, takes you.",
-    
-    "game_over_win_monsters": "As the first warm rays of sunlight strike the horde, the creatures shriek. Their forms sizzle and smoke, and they flee in terror back into the shadows from whence they came.",
-    "game_over_win_critical": "You collapse against the wall as the adrenaline wears off. You see a dozen new wounds that you didn't feel earlier. You're exhausted, and barely conscious... but you are alive. You lay your head back, listening to the birds, and wait for rescue.",
-    "game_over_win_normal": "You are able to catch your breath now. You stand tall, feeling the deep exhaustion of the long night settle in, but a stronger sense of relief washes it all away. You don't feel the fear anymore. You have survived."
+
+    "game_over_lose": [
+        "Your vision blurs as the wounds become too much. The last thing you feel is the cold, damp ground as darkness finally, completely, takes you.",
+        "Your legs give out and you collapse, unable to rise again. Pain fades to numbness as the world dims around you. The night has claimed another victim.",
+        "Your strength abandons you entirely, and you fall. Through fading consciousness, you see shapes closing in. Then nothing... only the embrace of eternal darkness."
+    ],
+
+    "game_over_win_monsters": "As the first warm rays of sunlight break over the horizon, the creatures shriek. In moments, they scatter and flee desperately back into the shadows, seeking refuge from the burning dawn.",
+    "game_over_win_critical": [
+        "You collapse against the nearest surface as the adrenaline finally drains away. Your body is a map of fresh wounds you didn't even feel during the fight. You're barely conscious, teetering on the edge... but you're alive. Dawn's light washes over you as you close your eyes, listening to the birds, waiting for rescue to arrive.",
+        "Your legs buckle and you slide down to sit heavily on the ground. Blood seeps from a dozen injuries, and exhaustion crashes over you like a wave. You can barely keep your eyes open, but through the haze, you see the sun rising. You made it. Barely, but you made it."
+    ],
+    "game_over_win_normal": [
+        "You finally allow yourself to breathe normally, the tension draining from your shoulders. You're battered and exhausted, but standing tall as dawn breaks around you. The fear that gripped you through the night melts away in the warmth of morning light. You have survived.",
+        "You lower your weapon and take a deep breath, feeling the weight of the long night settle into your bones. The exhaustion is profound, but relief washes it away like a cleansing tide. The sunrise paints the sky in brilliant colors. Against all odds, you made it through."
+    ]
 }

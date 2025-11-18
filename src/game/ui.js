@@ -1,4 +1,4 @@
-import { getRandomInt, renderText } from "./utils.js";
+import { getRandomInt, renderText, getRandomText } from "./utils.js";
 
 /**
  * Builds the prompt text by combining timeline flavour text, location text, consequence text, threats text, status text, and call-to-action
@@ -51,8 +51,7 @@ export function buildPromptText(gameState, gameData) {
         for (const messageObject of status.messageQueue) {
             
             // 1. Get the template string from texts.json
-            const template = texts[messageObject.text_ref];
-            
+            const template = getRandomText(messageObject.text_ref, gameData);
             if (template) {
                 // 2. Use renderText to build the final string
                 const renderedMessage = renderText(template, messageObject.params);

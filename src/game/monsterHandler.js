@@ -186,8 +186,12 @@ export function processFortificationDamage(gameState, gameData) {
                 params: {
                     totalDamage: totalDamage,
                     monsterList: monsterListString[0].toUpperCase() + monsterListString.substring(1), // Capitalise the first letter
+                    hurlVerb: (totalAttackerCount > 1) ? "hurl" : "hurls",
+                    tearVerb: (totalAttackerCount > 1) ? "tear" : "tears",
                     slamVerb: (totalAttackerCount > 1) ? "slam" : "slams",
-                    damageVerb: (totalAttackerCount > 1) ? "damage" : "damages",
+                    assaultVerb: (totalAttackerCount > 1) ? "assault" : "assaults",
+                    crashVerb: (totalAttackerCount > 1) ? "crash" : "crashes",
+                    hammerVerb: (totalAttackerCount > 1) ? "hammer" : "hammers",
                     attackVerb: (totalAttackerCount > 1) ? "attack" : "attacks"
                 }
             });
@@ -517,7 +521,11 @@ export function processPlayerDamage(gameState, gameData) {
         params: {
             totalDamage: totalDamage,
             monsterList: monsterListString[0].toUpperCase() + monsterListString.substring(1), // Capitalise the first letter
-            swarmVerb: (totalMonsterCount > 1) ? "swarm" : "swarms"
+            swarmVerb: (totalMonsterCount > 1) ? "swarm" : "swarms",
+            surgeVerb: (totalMonsterCount > 1) ? "surge" : "surges",
+            overwhelmVerb: (totalMonsterCount > 1) ? "overwhelm" : "overwhelms",
+            closeVerb: (totalMonsterCount > 1) ? "close" : "closes",
+            strikeVerb: (totalMonsterCount > 1) ? "strike" : "strikes"
         }
     });
 }
@@ -574,9 +582,6 @@ function handleVampireAttack(gameState, gameData) {
             return true; // Special attack was performed
 
         case "default":
-            status.messageQueue.push({ 
-                text_ref: "threat_vampire_presence" // TO REMOVE LATER
-            });
             return false; // Special attack was NOT performed
     }
 }
@@ -656,9 +661,6 @@ function handleWitchAttack(gameState, gameData) {
             return true; // Special attack was performed
 
         case "default":
-            status.messageQueue.push({ 
-                text_ref: "threat_witch_presence" // TO REMOVE LATER
-            });
             return false; // Special attack was NOT performed
     }
 }

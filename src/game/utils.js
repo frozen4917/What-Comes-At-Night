@@ -135,6 +135,26 @@ export function checkAndSetGracePeriod(gameState, gameData) {
 }
 
 /**
+ * Gets a text string from gameData.texts. If the text_ref points to an array, it picks a random string.
+ * @param {string} text_ref - The key from texts.json (e.g., "game_over_lose")
+ * @returns {string} The final, selected text string.
+ */
+export function getRandomText(text_ref, gameData) {
+    if (!gameData || !gameData.texts) return "";
+
+    const templateValue = gameData.texts[text_ref];
+
+    if (Array.isArray(templateValue)) {
+        // It's an array: Pick a random one
+        return templateValue[getRandomInt(0, templateValue.length - 1)];
+    } else {
+        // It's a string (or undefined/null): Just return it
+        return templateValue || ""; // Return empty string if not found
+    }
+}
+
+
+/**
  * Formats the monster list using numbers or using determiners
  * @param {Object<string, number>} monsterCounts Counter object storing monster key and count pairs
  * @param {Object} gameData Game-related data
