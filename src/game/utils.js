@@ -1,4 +1,14 @@
 /**
+ * @file utils.js
+ * @description Shared Utility Functions.
+ * A collection of pure helper functions used across the engine, including:
+ * - RNG (Random Number Generation).
+ * - Condition checking
+ * - String formatting and template rendering.
+ * - General game state helpers (counting monsters, grace periods).
+ */
+
+/**
  * Generates and returns a random integer between min and max, both inclusive
  * @param {number} min Lower bound
  * @param {number} max Upper bound
@@ -135,7 +145,7 @@ export function checkAndSetGracePeriod(gameState, gameData) {
 }
 
 /**
- * Gets a text string from gameData.texts. If the text_ref points to an array, it picks a random string.
+ * Gets a text string from gameData.texts. If the text_ref points to an array, it picks a random string from the array, else returns the text_ref itself
  * @param {string} text_ref - The key from texts.json (e.g., "game_over_lose")
  * @returns {string} The final, selected text string.
  */
@@ -152,7 +162,6 @@ export function getRandomText(text_ref, gameData) {
         return templateValue || ""; // Return empty string if not found
     }
 }
-
 
 /**
  * Formats the monster list using numbers or using determiners

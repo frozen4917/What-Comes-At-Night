@@ -1,3 +1,13 @@
+/**
+ * @file monsterHandler.js
+ * @description Monster AI & Horde Logic.
+ * This file handles all enemy behaviors, including:
+ * - Horde spawning (timed events) and lone monster spawning / despawning.
+ * - Calculating damage to the player and fortifications.
+ * - Handling special boss logic (Witch healing, Vampire drain).
+ * - Processing trap triggers.
+ */
+
 import { getRandomInt, checkAndSetGracePeriod, countMonsters, formatMonsterList, chooseWeightedMove } from './utils.js';
 
 /**
@@ -347,7 +357,7 @@ export function processNoiseSpawning(gameState, gameData) {
         return; // Phase doesn't spawn monsters from noise
     }
 
-    // ---Spawn a monster! ---
+    // --- Spawn a monster! ---
 
     // Step 1: Select a random monster type from the pool
     const pool = currentPhase.noiseSpawnPool;
@@ -444,7 +454,6 @@ export function processNoiseDespawning(gameState, gameData) {
             wanderVerb: (totalDespawned > 1) ? "wander" : "wanders"
         }
     });
-    
 
     checkAndSetGracePeriod(gameState, gameData); // The horde is empty now. Set cooldowns and change game mode
 }

@@ -1,3 +1,13 @@
+/**
+ * @file effectsHandler.js
+ * @description Action Consequence Processor.
+ * This file interprets the effects object from globalActions.json and locations.json.
+ * It is responsible for:
+ * - Modifying stats (Health, Stamina, Noise).
+ * - Managing inventory (Adding/Removing/Crafting items).
+ * - Executing combat logic (Attacks, Weapon effects).
+ */
+
 import { getRandomInt, checkAndSetGracePeriod } from "./utils.js";
 
 /**
@@ -7,7 +17,7 @@ import { getRandomInt, checkAndSetGracePeriod } from "./utils.js";
  * @param {Object} gameData Game-related data
  */
 export function handleEffects(chosenAction, gameState, gameData) {
-    updateHidingStatus(chosenAction, gameState); // Update hiding status to normal if action is non-hiding action
+    updateHidingStatus(chosenAction, gameState); // Updates hiding status to normal if action is non-hiding action
 
     const effects = chosenAction.effects;
     if (!effects) return; // Early exit if not effects
@@ -120,10 +130,10 @@ export function handleEffects(chosenAction, gameState, gameData) {
                 gameState.player.inventory.wood -= 1; // Remove materials
                 gameState.player.inventory.net -= 1; // Remove materials
                 if (gameState.player.inventory.wood <= 0) {
-                    delete gameState.player.inventory.wood;
+                    delete gameState.player.inventory.wood; // Delete the item if quantity reaches 0
                 }
                 if (gameState.player.inventory.net <= 0) {
-                    delete gameState.player.inventory.net;
+                    delete gameState.player.inventory.net; // Delete the item if quantity reaches 0
                 }
                 break;
             
@@ -131,8 +141,8 @@ export function handleEffects(chosenAction, gameState, gameData) {
                 specialMessageHandled = true; // Special message is handled here itself. Avoids duplicate message after the 'switch' statement
 
                 if (gameState.status.playerState === "hiding" && gameState.status.gameMode === "combat_lone") {
-                    // --- Player is hiding ---
-                    const noiseReduction = value.hidingNoiseReduction; // Noise reduction
+                    // --- Player is hiding and lone monsters are present ---
+                    const noiseReduction = value.hidingNoiseReduction; // Active Noise reduction
                     let currentNoise = gameState.world.noise;
                     gameState.world.noise = Math.max(0, currentNoise - noiseReduction);
 
@@ -140,7 +150,7 @@ export function handleEffects(chosenAction, gameState, gameData) {
                 } else {
                     // --- Player is not hiding (Stamina gain condition) ---
                     const stamGain = value.staminaGain; // Add bonus stamina
-                    const noiseReduction = value.noiseReduction; // Noise reduction
+                    const noiseReduction = value.noiseReduction; // Passive Noise reduction
                     const currentStaminaValue = gameState.player.stamina;
                     gameState.player.stamina = Math.min(100, gameState.player.stamina + stamGain);
                     const netStaminaGain = gameState.player.stamina - currentStaminaValue;
@@ -220,7 +230,6 @@ export function processCraftEffect(effects, gameState, gameData) {
 
     // Add the newly crafted item to the inventory
     gameState.player.inventory[itemID] = (gameState.player.inventory[itemID] || 0) + 1;
-    console.log(`Crafted ${itemID}`); // For Debugging and Feedback
 
     if (effects.result_ref) {
         gameState.status.messageQueue.push({
@@ -328,8 +337,8 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
 
     const weaponData = gameData.items[weaponID]; // Weapon's data from items.json
     const baseDamage = weaponData.effects.cleave_attack.damage;
-    const targetLimits = weaponData.effects.cleave_attack.targets; // { "min": ..., "max": ... }
-    const maxSwingTargets = getRandomInt(targetLimits.min, targetLimits.max); // Max Number of monsters that can be attacked at once ON THIS TURN 
+    const targetLimits = weaponData.effects.cleave_attack.targets; // E.g. { "min": 3, "max": 4 }
+    const maxSwingTargets = getRandomInt(targetLimits.min, targetLimits.max); // Maximum number of monsters that can be attacked at once ON THIS TURN, chosen between min and max values of the weapon
     const enfeebled = gameState.world.flags.enfeebled;
 
     let allMonsters = Object.values(gameState.horde).flat(); // Get an array of all monsters
@@ -385,11 +394,14 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
 function processShootAttack(effects, gameState, gameData) {
     // Safety clause in case player doesn't have arrows. Shouldn't be executed as areConditionsMet() should handle it
     if (gameState.player.inventory.arrow <= 0) {
-        console.error("ERROR: No arrows - [processShootAttack()]");
+        console.error("ERROR: Attempted to shoot without arrow (processAttackEffect())");
         return;
     }
 
     gameState.player.inventory.arrow--; // Consume an arrow
+    if (gameState.player.inventory.arrow <= 0) {
+        delete gameState.player.inventory.arrow; // Remove arrow is quantity reaches 0
+    }
     const weaponData = gameData.items.bow; // Data from items.json
     const enfeebled = gameState.world.flags.enfeebled;
 
@@ -447,11 +459,14 @@ function processShootAttack(effects, gameState, gameData) {
 function processIncinerateAttack(effects, gameState, gameData) {
     // Safety clause in case player doesn't have arrows. Shouldn't be executed as areConditionsMet() should handle it
     if (gameState.player.inventory.molotov <= 0) {
-        console.error("ERROR: No Molotovs - [processIncinerateAttack()]");
+        console.error("ERROR: Attempted to incinerate without molotov (processIncinerateAttack())");
         return;
     }
 
     gameState.player.inventory.molotov--; // Consume the molotov
+    if (gameState.player.inventory.molotov <= 0) {
+        delete gameState.player.inventory.molotov; // Remove the key if 0 molotovs remain
+    }
     const weaponData = gameData.items.molotov;
     const baseDamage = weaponData.effects.incinerate.damage; // Base damage of the molotov from items.json
     const enfeebled = gameState.world.flags.enfeebled;
@@ -541,6 +556,7 @@ function processSpecialAttack(effects, gameState, gameData) {
  */
 function updateHidingStatus(chosenAction, gameState) {
     if (gameState.status.playerState === "hiding") {
+
         // Actions that DON'T break hiding
         const isStayingHidden = [
             "hide_in_tents", 

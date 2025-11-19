@@ -1,4 +1,9 @@
 <script setup>
+/**
+ * @component RestartConfirmationOverlay
+ * @description Confirmation modal to prevent accidental game restarts
+ * Shows a warning before restarting along with confirmation and cancel button
+ */
 import { useGameStore } from '@/stores/gameStore';
 const gameStore = useGameStore();
 </script>
@@ -6,18 +11,20 @@ const gameStore = useGameStore();
 <template>
     <div id="restart-confirm-overlay" class="overlay">
         <div class="overlay-content">
+            <!-- Warning header -->
             <h2 class="confirm-title">Restart Game?</h2>
-
+            <!-- Warning message -->
             <p class="confirm-text">
                 Are you sure you want to restart?
                 Your current progress will be lost.
             </p>
-
+            <!-- Buttons (styled by components.css modal-button rule C5) -->
             <div class="modal-button-group">
+                <!-- Confirm -->
                 <button class="modal-button confirm" @click="gameStore.restartGame()">
                     Yes, Restart
                 </button>
-
+                <!-- Cancel -->
                 <button class="modal-button" @click="gameStore.toggleRestartConfirm()">
                     No, Cancel
                 </button>
@@ -27,7 +34,6 @@ const gameStore = useGameStore();
 </template>
 
 <style scoped>
-/* These styles are consistent with your other overlays */
 .overlay {
     display: flex;
     justify-content: center;
@@ -38,7 +44,7 @@ const gameStore = useGameStore();
     font-family: 'Special Elite', monospace;
 }
 
-/* Specific styles for this component */
+/* Title styling */
 .confirm-title {
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
@@ -48,12 +54,12 @@ const gameStore = useGameStore();
     text-align: center;
 }
 
+/* Text styling */
 .confirm-text {
     font-size: 1.6rem;
     line-height: 1.6;
     text-align: center;
     white-space: pre-line;
-    /* Allows newlines */
     margin: 0 0 2.5rem 0;
 }
 </style>

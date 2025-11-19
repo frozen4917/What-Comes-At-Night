@@ -2,25 +2,21 @@
     "shed_key": {
         "name": "Shed Key",
         "description_ref": "item_desc_shed_key",
-        "limit": 1,
         "type": "gate"
     },
     "rowan_berries": {
         "name": "Rowan Berries",
         "description_ref": "item_desc_rowan_berries",
-        "limit": 2,
         "type": "crafting"
     },
     "garlic": {
         "name": "Garlic",
         "description_ref": "item_desc_garlic",
-        "limit": 2,
         "type": "crafting"
     },
     "axe": {
         "name": "Axe",
         "description_ref": "item_desc_axe",
-        "limit": 1,
         "type": "weapon",
         "effects": {
             "single_attack": {
@@ -36,32 +32,27 @@
     "fuel": {
         "name": "Fuel",
         "description_ref": "item_desc_fuel",
-        "limit": 1,
         "type": "crafting"
     },
     "first_aid_kit": {
         "name": "First-Aid Kit",
         "description_ref": "item_desc_first_aid_kit",
-        "limit": 1,
         "type": "healing",
         "effects": { "health": 60 }
     },
     "net": {
         "name": "Net",
         "description_ref": "item_desc_net",
-        "limit": 2,
         "type": "utility"
     },
     "twine": {
         "name": "Twine",
         "description_ref": "item_desc_twine",
-        "limit": 2,
         "type": "crafting"
     },
     "baseball_bat": {
         "name": "Baseball Bat",
         "description_ref": "item_desc_baseball_bat",
-        "limit": 1,
         "type": "weapon",
         "effects": {
             "single_attack": {
@@ -74,7 +65,6 @@
     "bow": {
         "name": "Bow",
         "description_ref": "item_desc_bow",
-        "limit": 1,
         "type": "weapon",
         "effects": {
             "single_attack": {
@@ -88,51 +78,43 @@
     "arrow": {
         "name": "Arrow",
         "description_ref": "item_desc_arrow",
-        "limit": 5,
         "type": "ammo"
     },
     "wood": {
         "name": "Wood",
         "description_ref": "item_desc_wood",
-        "limit": "unlimited",
         "type": "crafting"
     },
     "bandages": {
         "name": "Bandages",
         "description_ref": "item_desc_bandages",
-        "limit": 4,
         "type": "healing",
         "effects": { "health": 20 }
     },
     "bottle": {
         "name": "Empty Bottle",
         "description_ref": "item_desc_bottle",
-        "limit": 1,
         "type": "crafting"
     },
     "rag": {
         "name": "Rag",
         "description_ref": "item_desc_rag",
-        "limit": 1,
         "type": "crafting"
     },
     "mushrooms": {
         "name": "Raw Mushrooms",
         "description_ref": "item_desc_mushrooms",
-        "limit": 4,
         "type": "crafting"
     },
     "canned_food": {
         "name": "Canned Food",
         "description_ref": "item_desc_canned_food",
-        "limit": 2,
         "type": "food",
         "effects": { "health": 10, "stamina": 20 }
     },
     "salt": {
         "name": "Salt",
         "description_ref": "item_desc_salt",
-        "limit": 2,
         "type": "crafting_material"
     },
     

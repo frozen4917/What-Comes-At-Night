@@ -1,3 +1,7 @@
+/* MAIN STYLESHEET
+  This is the entry point for all CSS in the application. It imports modular files to keep styles organized and maintainable.
+*/
+
 @import './global.css';
 @import './layout.css';
 @import './components.css';

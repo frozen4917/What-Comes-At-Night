@@ -1,17 +1,27 @@
-/* --- L1. MAIN APP LAYOUT (CSS GRID) --- */
+/* LAYOUT & STRUCTURE
+  Defines the main application grid and the structural positioning of the 4 main panels:
+  1. Stats Bar (Top)
+  3. Content Display (Middle)
+  4. Action Menu (Bottom)
+  5. Footer
+*/
+
+/* ----- L1. MAIN APP LAYOUT (CSS GRID) ----- */
+
+/* The main application container */
 #app {
     display: grid;
-    grid-template-rows: 12fr 43fr 42fr 5fr;
-    height: 100svh;
+    grid-template-rows: 12fr 43fr 42fr 5fr; /* 3-row layout: Stats, Content, Actions, Footer */
+    height: 100svh; /* Full viewport height */
     position: relative;
     box-sizing: border-box;
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom); /* Safe area for mobile */
 }
 
-/* --- L2. STATS BAR (TOP) --- */
+/* ---- L2. STATS BAR (TOP) ----- */
 #stats-bar {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr auto 1fr; /* 3 columns layout: Left Stats | Icon | Right Stats */
     align-items: center;
     padding: 0 2.5rem;
     border-bottom: 1px solid var(--accent-color);
@@ -22,6 +32,7 @@
     text-transform: uppercase;
 }
 
+/* Flex containers for the left/right stat groups */
 #stats-bar>div {
     display: flex;
     gap: 1.0rem 2.5rem;
@@ -37,28 +48,31 @@
     text-align: right;
 }
 
+/* Styling for labels ("HP:") */
 #stats-bar strong {
     color: var(--accent-color);
     margin-right: 0.8rem;
 }
 
+/* Styling for values ("100") */
 #stats-bar .value {
     color: #d1d1d1;
 }
 
-/* --- L3. CONTENT DISPLAY (MIDDLE) --- */
+/* ----- L3. CONTENT DISPLAY (MIDDLE) ----- */
+
 #content-display {
     padding: 2.5rem;
     height: 100%;
     box-sizing: border-box;
-    overflow-y: auto;
-    font-family: 'Special Elite', monospace;
+    overflow-y: auto; /* Scrollable story text */
+    font-family: 'Special Elite', monospace; /* Story font */
     font-size: 1.8rem;
     line-height: 1.7;
     display: block;
 }
 
-/* --- L4. ACTION MENU (BOTTOM) --- */
+/* ----- L4. ACTION MENU (BOTTOM) ----- */
 #action-menu {
     display: flex;
     height: 100%;
@@ -67,6 +81,7 @@
     border-top: 1px solid #222;
 }
 
+/* Left column: Categories (MOVE, ATTACK) */
 #action-categories {
     flex-basis: 35%;
     border-right: 1px solid #222;
@@ -77,6 +92,7 @@
     overflow-y: auto;
 }
 
+/* Right column: Specific Actions */
 #action-sub-options {
     flex-basis: 65%;
     padding: 2rem;
@@ -86,7 +102,9 @@
     overflow-y: auto;
 }
 
-/* --- L5. FOOTER --- */
+/* ----- L5. FOOTER ----- */
+
+/* Styling for the footer */
 #game-footer {
     height: 100%;
     box-sizing: border-box;
@@ -96,20 +114,4 @@
     gap: 3rem;
     border-top: 1px solid var(--accent-color);
     background-color: #0a0a0a;
-}
-
-.footer-button {
-    background: transparent;
-    border: none;
-    color: #777;
-    font-family: 'Roboto Condensed', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    letter-spacing: 0.5px;
-}
-
-.footer-button:hover {
-    color: #d1d1d1;
 }

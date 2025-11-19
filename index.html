@@ -4,23 +4,42 @@
 <head>
     <meta charset="UTF-8">
     
-    <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
-    <link rel="shortcut icon" href="/favicons/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
-    <link rel="manifest" href="/favicons/site.webmanifest" />
+    <!-- FAVICONS -->
+    <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" /> <!-- Standard favicon for most browsers -->
+    <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" /> <!-- SVG favicon for modern browsers (scales infinitely) -->
+    <link rel="shortcut icon" href="/favicons/favicon.ico" /> <!-- Legacy .ico for old browsers -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" /> <!-- iOS home screen icon -->
+    <link rel="manifest" href="/favicons/site.webmanifest" /> <!-- Web app manifest for PWA features -->
 
+    <!-- 
+        Viewport configuration for responsive mobile design.
+        - width=device-width: Use device's actual width (not zoomed desktop view)
+        - initial-scale=1.0: Start at 100% zoom level
+        - viewport-fit=cover: Handle notch/safe areas
+        - maximum-scale=1.0: Prevent user pinch-zoom
+        - user-scalable=no: Disable pinch-zoom (intentional design)
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Page Title -->
     <title>What Comes At Night</title>
+
+    <!-- Import google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- FONTS -->
+        <!-- Roboto Condensed: Clean sans-serif for UI elements -->
+        <!-- Special Elite: Typewriter-style font for game narrative text. Creates horror/vintage aesthetic -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Special+Elite&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
+    <!-- Root mounting point for Vue application. Vue replaces this div's contents with the rendered App.vue component. -->
     <div id="app"></div>
-    <noscript>You need to enable JavaScript to run this game.</noscript>
+    <noscript>You need to enable JavaScript to run this game.</noscript> <!-- Fallback message in case JS is disabled -->
+
+    <!-- Application entry point script. type="module" enables ES6 imports/exports (required for Vue 3) -->
     <script type="module" src="/src/main.js"></script>
 </body>
 

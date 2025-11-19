@@ -1,19 +1,36 @@
+/**
+ * @file main.js
+ * @description The Core Game Engine.
+ * This file contains the high-level logic for the game loop, including:
+ * - Initializing the game state from data.
+ * - Orchestrating the Player's Turn (running actions).
+ * - Orchestrating the Monster's Turn (spawning, attacks).
+ * - Checking for Game Over / Win conditions.
+ */
+
 import { areConditionsMet } from './utils.js';
 import { trapMonster, processFortificationDamage, processTimedEvents, processNoiseSpawning, processNoiseDespawning, processPlayerDamage } from "./monsterHandler.js";
 import { handleEffects } from "./effectsHandler.js";
 
-// --- ENGINE FUNCTIONS (called by store)
-
-// Run the monster turn (Horde spawning, noise spawning/despawning, trap monsters, fortification damage)
+/**
+ * Runs the monster's turn: Spawning, despawning, activating traps, and attacking fortifications
+ * @param {Object} gameState Current dynamic game state
+ * @param {Object} gameData Game-related data
+ */
 export function runMonsterTurn(gameState, gameData) {
-    processTimedEvents(gameState, gameData);         // Horde Spawning
-    processNoiseSpawning(gameState, gameData);      // High-noise monster spawning
-    processNoiseDespawning(gameState, gameData);    // Noise-spawned monsters despawning
-    trapMonster(gameState, gameData);               // Kills monsters if trap is set
+    processTimedEvents(gameState, gameData); // Timed horde Spawning
+    processNoiseSpawning(gameState, gameData); // High-noise lone monster spawning
+    processNoiseDespawning(gameState, gameData); // Noise-spawned monsters despawning
+    trapMonster(gameState, gameData); // Kills monsters if trap is set
     processFortificationDamage(gameState, gameData); // Monsters damage fortification
 }
 
-// Run the player turn (update previous location, handle effects, player damage, tick clock)
+/**
+ * Runs player's turn after player selects an action. Updates location, handles effects of the action, processes damage from monsters, and decrements the clock
+ * @param {Object} chosenAction Action object chosen by the player from the validActions array
+ * @param {Object} gameState Current dynamic game state
+ * @param {Object} gameData Game-related data
+ */
 export function runPlayerTurn(chosenAction, gameState, gameData) {
     gameState.world.previousLocation = gameState.world.currentLocation; // Update previous turn's location
 
@@ -22,7 +39,12 @@ export function runPlayerTurn(chosenAction, gameState, gameData) {
     tickClock(gameState);                               // Decrement actions remaining & cooldowns
 }
 
-// Checks for win/lose and advances phases. Refactored for browser-friendliness
+/**
+ * Check's for win / lose / phase change condition
+ * @param {Object} gameState Current dynamic game state
+ * @param {Object} gameData Game-related data
+ * @returns {{ isGameOver: boolean, outcome?: 'win' | 'lose' }} status of the game and the outcome
+ */
 export function checkGameStatus(gameState, gameData) {
     // Check player health
     if (gameState.player.health <= 0) {
@@ -55,8 +77,6 @@ export function checkGameStatus(gameState, gameData) {
     return { isGameOver: false };
 }
 
-// --- ADDITION FUNCTIONS (mostly same) ---
-
 /**
  * Returns an array of all valid actions
  * @param {Object} gameState Current dynamic game state
@@ -83,7 +103,7 @@ export function getCurrentActions(gameState, gameData) {
                 // Create the final action object and add it to the list
                 validActions.push({
                     id: action.id,
-                    category: category.category, // NEW FOR THE UI
+                    category: category.category, // The category to which the action belongs to, e.g. "MOVE", "FORTIFY", etc.
                     displayText: gameData.texts[action.text_ref] || action.id, // Display text is the text shown on the option. Fallback to ID if text_ref is missing
                     effects: action.effects
                 });

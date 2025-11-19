@@ -1,4 +1,15 @@
-/* --- C1. ACTION BUTTONS --- */
+/* COMPONENT STYLES
+  UI Components styling, including:
+  - Action Buttons (Transparent with hover effects)
+  - Footer Buttons
+  - End Game Button
+  - Modal Buttons (Confirm/Cancel)
+  - Info Tooltips
+*/
+
+/* ----- C1. ACTION BUTTONS ----- */
+
+/* Default styling for Action Menu buttons (both categories and sub-actions) */
 .action-button {
     background: transparent;
     border: none;
@@ -10,18 +21,17 @@
     cursor: pointer;
     transition: all 0.15s ease;
 }
-
 .action-button:hover {
     color: var(--accent-color);
     transform: translateX(0.5rem);
 }
 
+/* Special styling for Category buttons (left side) */
 .action-button.category-button {
     font-size: 1.7rem;
     color: #777;
     text-transform: uppercase;
 }
-
 .action-button.category-button.active {
     /* color: #d1d1d1; */
     color: var(--accent-color);
@@ -29,13 +39,33 @@
     border-left: 3px solid var(--accent-color);
     padding-left: 1rem;
 }
-
 .action-button.category-button:hover {
     color: var(--accent-color);
     transform: translateX(0);
 }
 
-/* --- C2. END GAME BUTTON STYLE --- */
+/* ----- C2. FOOTER BUTTONS ----- */
+
+/* Button formatting for footer button (Inventory, Options, Restart) */
+.footer-button {
+    background: transparent;
+    border: none;
+    color: #777;
+    font-family: 'Roboto Condensed', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    letter-spacing: 0.5px;
+}
+
+.footer-button:hover {
+    color: #d1d1d1;
+}
+
+/* ----- C3. END GAME BUTTON STYLE ----- */
+
+/* The large button on the Game Over screen */
 .end-game-button {
     background: transparent;
     border: 2px solid var(--accent-color);
@@ -56,9 +86,9 @@
     font-weight: bold;
 }
 
-/* --- C3. ACTION TOOLTIP STYLES --- */
+/* ----- C4. ACTION TOOLTIP STYLES ----- */
 
-/* The info button (!) */
+/* The info button ⓘ */
 .info-button {
     background: transparent;
     border: none;
@@ -77,18 +107,15 @@
     transform: scale(1.1);
 }
 
-/* The tooltip popup itself */
+/* The popup box for tooltips */
 .tooltip-popup {
-    position: fixed;
+    position: fixed; /* Positioned relative to viewport */
     transform: translateY(-80%) translateX(-5%); 
-    
     background: #0a0a0a;
     border: 1px solid var(--accent-color);
     padding: 1rem;
-    z-index: 2000;
-    
+    z-index: 2000; /* Top layer */
     width: 16rem;
-    
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 1rem;
     line-height: 1.1;
@@ -106,7 +133,9 @@
     margin-bottom: 0;
 }
 
-/* --- C4. MODAL BUTTON STYLES --- */
+/* ----- C5. MODAL BUTTON STYLES ----- */
+
+/* Used in Restart Confirmation overlay */
 .modal-button-group {
     display: flex;
     justify-content: center;
@@ -120,8 +149,6 @@
     border: none;
     cursor: pointer;
     transition: all 0.15s ease;
-
-    /* Font and Theme */
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
     font-size: 1.5rem;

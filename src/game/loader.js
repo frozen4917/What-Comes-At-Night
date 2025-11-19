@@ -1,9 +1,15 @@
 /**
+ * @file loader.js
+ * @description Data Loader.
+ * Handles fetching and parsing all JSON game data from the `/public/data/` directory.
+ * This acts as the bridge between the static data files and the active game state.
+ */
+
+/**
  * Loads game-related data
  * @returns {Object} gameData object comprising of all game data
  */
 export async function loadGameData() {
-    console.log("Loading all game data...");
 
     // All data files in /public/data/
     const fileNames = [
@@ -47,7 +53,6 @@ export async function loadGameData() {
             return acc;
         }, {});
 
-        console.log("Game data loaded successfully!");
         return gameData; // Returns the actual gameData object
 
     } catch (error) {
@@ -55,7 +60,6 @@ export async function loadGameData() {
         console.error("FATAL ERROR: Could not load game data. Check JSON files in /public/data/");
         console.error(error);
         
-        // No process.exit(1) in a browser, so throw the error to stop the startGame() function.
         throw error;
     }
 }

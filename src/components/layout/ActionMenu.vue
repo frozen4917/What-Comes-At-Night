@@ -1,23 +1,34 @@
 <script setup>
+/**
+ * @component ActionMenu
+ * @description Dynamic action selection menu with category-based filtering
+ * Displays available player actions organized into categories (MOVE, ATTACK, FORTIFY, etc.). Actions are filtered in real-time based on game state conditions (stamina, inventory, location, etc.).
+ */
+
 import { ref, computed, watch } from 'vue';
 import { useGameStore } from '@/stores/gameStore';
 import { generateTooltipText } from '@/game/ui.js';
-// Get a reactive reference to our game store
+
 const gameStore = useGameStore();
 
-// This ref will store the ID of the currently selected category (e.g., "MOVE")
+// --- STATE ---
+
+// Tracks which category is currently expanded (e.g., "MOVE", "ATTACK")
 const selectedCategory = ref(null);
 
+// Tooltip state: visibility, position, and content
 const tooltip = ref({
     visible: false,
-    actionId: null,
-    lines: [],
+    actionId: null, // Action to which the tooltip belongs to
+    lines: [], // Array of info strings (e.g., ["Costs: 3 Stamina", "Stats: +60 HP"])
     position: { top: 0, right: 0 }
 });
 
-// --- NEW LOGIC FOR CATEGORIES ---
+// --- COMPUTED PROPERTIES ---
 
-// 1. This is our desired, fixed order
+/**
+ * Fixed display order for action categories. Categories appear in this order regardless of which are available to ensure consistent muscle memory for players
+ */
 const categoryOrder = [
     'MOVE',
     'ATTACK',
@@ -27,23 +38,27 @@ const categoryOrder = [
     'INTERACT & USE'
 ];
 
-// 2. This computed property creates a unique list of *available* categories
+/**
+ * Set of currently available categories based on valid actions. Each action is checked and it's category is added to the set, e.g. ["MOVE", "REST & HIDE", "ATTACK"]
+ */
 const availableCategories = computed(() => {
     return new Set(
         gameStore.validActions.map(action => action.category)
     );
 });
 
-// 3. This is our new list of categories. It filters the master list to only show categories that are currently available.
+/**
+ * Filtered and ordered list of categories to display. Shows only categories that have at least one valid action, e.g: ["MOVE", "ATTACK", "REST & HIDE"]
+ */
 const actionCategories = computed(() => {
     return categoryOrder.filter(category =>
         availableCategories.value.has(category)
     );
 });
 
-// ---------------------------------
-
-// This computed property filters the actions to show only the ones for the currently selected category.
+/**
+ * Actions belonging to the currently selected category.
+ */
 const subActions = computed(() => {
     if (!selectedCategory.value) {
         return []; // If no category is selected, show no sub-actions
@@ -53,53 +68,78 @@ const subActions = computed(() => {
     );
 });
 
-// This function is called when a category button is clicked
+// --- FUNCTIONS ---
+
+/**
+ * Selects a category and closes any open tooltips.
+ * @param {string} category Category ID (e.g., "MOVE")
+ */
 function selectCategory(category) {
     selectedCategory.value = category;
-    closeTooltip();
+    closeTooltip(); // Close tooltip if open
 }
 
+/**
+ * Hides tooltip and removes click listener.
+ * Called when clicking outside tooltip or selecting an action.
+ */
 function closeTooltip() {
     tooltip.value.visible = false;
     tooltip.value.actionId = null;
     document.removeEventListener('click', closeTooltip);
 }
 
-// This function is called when an action is clicked
+/**
+ * Handles player clicking an action button. Triggers the main game loop via store
+ * @param {Object} action - Action object with id, effects, etc.
+ */
 function onActionClick(action) {
-    // Close the tooltip
-    closeTooltip();
-    // Call the main game loop function in the store
-    gameStore.handlePlayerAction(action);
-
-    // We no longer deselect the category, so the list just updates
+    closeTooltip(); // Close tooltip
+    gameStore.handlePlayerAction(action); // Call the main game loop function in the store 
 }
 
-// Activate tooltip
+/**
+ * Shows/hides tooltip for an action's info button (ⓘ).
+ * Calculates position to appear above the button.
+ * @param {Object} action Action to show info for
+ * @param {Event} event Click event (to prevent bubbling)
+ */
 function onInfoClick(action, event) {
-    event.stopPropagation();
+    event.stopPropagation(); // Prevent triggering action itself
 
+    // Toggle: if same tooltip clicked again, close it
     if (tooltip.value.visible && tooltip.value.actionId === action.id) {
         closeTooltip();
     } else {
         const button = event.currentTarget;
         const rect = button.getBoundingClientRect();
         
+        // Generate tooltip content (costs, damage, etc.)
         tooltip.value.lines = generateTooltipText(action, gameStore.gameState, gameStore.gameData);
         tooltip.value.visible = true;
         tooltip.value.actionId = action.id;
         
-        // Position tooltip above the button
+        // Position tooltip above button, aligned to right edge
         tooltip.value.position = {
-            top: rect.top - 10, // Position above button with 10px spacing
+            top: rect.top - 10,
             right: window.innerWidth - rect.right
         };
 
+        // Close tooltip if user clicks anywhere else
         document.addEventListener('click', closeTooltip, { once: true });
     }
 }
 
-// Automatically select the first category in the list whenever the actions change
+// --- WATCHERS ---
+
+/**
+ * Auto-selects appropriate category when action list changes.
+ * 
+ * Strategy:
+ * 1. If current category is still valid, keep it selected (preserve UX)
+ * 2. Otherwise, select the first available category
+ * 3. If no categories available, deselect (should never happen in practice)
+ */
 watch(actionCategories, (newCategories) => {
     // If the currently selected category is still valid, don't change it
     if (newCategories.includes(selectedCategory.value)) {
@@ -118,6 +158,7 @@ watch(actionCategories, (newCategories) => {
 
 <template>
     <footer id="action-menu">
+        <!-- LEFT PANEL (CATEGORY BUTTONS) -->
         <nav id="action-categories">
             <button v-for="category in actionCategories" :key="category" class="action-button category-button"
                 :class="{ active: category === selectedCategory }" @click="selectCategory(category)">
@@ -125,18 +166,22 @@ watch(actionCategories, (newCategories) => {
             </button>
         </nav>
 
+        <!-- RIGHT PANEL: Action buttons for selected category -->
         <div id="action-sub-options">
             <ul class="sub-options-list">
                 <li v-for="action in subActions" :key="action.id" class="sub-option-item">
 
+                    <!-- Main action button -->
                     <button class="action-button" @click="onActionClick(action)">
                         {{ action.displayText }}
                     </button>
 
+                    <!-- Tooltip button -->
                     <button class="info-button" @click.stop="onInfoClick(action, $event)">
                         ⓘ
                     </button>
 
+                    <!-- Tooltip popup -->
                     <div class="tooltip-popup" v-if="tooltip.visible && tooltip.actionId === action.id"
                         :style="{ top: tooltip.position.top + 'px', right: tooltip.position.right + 'px' }"
                         @click.stop>
@@ -151,22 +196,23 @@ watch(actionCategories, (newCategories) => {
 </template>
 
 <style scoped>
+/* Container for action list items */
 .sub-options-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
+/* Each action row: button + info icon */
 .sub-option-item {
-    position: relative;
-    /* Anchor for the tooltip */
+    position: relative; /* Anchor for the tooltip */
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
+/* Main action button takes most horizontal space */
 .sub-option-item .action-button {
     flex-grow: 1;
-    /* Make button take up most space */
 }
 </style>

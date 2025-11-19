@@ -1,20 +1,31 @@
+/**
+ * @file audioService.js
+ * @description Audio System Wrapper.
+ * A service layer over Howler.js to manage game audio.
+ * It handles:
+ * - Preloading and playing music tracks.
+ * - Managing crossfades between phases.
+ * - Global volume control.
+ * - Unlocking audio contexts for browsers.
+ */
+
 import { Howl, Howler } from 'howler';
 
 // --- Audio Configuration ---
 const MUSIC_FADE_TIME = 2000; // 2 seconds for fade in/out
 let currentTrackName = ""; // The File Name of the track that is playing
 
-// 2 players for crossfade
-let playerA = null, playerB = null;
+let playerA = null, playerB = null; // 2 Players to allow for crossfading
 let activePlayer = 'A'; // Tracks which player is currently active
 
+/**
+ * Unlocks the browser's audio context on the first user interaction. Resumes/Replays track if required.
+ */
 export function unlockAudio() {
-    // Howler.state will be 'suspended' if audio is locked.
-    // If it's 'running', audio is already playing and we do nothing.
     if (Howler.state !== 'running') {
+        // --- Howler.state is suspended ---
         Howler.autoUnlock = true;
         Howler.autoSuspend = false; // Keep audio context alive
-        console.log("Audio unlocked by user interaction.");
 
         // If a track was *supposed* to be playing, try to play it again.
         if (currentTrackName) {
@@ -22,8 +33,6 @@ export function unlockAudio() {
             currentTrackName = ""; 
             playMusic(trackToPlay);
         }
-    } else {
-        console.log("Audio already unlocked, no action needed.");
     }
 }
 
@@ -32,9 +41,7 @@ export function unlockAudio() {
  * @param {Howl} player The Howl object to fade in
  */
 function fadeIn(player) {
-    // Play the track (Howler handles loading)
-
-    // We set loop and volume before playing.
+    // Set loop and volume before playing.
     player.loop(true);
     player.volume(0);
     player.play();
@@ -61,16 +68,15 @@ function fadeOut(player) {
 }
 
 /**
- * Plays a new music track.
- * @param {string} trackFilename The name of the file (e.g., "Fading Light.mp3")
+ * Plays a specific music track by file name and handles crossfading.
+ * @param {string} trackFilename The file name of the track to play (e.g., "Fading Light.mp3").
  */
 export function playMusic(trackFilename) {
 
     // If no track is provided, or the track is already playing, do nothing.
     if (!trackFilename || trackFilename === currentTrackName) return;
 
-    console.log(`AudioService: Playing track ${trackFilename}`);
-    currentTrackName = trackFilename;
+    currentTrackName = trackFilename; // Set the current track to the file name
 
     // Create the new Howl object with the correct path
     const newPlayer = new Howl({
@@ -97,8 +103,8 @@ export function playMusic(trackFilename) {
 }
 
 /**
- * Public function to set the master volume. This uses Howler's global volume setting.
- * @param {number} level A value between 0 (silent) and 0.3
+ * Sets the global master volume for all audio managed by Howler.
+ * @param {number} level The volume level from 0.0 (mute) to 1.0 (max).
  */
 export function setMasterVolume(level) {
     // This sets the volume for ALL sounds managed by Howler.
@@ -106,7 +112,7 @@ export function setMasterVolume(level) {
 }
 
 /**
- * Stop all music. Used for the Restart button.
+ * Stops all currently playing music and resets the audio state. Used when restarting the game to ensure silence before reload.
  */
 export function stopAllMusic() {
     fadeOut(playerA);

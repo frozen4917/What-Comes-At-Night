@@ -1,10 +1,12 @@
 {
   "name": "what-comes-at-night",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
+  "description": "A minimalist, text-based survival horror game.",
+  "author": "frozen4917",
   "engines": {
-    "node": "^20.19.0 || >=22.12.0"
+    "node": ">=24.11.1"
   },
   "scripts": {
     "dev": "vite",

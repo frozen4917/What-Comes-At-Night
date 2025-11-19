@@ -1,6 +1,15 @@
+/* OVERLAY STYLES
+  Styles for full-screen or centered oerlays.
+  - Base .overlay backdrop (blurred, dark)
+  - Centered content boxes (.overlay-content)
+  - Visibility toggle classes (.inventory-is-open, etc.)
+*/
+
 /* --- O1. OVERLAY STYLES --- */
+
+/* The dark, blurred backdrop */
 .overlay {
-    display: none;
+    display: none; /* Hidden by default */
     position: absolute;
     top: 0;
     left: 0;
@@ -8,10 +17,11 @@
     height: 100%;
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px); /* Blur the background */
     z-index: 100;
 }
 
+/* The centered content box for modals */
 .overlay-content {
     background-color: #0a0a0a;
     border: 1px solid #333;
@@ -20,9 +30,11 @@
     max-width: 40rem;
     text-align: center;
     font-family: 'Special Elite', monospace;
-    margin: auto; /* This centers the popup */
+    margin: auto; /* centers the box in the overlay */
+    /* Note: Font is handled by individual components */
 }
 
+/* Headings inside overlays */
 .overlay-content h2 {
     font-family: 'Roboto Condensed', sans-serif;
     text-transform: uppercase;
@@ -30,6 +42,7 @@
     margin-top: 0;
 }
 
+/* List styling (for Inventory) */
 .inventory-list {
     list-style: none;
     padding: 0;
@@ -45,24 +58,4 @@
 .close-button {
     margin-top: 2rem;
     font-size: 1.5rem;
-}
-
-/* --- O2. STATE CHANGE CLASSES --- */
-/* .inventory-is-open #inventory-overlay,
-.options-is-open #options-overlay
-.restart-confirm-is-open #restart-confirm-overlay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
-.game-is-over #end-game-overlay {
-    display: flex;
-}
-
-.game-is-over #stats-bar,
-.game-is-over #content-display,
-.game-is-over #action-menu,
-.game-is-over #game-footer {
-    display: none;
 }

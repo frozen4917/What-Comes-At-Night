@@ -1,12 +1,26 @@
 <script setup>
+/**
+ * @component ContentDisplay
+ * @description Main text display area for game story and events
+ * Renders the current game prompt, which includes:
+ * - Phase flavor text (e.g., "The sun bleeds orange...")
+ * - Location descriptions (first visit, return, staying)
+ * - Action consequences (crafted item, dealt damage, etc.)
+ * - Threat messages (horde spawns, attacks, etc.)
+ * - Status warnings (low health/stamina alerts)
+ */
+
 import { computed } from 'vue';
 import { useGameStore } from '@/stores/gameStore';
 
-// Get a reactive reference to our game store
 const gameStore = useGameStore();
 
-// This computed property splits the single prompt string into an array
-// of paragraphs, using the \n\n separator from buildPromptText.
+// --- COMPUTED PROPERTIES ---
+
+/**
+ * Splits the prompt string into individual paragraphs. The engine uses '\n\n' as paragraph separator.
+ * Each paragraph is rendered as a separate <p> tag for proper spacing. Returns empty array if no text available.
+ */
 const paragraphs = computed(() => {
     if (!gameStore.promptText) {
         return [];
@@ -17,6 +31,7 @@ const paragraphs = computed(() => {
 
 <template>
     <main id="content-display">
+        <!-- Each paragraph rendered separately for proper formatting -->
         <p v-for="(p, index) in paragraphs" :key="index">
             {{ p }}
         </p>
@@ -24,14 +39,12 @@ const paragraphs = computed(() => {
 </template>
 
 <style scoped>
-/* This style makes sure that paragraphs are rendered correctly,
-  even if the promptText string is empty.
-*/
+/* Ensures proper rendering even with empty prompt. Block display is required for scrolling behavior. */
 #content-display {
     display: block;
 }
 
-/* This rule will respect newlines (\n) in your threat text */
+/* Respects line breaks (\n) within individual paragraphs. */
 p {
     white-space: pre-line;
 }
