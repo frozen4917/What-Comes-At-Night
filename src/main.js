@@ -15,6 +15,7 @@
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import { inject } from '@vercel/analytics';
 
 import App from './App.vue';
 import './assets/main.css'; // Global styles (themes, layout, components)
@@ -34,7 +35,12 @@ const app = createApp(App);
 app.use(createPinia());
 
 /**
- * 3. Mount application to DOM.
+ * Initialise Vercel Analytics
+ */
+inject();
+
+/**
+ * 4. Mount application to DOM.
  * Finds <div id="app"> in index.html and replaces it with rendered Vue app.
  * This is the final step - after this line, the game is live in the browser.
  */
