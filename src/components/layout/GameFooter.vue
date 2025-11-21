@@ -23,9 +23,9 @@ const gameStore = useGameStore();
         <button class="footer-button" @click="gameStore.toggleOptions()">
             Options
         </button>
-        <!-- Opens restart confirmation overlay -->
-        <button class="footer-button" @click="gameStore.toggleRestartConfirm()">
-            Restart
+        <!-- Opens the main menu -->
+        <button class="footer-button" @click="gameStore.goToMainMenu()">
+            Main Menu
         </button>
     </nav>
 </template>

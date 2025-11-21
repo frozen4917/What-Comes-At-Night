@@ -63,10 +63,10 @@
     color: #d1d1d1;
 }
 
-/* ----- C3. END GAME BUTTON STYLE ----- */
+/* ----- C3. END GAME / MENU BUTTON STYLE ----- */
 
-/* The large button on the Game Over screen */
-.end-game-button {
+/* The large button on the Game Over / Main Menu screen. */
+.menu-button {
     background: transparent;
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
@@ -76,12 +76,30 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
-    margin-top: 4rem;
+
+    /* Layout specifics for the list view */
+    width: 100%;
+    max-width: 30rem; 
+    display: block;
+    margin: 0 auto 1.5rem auto; /* Centers button and adds bottom gap */
+    
     transition: all 0.2s ease;
 }
 
-.end-game-button:hover {
+.menu-button:hover {
     background: var(--accent-color);
+    color: #0a0a0a;
+    font-weight: bold;
+}
+
+/* Styling for other buttons */
+.menu-button.primary {
+    color: #b91c1c;
+    border: 2px solid #b91c1c;
+}
+
+.menu-button.primary:hover {
+    background-color: #b91c1c;
     color: #0a0a0a;
     font-weight: bold;
 }

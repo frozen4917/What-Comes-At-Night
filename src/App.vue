@@ -34,6 +34,7 @@ import ActionMenu from './components/layout/ActionMenu.vue';
 import GameFooter from './components/layout/GameFooter.vue';
 
 // Overlay components (shown conditionally via v-if)
+import MainMenuOverlay from './components/overlays/MainMenuOverlay.vue';
 import InventoryOverlay from './components/overlays/InventoryOverlay.vue';
 import OptionsOverlay from './components/overlays/OptionsOverlay.vue';
 import EndGameOverlay from './components/overlays/EndGameOverlay.vue';
@@ -72,10 +73,13 @@ onMounted(() => {
  */
 const themeClass = computed(() => {
     if (!gameStore.gameState || !gameStore.gameState.world) {
-        return 'theme-dusk'; // Default theme
+        return ''; // Default root theme
+    }
+    if (gameStore.isGameStarted || gameStore.hasSaveFile) {
+        return `theme-${gameStore.gameState.world.currentPhaseId}`;
     }
     // This will return 'theme-dusk', 'theme-nightfall', etc.
-    return `theme-${gameStore.gameState.world.currentPhaseId}`;
+    return '';
 });
 </script>
 
@@ -84,24 +88,31 @@ const themeClass = computed(() => {
     <!-- @click.once="unlockAudio" allows the browser to play audio upon first click, anywhere in the app. Only triggers once. -->
     <div id="app" :class="themeClass" @click.once="unlockAudio">
 
-        <!-- GAME OVER STATE: Full-screen overlay with results -->
-        <EndGameOverlay v-if="gameStore.isGameOver" />
+        <!-- MAIN MENU SCREEN if game hasn't started -->
+        <MainMenuOverlay v-if="!gameStore.isGameStarted" />
 
-        <!-- PLAYING STATE: Normal game layout + conditional overlays -->
+        <!-- If game started, load the other elements -->
         <template v-else>
 
-            <!-- Main layout components (always visible during play) -->
-            <StatsBar />
-            <ContentDisplay />
-            <ActionMenu />
-            <GameFooter />
+        <!-- GAME OVER STATE: Full-screen overlay with results -->
+            <EndGameOverlay v-if="gameStore.isGameOver" />
 
-            <!-- Conditional overlays (shown based on store boolean flags) -->
-            <!-- These are mounted/unmounted via v-if, not hidden with CSS -->
-            <InventoryOverlay v-if="gameStore.isInventoryOpen" />
-            <OptionsOverlay v-if="gameStore.isOptionsOpen" />
-            <RestartConfirmationOverlay v-if="gameStore.isRestartConfirmOpen" />
+            <!-- PLAYING STATE: Normal game layout + conditional overlays -->
+            <template v-else>
 
+                <!-- Main layout components (always visible during play) -->
+                <StatsBar />
+                <ContentDisplay />
+                <ActionMenu />
+                <GameFooter />
+
+                <!-- Conditional overlays (shown based on store boolean flags) -->
+                <!-- These are mounted/unmounted via v-if, not hidden with CSS -->
+                <InventoryOverlay v-if="gameStore.isInventoryOpen" />
+                <OptionsOverlay v-if="gameStore.isOptionsOpen" />
+                <RestartConfirmationOverlay v-if="gameStore.isRestartConfirmOpen" />
+
+            </template>
         </template>
     </div>
 </template>

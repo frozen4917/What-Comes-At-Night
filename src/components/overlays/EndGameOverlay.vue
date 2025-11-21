@@ -69,8 +69,11 @@ const finalParagraphs = computed(() => {
                 {{ p }}
             </p>
             <!-- Start New Game button -->
-            <button class="end-game-button" @click="gameStore.restartGame()">
+            <button class="menu-button" @click="gameStore.restartGame()">
                 Start New Game
+            </button>
+            <button class="menu-button" @click="gameStore.goToMainMenu()">
+                Go to Main Menu
             </button>
         </div>
     </div>

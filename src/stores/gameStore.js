@@ -71,6 +71,8 @@ export const useGameStore = defineStore('game', () => {
     const isOptionsOpen = ref(false); // Controls visibility of the options overlay
     const isGameOver = ref(false); // Controls the game over state. When true, the main UI is hidden and a end-game overlay is shown
     const isRestartConfirmOpen = ref(false); // Controls visibility of the restart confirmation popup
+    const isGameStarted = ref(false); // Controls Menu & Game view
+    const hasSaveFile = ref(false); // Enables/disables "Continue Game" button visibility
 
     // --- SETTINGS ---
     const savedSettings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
@@ -106,6 +108,11 @@ export const useGameStore = defineStore('game', () => {
         
         // Get new actions from the engine
         validActions.value = getCurrentActions(gameState.value, gameData.value);
+
+        // Store the rendered text in a render log
+        // This ensures that when we save to LocalStorage, we save the story too.
+        if (!gameState.value.status) gameState.value.status = {};
+        gameState.value.status.lastRenderedLog = promptText.value;
     }
 
     /**
@@ -183,27 +190,78 @@ export const useGameStore = defineStore('game', () => {
             const savedGame = localStorage.getItem(SAVE_GAME_KEY);
             
             if (savedGame) {
-                // (b) If a save exists, load it
+                hasSaveFile.value = true;
+                // (b) If a save exists, load it in the background
                 gameState.value = JSON.parse(savedGame);
             } else {
                 // (c) If no save, initialize a fresh game
                 gameState.value = initializeGameState(gameData.value);
                 
-                // Only run the monster turn on a *brand new* game
-                runMonsterTurn(gameState.value, gameData.value);
+                hasSaveFile.value = false;
             }
-
-            // Step 4. Update the UI with initial text and actions
-            _updateUI();
-
-            // Step 5. Play the music for the phase the game loaded into
-            const currentPhaseData = gameData.value.phases.phases.find(p => p.id === gameState.value.world.currentPhaseId);
-            audio.playMusic(currentPhaseData.musicTrack);
-
         } catch (error) {
             console.error("Game Store: Failed to start game", error);
             promptText.value = "FATAL ERROR: Could not start game. Check console for details.";
         }
+    }
+
+    /**
+     * Launches a new game using the "Start New Game" button
+     */
+    function launchNewGame() {
+        try {
+            // 1. Force reset ALL UI flags
+            isGameOver.value = false;
+            isInventoryOpen.value = false;
+            isOptionsOpen.value = false;
+            isRestartConfirmOpen.value = false;
+
+            // 2. Initialize State
+            gameState.value = initializeGameState(gameData.value);
+            
+            // 3. Run Initial Turn
+            runMonsterTurn(gameState.value, gameData.value);
+            
+            // 4. Build UI
+            _updateUI();
+            
+            // 5. Start Audio
+            const currentPhaseData = gameData.value.phases.phases.find(p => p.id === gameState.value.world.currentPhaseId);
+            if (currentPhaseData && currentPhaseData.musicTrack) {
+                audio.playMusic(currentPhaseData.musicTrack);
+            }
+            
+            // 6. Switch View
+            isGameStarted.value = true;
+            hasSaveFile.value = true; 
+
+        } catch (error) {
+            console.error("CRASH in launchNewGame:", error);
+            alert("Error starting game. Check console.");
+        }
+    }
+
+    /**
+     * Continues a game from save file
+     */
+    function continueSavedGame() {
+        // Step 1. Restore the text from the save file
+        if (gameState.value.status && gameState.value.status.lastRenderedLog) {
+            promptText.value = gameState.value.status.lastRenderedLog;
+        } else {
+            // Fallback if it's an old save without the log
+            _updateUI();
+        }
+
+        // Step 2. Recalculate valid actions
+        validActions.value = getCurrentActions(gameState.value, gameData.value);
+        
+        // Step 3. Resume Music
+        const currentPhaseData = gameData.value.phases.phases.find(p => p.id === gameState.value.world.currentPhaseId);
+        audio.playMusic(currentPhaseData.musicTrack);
+        
+        // 4. Switch View
+        isGameStarted.value = true;
     }
 
     /**
@@ -230,6 +288,7 @@ export const useGameStore = defineStore('game', () => {
             promptText.value = _buildEndGameText(status.outcome); // Prepare the end game text
 
             localStorage.removeItem(SAVE_GAME_KEY); // Remove the local save as the game is over
+            hasSaveFile.value = false; // No save file now
 
             // Handle end-game music. Play dawn track if "win"
             if (status.outcome === 'win') {
@@ -271,23 +330,38 @@ export const useGameStore = defineStore('game', () => {
     }
 
     /**
-     * Toggles the visibility of the Restart confirmation popup.
-     */
-    function toggleRestartConfirm() {
-        isRestartConfirmOpen.value = !isRestartConfirmOpen.value;
-    };
-
-    /**
      * Hard resets the game by deleting the same file, stopping music, and reloading the browser page.
      */
     function restartGame() {
-        // 1. Delete the save file
+        // 1. Delete Save so we don't resume the dead game
         localStorage.removeItem(SAVE_GAME_KEY);
-        // 2. Stop all music
-        audio.stopAllMusic();
-        // 3. Reload the page
-        location.reload();
+        
+        // 2. Close All Overlays (Crucial!)
+        isGameOver.value = false;
+        isRestartConfirmOpen.value = false;
+        isInventoryOpen.value = false;
+        isOptionsOpen.value = false;
+
+        // 3. Start the new game logic (This sets isGameStarted = true)
+        launchNewGame();
     };
+
+    /**
+     * Returns the player to the main menu.
+     * Saves the game automatically via the watcher before closing.
+     */
+    function goToMainMenu() {
+        // 1. Close any open overlays
+        isInventoryOpen.value = false;
+        isOptionsOpen.value = false;
+        isRestartConfirmOpen.value = false;
+        
+        // 2. Stop audio
+        audio.stopAllMusic();
+
+        // 3. Switch view back to Menu
+        isGameStarted.value = false;
+    }
 
     /**
      * Updates volume based on the slider in OptionsOverlay.
@@ -310,15 +384,19 @@ export const useGameStore = defineStore('game', () => {
         isOptionsOpen,
         isGameOver,
         isRestartConfirmOpen,
+        isGameStarted,
+        hasSaveFile,
         volume,
 
         // Functions
         startGame,
+        launchNewGame,
+        continueSavedGame,
         handlePlayerAction,
         toggleInventory,
         toggleOptions,
-        toggleRestartConfirm,
         restartGame,
+        goToMainMenu,
         updateVolume
     };
 })

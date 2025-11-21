@@ -41,6 +41,7 @@
         "gameMode": "exploring",
         "playerState": "normal",
         "messageQueue": [],
+        "lastRenderedLog": "",
         "noiseSpawnCount": 0,
         "repeatedSpawnCooldown": 0,
         "gracePeriodCooldown": 0
