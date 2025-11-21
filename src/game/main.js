@@ -145,8 +145,10 @@ export function initializeGameState(gameData) {
     world.actionsRemaining = firstPhaseData.durationInActions;
 
     // Step 4. Create Horde and Status (fresh copies)
-    const horde = { ...initialState.horde };
-    const status = { ...initialState.status };
+    const horde = JSON.parse(JSON.stringify(initialState.horde));
+    const status = JSON.parse(JSON.stringify(initialState.status));
+    // Ensure arrays are definitely empty if the JSON wasn't
+    status.messageQueue = [];
     
     // Step 5. Assemble and return the complete gameState object
     return {
