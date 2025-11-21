@@ -38,7 +38,7 @@ import MainMenuOverlay from './components/overlays/MainMenuOverlay.vue';
 import InventoryOverlay from './components/overlays/InventoryOverlay.vue';
 import OptionsOverlay from './components/overlays/OptionsOverlay.vue';
 import EndGameOverlay from './components/overlays/EndGameOverlay.vue';
-import RestartConfirmationOverlay from './components/overlays/RestartConfirmationOverlay.vue';
+import HowToPlayOverlay from './components/overlays/HowToPlayOverlay.vue';
 
 // --- GAME STORE (CONTROLLER) ---
 
@@ -88,6 +88,8 @@ const themeClass = computed(() => {
     <!-- @click.once="unlockAudio" allows the browser to play audio upon first click, anywhere in the app. Only triggers once. -->
     <div id="app" :class="themeClass" @click.once="unlockAudio">
 
+        <HowToPlayOverlay v-if="gameStore.isHowToPlayOpen" />
+
         <!-- MAIN MENU SCREEN if game hasn't started -->
         <MainMenuOverlay v-if="!gameStore.isGameStarted" />
 
@@ -110,7 +112,6 @@ const themeClass = computed(() => {
                 <!-- These are mounted/unmounted via v-if, not hidden with CSS -->
                 <InventoryOverlay v-if="gameStore.isInventoryOpen" />
                 <OptionsOverlay v-if="gameStore.isOptionsOpen" />
-                <RestartConfirmationOverlay v-if="gameStore.isRestartConfirmOpen" />
 
             </template>
         </template>

@@ -6,7 +6,8 @@
  * Shows the final game state including:
  * - Phase icon (dawn sunrise or current phase at death)
  * - Final narrative text
- * - "Start New Game" button to restart
+ * - "Start New Game" button
+ * - "Main menu" button
  */
 
 import { computed } from 'vue';
@@ -103,7 +104,7 @@ const finalParagraphs = computed(() => {
     font-size: 1.8rem;
     line-height: 1.8;
     margin: 0;
-    padding-bottom: 15rem; /* Space for restart button + scrolling comfort */
+    padding-bottom: 15rem; /* Space for start game button + scrolling comfort */
 }
 
 .end-game-content p {

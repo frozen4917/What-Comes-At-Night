@@ -34,7 +34,7 @@ const appVersion = __APP_VERSION__;
                     Start New Game
                 </button>
 
-                <button class="menu-button primary" @click="gameStore.toggleOptions()">
+                <button class="menu-button primary" @click="gameStore.toggleHowToPlay()">
                     How to Play
                 </button>
             </div>

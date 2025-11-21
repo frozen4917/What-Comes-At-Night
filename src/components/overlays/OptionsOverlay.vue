@@ -37,22 +37,6 @@ function onVolumeChange(event) {
                 <input type="range" id="volume" min="0" max="100" :value="gameStore.volume" @input="onVolumeChange"
                     class="volume-slider" />
             </div>
-            <!-- HOW TO PLAY -->
-            <div class="option-item">
-                <h3>How to Play</h3>
-                <p class="how-to-play">
-                    > The night is long. Survive for 50 moves until the sun rises.
-                </p>
-                <p class="how-to-play">
-                    > Explore and gather resources. Fortify your base and maintain your HP and Stamina.
-                </p>
-                <p class="how-to-play">
-                    > Actions require Stamina and create Noise. Keep Noise low to avoid unwanted attention.
-                </p>
-                <p class="how-to-play">
-                    > What comes at night... must be fought.
-                </p>
-            </div>
             <!-- EXTERNAL LINKS -->
             <div class="option-item">
                 <h3>Links</h3>
@@ -158,13 +142,6 @@ function onVolumeChange(event) {
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
 }
-
-.close-button {
-    display: block;
-    margin: 2rem auto 0;
-    text-align: center;
-}
-
 
 /* VOLUME SLIDER */
 .volume-slider {

@@ -70,7 +70,7 @@ export const useGameStore = defineStore('game', () => {
     const isInventoryOpen = ref(false); // Controls visibility of the inventory overlay
     const isOptionsOpen = ref(false); // Controls visibility of the options overlay
     const isGameOver = ref(false); // Controls the game over state. When true, the main UI is hidden and a end-game overlay is shown
-    const isRestartConfirmOpen = ref(false); // Controls visibility of the restart confirmation popup
+    const isHowToPlayOpen = ref(false); // Controls visibility of "how to play"
     const isGameStarted = ref(false); // Controls Menu & Game view
     const hasSaveFile = ref(false); // Enables/disables "Continue Game" button visibility
 
@@ -214,7 +214,6 @@ export const useGameStore = defineStore('game', () => {
             isGameOver.value = false;
             isInventoryOpen.value = false;
             isOptionsOpen.value = false;
-            isRestartConfirmOpen.value = false;
 
             // 2. Initialize State
             gameState.value = initializeGameState(gameData.value);
@@ -330,7 +329,14 @@ export const useGameStore = defineStore('game', () => {
     }
 
     /**
-     * Hard resets the game by deleting the same file, stopping music, and reloading the browser page.
+     * Toggles the visibility of the How To Play Overlay.
+     */
+    function toggleHowToPlay() {
+        isHowToPlayOpen.value = !isHowToPlayOpen.value;
+    }
+
+    /**
+     * Hard resets the game by deleting the same file, stopping music, and launching a new game
      */
     function restartGame() {
         // 1. Delete Save so we don't resume the dead game
@@ -338,7 +344,6 @@ export const useGameStore = defineStore('game', () => {
         
         // 2. Close All Overlays (Crucial!)
         isGameOver.value = false;
-        isRestartConfirmOpen.value = false;
         isInventoryOpen.value = false;
         isOptionsOpen.value = false;
 
@@ -352,9 +357,9 @@ export const useGameStore = defineStore('game', () => {
      */
     function goToMainMenu() {
         // 1. Close any open overlays
+        isHowToPlayOpen.value = false;
         isInventoryOpen.value = false;
         isOptionsOpen.value = false;
-        isRestartConfirmOpen.value = false;
         
         // 2. Stop audio
         audio.stopAllMusic();
@@ -382,8 +387,8 @@ export const useGameStore = defineStore('game', () => {
         promptText,
         isInventoryOpen,
         isOptionsOpen,
+        isHowToPlayOpen,
         isGameOver,
-        isRestartConfirmOpen,
         isGameStarted,
         hasSaveFile,
         volume,
@@ -395,6 +400,7 @@ export const useGameStore = defineStore('game', () => {
         handlePlayerAction,
         toggleInventory,
         toggleOptions,
+        toggleHowToPlay,
         restartGame,
         goToMainMenu,
         updateVolume

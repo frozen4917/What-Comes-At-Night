@@ -46,7 +46,7 @@
 
 /* ----- C2. FOOTER BUTTONS ----- */
 
-/* Button formatting for footer button (Inventory, Options, Restart) */
+/* Button formatting for footer button (Inventory, Options, Back to Menu) */
 .footer-button {
     background: transparent;
     border: none;
@@ -61,6 +61,12 @@
 
 .footer-button:hover {
     color: #d1d1d1;
+}
+
+.close-button {
+    display: block;
+    margin: 2rem auto 0;
+    text-align: center;
 }
 
 /* ----- C3. END GAME / MENU BUTTON STYLE ----- */
@@ -83,6 +89,15 @@
     display: block;
     margin: 0 auto 1.5rem auto; /* Centers button and adds bottom gap */
     
+    transition: all 0.2s ease;
+}
+
+#how-to-play-option-button {
+    /* Layout specifics for the list view */
+    width: 100%;
+    max-width: 18rem; 
+    display: block;
+    margin: 0 auto 1.5rem auto; /* Centers button and adds bottom gap */
     transition: all 0.2s ease;
 }
 

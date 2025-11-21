@@ -5,8 +5,8 @@
  * 
  * Provides access to meta-game functions:
  * - Show Inventory: Shows all items the player has
- * - Options: Volume control, how-to-play guide
- * - Restart: Begins new game (with confirmation)
+ * - Options: Volume control, github link
+ * - Main Menu: Return to the main menu
  */
 import { useGameStore } from '@/stores/gameStore';
 
