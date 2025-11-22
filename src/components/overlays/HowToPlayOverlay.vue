@@ -92,7 +92,7 @@ const gameStore = useGameStore();
                     <li>The game is composed of 50 moves spread across 7 phases.
                         <ul>
                             <li><span class="dusk">Dusk</span> and <span class="evening">Evening</span> are the exploration phases. Use this time to scavenge for resources and fortify your defenses. Be careful, if you create too much noise, lone monsters might wander towards you.</li>
-                            <li><span class="nightfall">Nightfall</span> and <span class="deep_night">Deep Night</span> are there phases when darkness takes over. Small hordes will begin to spawn. You cannot hide from them!</li>
+                            <li><span class="nightfall">Nightfall</span> and <span class="deep_night">Deep Night</span> are the phases when darkness takes over. Small hordes will begin to spawn. You cannot hide from them!</li>
                             <li><span class="witching_hour">The Witching Hour</span> is the peak of the night. A massive horde, led by a boss monster will attack. Your preparations will be tested.</li>
                             <li><span class="pre_dawn">Pre-Dawn</span> is the final stretch as the sun begins to rise. Survive for a few more moves until <span class="dawn">Dawn</span> to win.</li>
                         </ul>
