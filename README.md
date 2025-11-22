@@ -111,11 +111,12 @@ This project requires **Node.js** (v22.x or higher recommended).
 The codebase follows a strict **Engine vs. Controller** separation of concerns:
 
 #### 1. The Database (`public/data/`)
-Contains all static game data. This ibehaves as the "Rulebook."
+Contains all static game data. This behaves as the "Rulebook."
 * `items.json`: Definitions for all items, weapons, and crafting recipes.
 * `monsters.json`: Stats and behaviors for all enemies.
 * `locations.json`: Defines the map, available actions, and loot.
 * `settings.json`: Global configuration for game balance (damage multipliers, spawn rates).
+* `texts.json`: Contains all the texts used in the game. Placeholders defined by `{...}` are replaced by the engine. `<c> </c>` are used for text highlighting.
 * ... etc.
 
 #### 2. The Engine (`src/game/`)
