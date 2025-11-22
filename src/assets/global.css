@@ -91,3 +91,19 @@ body {
 .critical {
     animation: pulse-red 1.2s infinite ease-in-out;
 }
+
+/* ----- G4. TEXT HIGHLIGHTING ----- */
+
+/* Text Highlighting */
+.highlight {
+    color: var(--accent-color);
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+/* Disable highlights */
+.disable-highlights .highlight {
+    color: #d1d1d1 !important;
+    font-weight: normal !important;
+    text-shadow: none !important;
+}

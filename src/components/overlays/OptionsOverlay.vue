@@ -30,23 +30,35 @@ function onVolumeChange(event) {
     <div id="options-overlay" class="overlay">
         <div class="overlay-content">
             <h2>Options</h2>
-            <!-- VOLUME CONTROL -->
+            
             <div class="option-item">
+                <h3>Volume</h3>
                 <label for="volume">Volume: {{ gameStore.volume }}%</label>
-                <!-- Range slider (0-100, mapped internally to 0-0.3 actual volume) -->
                 <input type="range" id="volume" min="0" max="100" :value="gameStore.volume" @input="onVolumeChange"
                     class="volume-slider" />
             </div>
-            <!-- EXTERNAL LINKS -->
+
+            
+            <div class="option-item">
+                <h3>Text Highlighting</h3>
+                <div class="toggle-row">
+                    <label class="switch">
+                        <input type="checkbox" :checked="gameStore.textHighlight" @change="gameStore.toggleHighlight()">
+                        <span class="slider"></span>
+                    </label>
+                    
+                    <span class="toggle-desc">Highlight important info in story log</span>
+                </div>
+            </div>
+
             <div class="option-item">
                 <h3>Links</h3>
-                <!-- GitHub icon link (uses CSS mask for theme coloring) -->
                 <a href="https://github.com/frozen4917/what-comes-at-night/" target="_blank" rel="noopener noreferrer" class="icon-link"
                     title="Source Code on GitHub">
                     <div class="github-icon"></div>
                 </a>
             </div>
-            <!-- CLOSE BUTTON -->
+            
             <button class="footer-button close-button" @click="gameStore.toggleOptions()">
                 Close
             </button>
@@ -55,6 +67,7 @@ function onVolumeChange(event) {
 </template>
 
 <style scoped>
+/* Centered overlay using flexbox. Display controlled by v-if in App.vue, not CSS classes. */
 .overlay {
     display: flex;
     justify-content: center;
@@ -79,7 +92,7 @@ function onVolumeChange(event) {
     font-family: 'Roboto Condensed', sans-serif;
     color: var(--accent-color);
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
@@ -97,17 +110,71 @@ function onVolumeChange(event) {
     text-align: center;
 }
 
-.option-item p {
-    margin: 0;
-    line-height: 1.6;
-    /* Center paragraph text */
+/* --- TOGGLE ROW STYLES --- */
+.toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers the group */
+    gap: 1.5rem; /* Space between toggle and text */
+    margin-top: 1rem;
 }
 
-/* Text formatting for How-to-play */
-.how-to-play {
+.toggle-desc {
+    font-family: 'Special Elite', monospace;
     font-size: 1.6rem;
+    color: #d1d1d1;
     text-align: left;
-    white-space: pre-line;
+}
+
+/* --- COMPACT SWITCH --- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 3.6rem;  /* Compact width */
+    height: 2.0rem; /* Compact height */
+    flex-shrink: 0; /* Prevent shrinking on small screens */
+    margin: 0 !important; /* Override general label margin */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #222;
+    transition: .3s;
+    border-radius: 2rem;
+    border: 1px solid #444;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4rem;
+    width: 1.4rem;
+    left: 0.2rem;
+    bottom: 0.2rem;
+    background-color: #777;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: transparent;
+    border-color: var(--accent-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(1.6rem);
+    background-color: var(--accent-color);
 }
 
 /* Style for the GitHub icon link */
@@ -141,6 +208,12 @@ function onVolumeChange(event) {
     -webkit-mask-size: contain;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
+}
+
+.close-button {
+    display: block;
+    margin: 2rem auto 0;
+    text-align: center;
 }
 
 /* VOLUME SLIDER */

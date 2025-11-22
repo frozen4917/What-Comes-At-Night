@@ -92,26 +92,55 @@ export function areConditionsMet(conditions, gameState) {
 }
 
 /**
- * 
+ * Helper function to sanitize untrusted strings. Converts special characters to HTML entities so they display as text instead of running code.
+ * @param {string} unsafe the string which could potentially be unsafe
+ * @returns {string} HTML-safe string
+ */
+function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') return unsafe; // Return numbers/booleans as is
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+/**
+ * Replaces placeholders in text with values from params and replaces <c></c> tags to enable text highlighting
  * @param {string} template Text from texts.json along with placeholders, e.g.: "You dealt {damage} HP of damage."
  * @param {Object} params Values for placeholders, e.g.: { damage: 23, weapon: "axe" }
- * @returns {string} Text with placeholders replaced by values
+ * @returns {string} Text with placeholders replaced by values and <c> </c> with the <span>
  */
 export function renderText(template, params) {
-    // If no params, the template has no placeholders. Return the template
-    if (!params) return template;
 
-    // Regex to capture "{...}"
-    const regex = /{(\w+)}/g;
-    return template.replace(regex, (match, key) => {
-        // 'match' is the full text that was matched, e.g., {damage}
-        // 'key' is just the captured part (the word inside), e.g., "damage"
+    let output = template;
+    // 1. Regex to capture "{...}"
+    if (params) {
+        const regex = /{(\w+)}/g;
+        output = output.replace(regex, (match, key) => {
+            // 'match' is the full text that was matched, e.g., {damage}
+            // 'key' is just the captured part (the word inside), e.g., "damage"
 
-        // Check if the key exists in params object.
-        // If it does, return the value from the params.
-        // If it doesn't, return the original match
-        return params[key] !== undefined ? params[key] : match;
-    });
+            // Check if the key exists in params object.
+            // If it does, return the value from the params, after escaping the HTML
+            // If it doesn't, return the original match
+            return params[key] !== undefined ? escapeHtml(params[key]) : match;
+        });
+    }
+
+    // 2. Restore <c> tags only
+    output = output
+        .split('&lt;c&gt;').join('<c>')
+        .split('&lt;/c&gt;').join('</c>')
+        .split('&lt;c>').join('<c>')
+        .split('&lt;/c>').join('</c>');
+
+    // 3. Parse Highlighting Tags
+    // Since we escaped the params above, any < or > inside the data is now safe.
+    // The only real <c> tags remaining are the ones from texts.json.
+    output = output.replace(/<c>(.*?)<\/c>/g, '<span class="highlight">$1</span>');
+    return output;
 }
 
 /**

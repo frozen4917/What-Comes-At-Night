@@ -2,7 +2,7 @@
   UI Components styling, including:
   - Action Buttons (Transparent with hover effects)
   - Footer Buttons
-  - End Game Button
+  - Start Game / Continue Button
   - Modal Buttons (Confirm/Cancel)
   - Info Tooltips
 */
@@ -69,7 +69,7 @@
     text-align: center;
 }
 
-/* ----- C3. END GAME / MENU BUTTON STYLE ----- */
+/* ----- C3. END GAME / MAIN MENU BUTTON STYLE ----- */
 
 /* The large button on the Game Over / Main Menu screen. */
 .menu-button {
@@ -92,22 +92,13 @@
     transition: all 0.2s ease;
 }
 
-#how-to-play-option-button {
-    /* Layout specifics for the list view */
-    width: 100%;
-    max-width: 18rem; 
-    display: block;
-    margin: 0 auto 1.5rem auto; /* Centers button and adds bottom gap */
-    transition: all 0.2s ease;
-}
-
 .menu-button:hover {
     background: var(--accent-color);
     color: #0a0a0a;
     font-weight: bold;
 }
 
-/* Styling for other buttons */
+/* Styling for other buttons on menu screen (follows default colour) */
 .menu-button.primary {
     color: #b91c1c;
     border: 2px solid #b91c1c;

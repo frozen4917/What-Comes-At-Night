@@ -125,7 +125,7 @@ export function processFortificationDamage(gameState, gameData) {
             // Check if player is in this new location AND if they are hiding. If so, force them out of hiding.
             if (newHordeLocation === gameState.world.currentLocation && gameState.status.playerState === "hiding") {
                 gameState.status.playerState = "normal";
-                noLongerHiding = " You were spotted instantly. You are no longer hidden!";
+                noLongerHiding = " You were spotted instantly. You are <c>no longer hidden!</c>";
             }
 
             // Push the final feedback message (Fortification was broken, horde moved in)
@@ -223,7 +223,7 @@ export function processFortificationDamage(gameState, gameData) {
                 if (gameState.status.playerState === "hiding") {
                     // Check if player is in this new location AND if they are hiding. If so, force them out of hiding.
                     gameState.status.playerState = "normal";
-                    noLongerHiding = " You were spotted instantly. You are no longer hidden!"
+                    noLongerHiding = " You were spotted instantly. <c>You are no longer hidden!</c>"
                 }
             }
             

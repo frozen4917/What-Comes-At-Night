@@ -30,11 +30,9 @@ const paragraphs = computed(() => {
 </script>
 
 <template>
-    <main id="content-display">
+    <main id="content-display" :class="{ 'disable-highlights': !gameStore.textHighlight }">
         <!-- Each paragraph rendered separately for proper formatting -->
-        <p v-for="(p, index) in paragraphs" :key="index">
-            {{ p }}
-        </p>
+        <p v-for="(p, index) in paragraphs" :key="index" v-html="p"></p>
     </main>
 </template>
 

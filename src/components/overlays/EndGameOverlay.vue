@@ -60,19 +60,18 @@ const finalParagraphs = computed(() => {
 <template>
     <div id="end-game-overlay" class="overlay">
 
-        <div class="end-game-content">
+        <div class="end-game-content" :class="{ 'disable-highlights': !gameStore.textHighlight }">
             <!-- Phase icon -->
             <div class="end-game-icon"
                 :style="{ maskImage: finalPhaseIconUrl, '-webkit-mask-image': finalPhaseIconUrl }" :title="phaseName">
             </div>
             <!-- Final narrative paragraphs -->
-            <p v-for="(p, index) in finalParagraphs" :key="index">
-                {{ p }}
-            </p>
+            <p v-for="(p, index) in finalParagraphs" :key="index" v-html="p"></p>
             <!-- Start New Game button -->
             <button class="menu-button" @click="gameStore.restartGame()">
                 Start New Game
             </button>
+            <!-- Go to Main Menu button -->
             <button class="menu-button" @click="gameStore.goToMainMenu()">
                 Go to Main Menu
             </button>

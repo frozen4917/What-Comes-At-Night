@@ -26,8 +26,8 @@ export async function loadGameData() {
     try {
         // Create an array of fetch promises
         const filePromises = fileNames.map(async (fileName) => {
-            // The browser knows to look in 'public' for this path
-            const response = await fetch(`/data/${fileName}`);
+            const t = new Date().getTime(); 
+            const response = await fetch(`/data/${fileName}?t=${t}`);
             
             if (!response.ok) {
                 throw new Error(`Failed to load ${fileName}: ${response.statusText}`);

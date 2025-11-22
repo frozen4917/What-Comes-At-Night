@@ -1,96 +1,96 @@
 {
-    "threat_horde_spawn_timed_nightfall": "A distant growl rolls across the darkening land! The sound of footsteps gets louder as a horde comprising of {composition} emerges from the treeline, moving closer with growing hunger.",
-    "threat_horde_spawn_timed_deep_night": "You catch glimpses of movement between the trees and vines. The shadows themselves seem to be moving. You notice a horde, which includes {composition} coming towards your location!",
-    "threat_horde_spawn_timed_witching_hour": "Reality fractures with a cacophony of unholy wails that split the air like breaking glass! The very earth trembles as a massive horde comprising of {composition} emerges from the eternal darkness.",
-    "threat_horde_spawn_timed_pre_dawn": "Just as hope of survival arrives, the cruel night delivers another blow. A small horde consisting of {composition} moves closer!",
+    "threat_horde_spawn_timed_nightfall": "A distant growl rolls across the darkening land! The sound of footsteps gets louder as a horde comprising of <c>{composition}</c> emerges from the treeline, moving closer with growing hunger. ",
+    "threat_horde_spawn_timed_deep_night": "You catch glimpses of movement between the trees and vines. The shadows themselves seem to be moving. You notice a horde, which includes <c>{composition}</c> coming towards your location!",
+    "threat_horde_spawn_timed_witching_hour": "Reality fractures with a cacophony of unholy wails that split the air like breaking glass! The very earth trembles as a massive horde comprising of <c>{composition}</c> emerges from the eternal darkness.",
+    "threat_horde_spawn_timed_pre_dawn": "Just as hope of survival arrives, the cruel night delivers another blow. A small horde consisting of <c>{composition}</c> moves closer!",
 
 
     "threat_noise_spawn": [
-        "Your commotion pierces the silence. From the murky darkness, a lone {monsterName} turns its attention toward the source of the disturbance.",
-        "The racket you've made ripples through the night. A solitary {monsterName} emerges from its hiding place having its predatory instincts piqued by the sound.",
-        "Your noise reverberates through the stillness, and something hears it. A {monsterName} appears from the shadows, stalking toward the origin of the sound."
+        "Your commotion pierces the silence. From the murky darkness, a lone <c>{monsterName}</c> turns its attention toward the source of the disturbance.",
+        "The racket you've made ripples through the night. A solitary <c>{monsterName}</c> emerges from its hiding place having its predatory instincts piqued by the sound.",
+        "Your noise reverberates through the stillness, and something hears it. A <c>{monsterName}</c> appears from the shadows, stalking toward the origin of the sound."
     ],
     "threat_noise_despawn": [
-        "The silence returns and {monsterList} {loseVerb} focus on the fading disturbance and {wanderVerb} back into the consuming darkness.",
-        "As the noise fades to nothing, {monsterList} {loseVerb} interest in the hunt and slowly {wanderVerb} away, melting back into the shadows",
-        "The commotion dies down, and {monsterList} {loseVerb} the scent and {wanderVerb} off into the night, seeking other prey.",
-        "Your surroundings quiet once more causing {monsterList} to {loseVerb} all curiosity and {wanderVerb} aimlessly back into the depths of the darkness."
+        "The silence returns and <c>{monsterList}</c> {loseVerb} focus on the fading disturbance and {wanderVerb} back into the consuming darkness.",
+        "As the noise fades to nothing, <c>{monsterList}</c> {loseVerb} interest in the hunt and slowly {wanderVerb} away, melting back into the shadows",
+        "The commotion dies down, and <c>{monsterList}</c> {loseVerb} the scent and {wanderVerb} off into the night, seeking other prey.",
+        "Your surroundings quiet once more causing <c>{monsterList}</c> to {loseVerb} all curiosity and {wanderVerb} aimlessly back into the depths of the darkness."
     ],
     
 
     "threat_horde_attacks_fortification_cabin": [
-        "{monsterList} {hurlVerb} against the cabin with force, claws raking across wood and fists hammering at the windows. The structure takes {totalDamage} damage!",
-        "{monsterList} {tearVerb} at the cabin's defenses with relentless hunger, dealing {totalDamage} damage to the fortifications!",
-        "{monsterList} {slamVerb} into the doors and windows of the cabin with monstrous strength. The fortification takes {totalDamage} damage!",
-        "{monsterList} {assaultVerb} the wooden cabin in a frenzy. The barriers crack and buckle, sustaining {totalDamage} damage!"
+        "{monsterList} {hurlVerb} against the cabin with force, claws raking across wood and fists hammering at the windows. The structure takes <c>{totalDamage} damage!</c>",
+        "{monsterList} {tearVerb} at the cabin's defenses with relentless hunger, dealing <c>{totalDamage} damage</c> to the fortifications!",
+        "{monsterList} {slamVerb} into the doors and windows of the cabin with monstrous strength. The fortification takes <c>{totalDamage} damage!</c>",
+        "{monsterList} {assaultVerb} the wooden cabin in a frenzy. The barriers crack and buckle, sustaining <c>{totalDamage} damage!</c>"
     ],
     "threat_horde_attacks_fortification_campGate": [
-        "{monsterList} {crashVerb} into the campsite gate with brutal momentum. The fortification takes {totalDamage} damage!",
-        "{monsterList} {slamVerb} at the campsite gate repeatedly, each impact sending shockwaves through the barrier. The gate sustains {totalDamage} damage from the onslaught!",
-        "{monsterList} {tearVerb} at the barricade, causing the foundations to shake and dealing {totalDamage} damage!"
+        "{monsterList} {crashVerb} into the campsite gate with brutal momentum. The fortification takes <c>{totalDamage} damage!</c>",
+        "{monsterList} {slamVerb} at the campsite gate repeatedly, each impact sending shockwaves through the barrier. The gate sustains <c>{totalDamage} damage</c> from the onslaught!",
+        "{monsterList} {tearVerb} at the barricade, causing the foundations to shake and dealing <c>{totalDamage} damage!</c>"
     ],
     "threat_horde_attacks_fortification_graveyardGate": [
-        "{monsterList} {attackVerb} at the graveyard gate with relentless hunger, splintering the wood. The fortification sustains {totalDamage} damage!",
-        "{monsterList} {hammerVerb} against the graveyard gate. The old structure suffers {totalDamage} damage from the attack!"
+        "{monsterList} {attackVerb} at the graveyard gate with relentless hunger, splintering the wood. The fortification sustains <c>{totalDamage} damage!</c>",
+        "{monsterList} {hammerVerb} against the graveyard gate. The old structure suffers <c>{totalDamage} damage</c> from the attack!"
     ],
 
-    "threat_fortification_breached_cabin": "With a final, splintering crack, the cabin door explodes inward in a shower of wood. The monsters surge through the ruined entrance!{noLongerHiding}",
-    "threat_fortification_breached_campGate": "The campsite gate collapses with a loud crash and its supports give way completely. The barrier crumbles as the monsters pour through the breach, racing toward the campfire's light.{noLongerHiding}",
-    "threat_fortification_breached_graveyardGate": "The graveyard gate becomes unstable and finally snaps. The structure topples sideways and the monsters flood through into hallowed ground!{noLongerHiding}",
+    "threat_fortification_breached_cabin": "With a final, splintering crack, the <c>cabin door explodes</c> inward in a shower of wood. The monsters surge through the ruined entrance!{noLongerHiding}",
+    "threat_fortification_breached_campGate": "<c>The campsite gate collapses</c> with a loud crash and its supports give way completely. The barrier crumbles as the monsters pour through the breach, racing toward the campfire's light.{noLongerHiding}",
+    "threat_fortification_breached_graveyardGate": "<c>The graveyard gate becomes unstable</c> and finally snaps. The structure topples sideways and the monsters flood through into hallowed ground!{noLongerHiding}",
 
-    "threat_fortification_non_existing_cabin": "With no barrier to stop them, the monsters rush through the undefended cabin doorway. The open entrance offers no resistance to their invasion!{noLongerHiding}",
-    "threat_fortification_non_existing_campGate": "The monsters surge past the unfortified gate, streaming through the opening like a dark tide. Nothing stands between them and the campfire's vulnerable glow.{noLongerHiding}",
-    "threat_fortification_non_existing_graveyardGate": "The graveyard gate, left undefended, welcomes the monsters as they pour through the opening!{noLongerHiding}",
+    "threat_fortification_non_existing_cabin": "With no barrier to stop them, the monsters rush through the <c>undefended cabin doorway.</c> The open entrance offers no resistance to their invasion!{noLongerHiding}",
+    "threat_fortification_non_existing_campGate": "The monsters surge past <c>the unfortified gate</c>, streaming through the opening like a dark tide. Nothing stands between them and the campfire's vulnerable glow.{noLongerHiding}",
+    "threat_fortification_non_existing_graveyardGate": "The graveyard gate, <c>left undefended</c>, welcomes the monsters as they pour through the opening!{noLongerHiding}",
 
 
     "threat_horde_attacks_player": [
-        "{monsterList} {swarmVerb} over you, striking from every angle. You take {totalDamage} damage from the brutal assault!",
-        "{monsterList} {surgeVerb} forward and {overwhelmVerb} you with sheer force. The attack lands hard, dealing {totalDamage} damage!",
-        "{monsterList} {closeVerb} the distance and {strikeVerb} without mercy. The impact leaves you reeling, taking {totalDamage} damage!"
+        "{monsterList} {swarmVerb} over you, striking from every angle. You take <c>{totalDamage} damage</c> from the brutal assault!",
+        "{monsterList} {surgeVerb} forward and {overwhelmVerb} you with sheer force. The attack lands hard, dealing <c>{totalDamage} damage!</c>",
+        "{monsterList} {closeVerb} the distance and {strikeVerb} without mercy. The impact leaves you reeling, taking <c>{totalDamage} damage!</c>"
     ],
 
     "threat_vampire_life_drain": [
-        "The Vampire moves with inhuman speed, closing the gap. Its fangs pierce deep into your flesh as it feeds, draining your very essence! You take {damage} damage while the Vampire's wounds knit together, recovering {heal} health.",
-        "The Vampire lunges forward, biting deep and draining your vitality to mend its own wounds! You take {damage} damage, while the Vampire recovers {heal} health.",
-        "The Vampire strikes like a serpent, its cold hands gripping you as it bites down hard. Your blood is pulled from you in agonizing waves. You take {damage} damage while the Vampire regenerates {heal} health from your stolen vitality."
+        "The <c>Vampire</c> moves with inhuman speed, closing the gap. Its fangs pierce deep into your flesh as it feeds, draining your very essence! You take <c>{damage} damage</c> while the Vampire's wounds knit together, recovering <c>{heal} health.</c>",
+        "The <c>Vampire</c> lunges forward, biting deep and draining your vitality to mend its own wounds! You take <c>{damage} damage</c>, while the Vampire recovers <c>{heal} health.</c>",
+        "The <c>Vampire</c> strikes like a serpent, its cold hands gripping you as it bites down hard. Your blood is pulled from you in agonizing waves. You take <c>{damage} damage</c> while the Vampire regenerates <c>{heal} health</c> from your stolen vitality."
     ],
     "threat_vampire_enfeeble": [
-        "The Vampire's eyes flash crimson as it traces an arcane symbol in the air with clawed fingers. A wave of crushing fatigue slams into you, sapping the strength from your muscles and leaving your limbs trembling. Your next attack will be severely weakened!",
-        "The Vampire hisses, weaving a dark gesture in the air. A wave of exhaustion washes over you, leaving your limbs heavy and weak. Your next attack will be enfeebled!",
-        "The Vampire's lips curl into a cruel smile as it weaves a gesture of decay. An invisible force washes over you, draining your vigor and leaving you gasping. Your muscles refuse to respond properly. Your next attack will lack its usual power!"
+        "The <c>Vampire</c>'s eyes flash crimson as it traces an arcane symbol in the air with clawed fingers. A wave of crushing fatigue slams into you, sapping the strength from your muscles and leaving your limbs trembling. Your next attack will be <c>severely weakened!</c>",
+        "The <c>Vampire</c> hisses, weaving a dark gesture in the air. A wave of exhaustion washes over you, leaving your limbs heavy and weak. Your next attack will be <c>enfeebled!</c>",
+        "The <c>Vampire</c>'s lips curl into a cruel smile as it weaves a gesture of decay. An invisible force washes over you, draining your vigor and leaving you gasping. Your muscles refuse to respond properly. Your next attack will <c>lack its usual power!</c>"
     ],
 
     "threat_witch_heal_horde": [
-        "The Witch throws back her head and cackles with glee. Her gnarled hands weave intricate patterns. A sickly green light erupts from her fingertips, cascading over the horde like corrupted rain. Wounds close and broken bones snap back into place as the monsters are healed for {heal} health!",
-        "The Witch raises her hands, preparing her spell. A pulse of emerald energy explodes outward, washing over the horde in waves of unnatural restoration. The creatures' injuries mend as they recover {heal} health!",
-        "The Witch's cackling fills the air as she channels dark magic through her twisted fingers. Wisps of energy snake through the horde. The monsters surge forward with renewed strength, healed for {heal} health!"
+        "The <c>Witch</c> throws back her head and cackles with glee. Her gnarled hands weave intricate patterns. A sickly green light erupts from her fingertips, cascading over the horde like corrupted rain. Wounds close and broken bones snap back into place as the monsters are healed for <c>{heal} health!</c>",
+        "The <c>Witch</c> raises her hands, preparing her spell. A pulse of emerald energy explodes outward, washing over the horde in waves of unnatural restoration. The creatures' injuries mend as they recover <c>{heal} health!</c>",
+        "The <c>Witch</c>'s cackling fills the air as she channels dark magic through her twisted fingers. Wisps of energy snake through the horde. The monsters surge forward with renewed strength, healed for <c>{heal} health!</c>"
     ],
     "threat_witch_throw_potion": [
-        "From her position, the Witch produces a glass vial filled with bubbling crimson liquid. With a shriek of malice, she hurls it in your direction. The potion explodes near you in a spray of caustic fluid that sears exposed skin, dealing {damage} damage!",
-        "The Witch reaches into her robes and withdraws a smoking potion bottle. She launches it through the air with surprising accuracy. It shatters at your feet, releasing a splash of alchemical fire that burns like liquid agony. You take {damage} damage!"
+        "From her position, the <c>Witch</c> produces a glass vial filled with bubbling crimson liquid. With a shriek of malice, she hurls it in your direction. The potion explodes near you in a spray of caustic fluid that sears exposed skin, dealing <c>{damage} damage!</c>",
+        "The <c>Witch</c> reaches into her robes and withdraws a smoking potion bottle. She launches it through the air with surprising accuracy. It shatters at your feet, releasing a splash of alchemical fire that burns like liquid agony. You take <c>{damage} damage!</c>"
     ],
 
 
 
     "outcome_stop_hiding": [
-        "You are no longer hiding.",
-        "Your hiding spot no longer conceals you.",
-        "You emerge from the shadows, no longer hidden from view."
+        "You are <c>no longer hiding.</c>",
+        "Your hiding spot <c>no longer conceals you.</c>",
+        "You emerge from the shadows, <c>no longer hidden from view.</c>"
     ],
 
     "outcome_fortify_campGate": [
-        "You hammer planks across the gate's weak points, reinforcing the structure with whatever wood you have. Sweat drips down your face as you secure the final board. The fortification strength is now at {strength}.",
-        "Working quickly, you brace the gate with additional supports. The structure feels more solid under your hands. The fortification strength is now at {strength}.",
-        "You wedge logs against the gate posts and bind them tight with whatever you can find. It's exhausting work, but the barrier is holding better now. The fortification strength is now at {strength}."
+        "You hammer planks across the gate's weak points, reinforcing the structure with whatever wood you have. Sweat drips down your face as you secure the final board. The fortification strength is now at <c>{strength}.</c>",
+        "Working quickly, you brace the gate with additional supports. The structure feels more solid under your hands. The fortification strength is now at <c>{strength}.</c>",
+        "You wedge logs against the gate posts and bind them tight with whatever you can find. It's exhausting work, but the barrier is holding better now. The fortification strength is now at <c>{strength}.</c>"
     ],
     "outcome_fortify_cabin": [
-        "Piece by piece, you barricade the cabin's vulnerable points. Your hands are raw, but the structure is more secure. The fortification strength is now at {strength}.",
-        "You work methodically, covering each window with crossed boards and bracing the door with everything you can move. The cabin feels like a proper fortress now. The fortification strength is now at {strength}."
+        "Piece by piece, you barricade the cabin's vulnerable points. Your hands are raw, but the structure is more secure. The fortification strength is now at <c>{strength}.</c>",
+        "You work methodically, covering each window with crossed boards and bracing the door with everything you can move. The cabin feels like a proper fortress now. The fortification strength is now at <c>{strength}.</c>"
     ],
     "outcome_fortify_graveyardGate": [
-        "You lash wooden beams to the gate's frame and reinforce the hinges. The ancient structure holds firm under your additions. The fortification strength is now at {strength}.",
-        "Working against the gate's deteriorating condition, you shore up its weak points with fresh timber. It won't win any beauty contests, but it's stronger. The fortification strength is now at {strength}.",
-        "You wedge support beams against the gate. The gate becomes a bit more sturdy. The fortification strength is now at {strength}."
+        "You lash wooden beams to the gate's frame and reinforce the hinges. The ancient structure holds firm under your additions. The fortification strength is now at <c>{strength}.</c>",
+        "Working against the gate's deteriorating condition, you shore up its weak points with fresh timber. It won't win any beauty contests, but it's stronger. The fortification strength is now at <c>{strength}.</c>",
+        "You wedge support beams against the gate. The gate becomes a bit more sturdy. The fortification strength is now at <c>{strength}.</c>"
     ],
 
     "outcome_rest_by_fire": [
@@ -166,67 +166,67 @@
         "You weave the net between wooden posts above the gate entrance, creating a snare that will collapse on command. The trap is supposed to . This trap will claim at least one victim."
     ],
 
-    "outcome_search_rec_tent": "You push aside the tent flap and search through the recreational area, digging through duffel bags and storage bins. Your efforts pay off as you uncover a baseball bat, a hunting bow in surprisingly good condition, and a quiver containing 5 arrows.",
-    "outcome_search_woods": "You venture into the woods beyond the campsite's perimeter, moving carefully through the undergrowth. You harvest 4 mushsooms growing near rotting logs, discover 2 garlic bulbs in a wild patch, and gather 2 pieces of usable wood from fallen branches.",
+    "outcome_search_rec_tent": "You push aside the tent flap and search through the recreational area, digging through duffel bags and storage bins. Your efforts pay off as you uncover <c>a baseball bat</c>, <c>a hunting bow</c> in surprisingly good condition, and a quiver containing <c>5 arrows.</c>",
+    "outcome_search_woods": "You venture into the woods beyond the campsite's perimeter, moving carefully through the undergrowth. You harvest <c>4 mushsooms</c> growing near rotting logs, discover <c>2 garlic</c> bulbs in a wild patch, and gather <c>2 pieces of usable wood</c> from fallen branches.",
     "outcome_search_woods_again": [
-        "You return to the woods and search more thoroughly this time, scanning the ground and low-hanging branches. Your persistence is rewarded as you manage to collect {quantity} wood.",
-        "You venture back into the woods, combing through the underbrush for anything useful. After some searching, you find {quantity} wood worth taking.",
-        "You make another trip into the woods, checking areas you might have missed before. Your efforts yield {quantity} wood."
+        "You return to the woods and search more thoroughly this time, scanning the ground and low-hanging branches. Your persistence is rewarded as you manage to collect <c>{quantity} wood.</c>",
+        "You venture back into the woods, combing through the underbrush for anything useful. After some searching, you find <c>{quantity} wood</c> worth taking.",
+        "You make another trip into the woods, checking areas you might have missed before. Your efforts yield <c>{quantity} wood.</c>"
     ],
-    "outcome_search_food_tent": "You rifle through the food storage tent, checking coolers and supply crates. Among the provisions, you find an empty glass bottle, 2 salt shakers that are still half-full, and 2 cans of preserved food.",
-    "outcome_search_utility_tent": "You investigate the utility tent, sorting through equipment and supply boxes. Your search yields an old cleaning rag and 2 individually wrapped bandages. They are basic supplies, but valuable nonetheless.",
-    "outcome_search_pier": "You make your way to the water's edge and search around the wooden pier, checking the posts and storage boxes nearby. You recover 2 fishing nets and 2 coils of sturdy twine.",
-    "outcome_search_cabin_items": "You thoroughly search the cabin's interior, opening drawers and checking cabinets. You discover a can of fuel stored under the sink and a well-stocked first-aid-kit mounted on the wall.",
-    "outcome_gather_rowan_tree": "You approach the rowan tree in the graveyard, its branches heavy with clusters of bright berries. You climb carefully, testing each foothold, and manage to pluck 2 handfuls of rowan berries before descending.",
-    "outcome_search_gravekeepers_hut": "You enter the gravekeeper's hut and look through its sparse contents. On a shelf, you find 2 bandages in decent condition, and hanging by the door is an old iron key.",
-    "outcome_search_shed": "You pry open the shed's warped door and peer inside through the dusty gloom. Leaning against the back wall is a wood-cutting axe, its blade still sharp and ready for use.",
+    "outcome_search_food_tent": "You rifle through the food storage tent, checking coolers and supply crates. Among the provisions, you find <c>an empty glass bottle</c>, <c>2 salt shakers</c> that are still half-full, and <c>2 cans of preserved food.</c>",
+    "outcome_search_utility_tent": "You investigate the utility tent, sorting through equipment and supply boxes. Your search yields <c>an old cleaning rag</c> and <c>2 individually wrapped bandages.</c> They are basic supplies, but valuable nonetheless.",
+    "outcome_search_pier": "You make your way to the water's edge and search around the wooden pier, checking the posts and storage boxes nearby. You recover <c>2 fishing nets</c> and <c>2 coils of sturdy twine.</c>",
+    "outcome_search_cabin_items": "You thoroughly search the cabin's interior, opening drawers and checking cabinets. You discover <c>a can of fuel</c> stored under the sink and a well-stocked <c>first-aid-kit</c> mounted on the wall.",
+    "outcome_gather_rowan_tree": "You approach the rowan tree in the graveyard, its branches heavy with clusters of bright berries. You climb carefully, testing each foothold, and manage to pluck <c>2 handfuls of rowan berries</c> before descending.",
+    "outcome_search_gravekeepers_hut": "You enter the gravekeeper's hut and look through its sparse contents. On a shelf, you find <c>2 bandages</c> in decent condition, and hanging by the door is <c>an old iron key.</c>",
+    "outcome_search_shed": "You pry open the shed's warped door and peer inside through the dusty gloom. Leaning against the back wall is <c>a wood-cutting axe</c>, its blade still sharp and ready for use.",
 
     "outcome_attack_single_zombie": [
-        "You swing your {weapon} at a Zombie with determination.{cursed} The strike connects solidly, dealing {damage} HP of damage.{kill}",
-        "You bring your {weapon} down on the Zombie, putting your weight behind the blow.{cursed} You deal {damage} HP of damage to it.{kill}"
+        "You swing your {weapon} at a Zombie with determination.{cursed} The strike connects solidly, dealing <c>{damage} HP</c> of damage.{kill}",
+        "You bring your {weapon} down on the Zombie, putting your weight behind the blow.{cursed} You deal <c>{damage} HP</c> of damage to it.{kill}"
     ],
     "outcome_attack_single_skeleton": [
-        "You strike at the Skeleton with your {weapon}, aiming for its exposed bones.{cursed} The impact deals {damage} HP of damage.{kill}",
-        "You swing your {weapon} at the Skeleton's rattling frame.{cursed} You deal {damage} HP of damage to it.{kill}"
+        "You strike at the Skeleton with your {weapon}, aiming for its exposed bones.{cursed} The impact deals <c>{damage} HP</c> of damage.{kill}",
+        "You swing your {weapon} at the Skeleton's rattling frame.{cursed} You deal <c>{damage} HP</c> of damage to it.{kill}"
     ],
     "outcome_attack_single_spirit": [
-        "You swing your {weapon} at the Spirit.{cursed} The weapon passes through, somehow dealing {damage} HP of damage.{kill}",
-        "You strike at the Spirit with your {weapon}, the blade cutting through its ghostly essence.{cursed} You deal {damage} HP of damage.{kill}"
+        "You swing your {weapon} at the Spirit.{cursed} The weapon passes through, somehow dealing <c>{damage} HP</c> of damage.{kill}",
+        "You strike at the Spirit with your {weapon}, the blade cutting through its ghostly essence.{cursed} You deal <c>{damage} HP</c> of damage.{kill}"
     ],
     "outcome_attack_cleave": [
-        "You wind up and swing your weapon in a wide arc through the horde.{cursed} The cleaving strike connects with multiple targets, dealing a combined {damage} HP of damage and hitting {numHit} monsters.{kill}",
-        "You execute a sweeping attack, your blade cutting through the horde's front line.{cursed} The cleave hits {numHit} monsters for a total of {damage} HP of damage.{kill}",
-        "You put all your strength into a horizontal slash that tears through the horde.{cursed} Your cleaving blow strikes {numHit} monsters, dealing {damage} HP of damage total.{kill}"
+        "You wind up and swing your weapon in a wide arc through the horde.{cursed} The cleaving strike connects with multiple targets, dealing a combined <c>{damage} HP</c> of damage and hitting <c>{numHit} monsters</c>.{kill}",
+        "You execute a sweeping attack, your blade cutting through the horde's front line.{cursed} The cleave hits <c>{numHit} monsters</c> for a total of <c>{damage} HP</c> of damage.{kill}",
+        "You put all your strength into a horizontal slash that tears through the horde.{cursed} Your cleaving blow strikes <c>{numHit} monsters</c>, dealing <c>{damage} HP</c> of damage total.{kill}"
     ],
     "outcome_attack_incinerate": [
-        "You light the rag and hurl your Molotov into the center of the horde.{cursed} The bottle shatters on impact, erupting into a massive fireball that engulfs {numHit} monsters. Flames spread rapidly through their ranks, dealing a devastating {damage} damage total.{kill}",
-        "You ignite the Molotov and throw it with precision at the horde's densest point.{cursed} Glass explodes and fuel ignites in a roaring inferno, catching {numHit} monsters in the blaze. The fire spreads hungrily, dealing {damage} damage as the creatures shriek and burn.{kill}",
-        "You set the rag ablaze and launch the bottle toward the horde.{cursed} The Molotov detonates in a brilliant explosion of flame, immediately engulfing {numHit} monsters. Fire cascades through their ranks like a living thing, inflicting {damage} damage total.{kill}"
+        "You light the rag and hurl your Molotov into the center of the horde.{cursed} The bottle shatters on impact, erupting into a massive fireball that engulfs <c>{numHit} monsters.</c> Flames spread rapidly through their ranks, dealing a devastating <c>{damage} damage</c> total.{kill}",
+        "You ignite the Molotov and throw it with precision at the horde's densest point.{cursed} Glass explodes and fuel ignites in a roaring inferno, catching <c>{numHit} monsters</c> in the blaze. The fire spreads hungrily, dealing <c>{damage} damage</c> as the creatures shriek and burn.{kill}",
+        "You set the rag ablaze and launch the bottle toward the horde.{cursed} The Molotov detonates in a brilliant explosion of flame, immediately engulfing <c>{numHit} monsters.</c> Fire cascades through their ranks like a living thing, inflicting <c>{damage} damage</c> total.{kill}"
     ],
     "outcome_attack_shoot": [
-        "You nock an arrow, draw back the bowstring, and release.{cursed} The arrow flies true, striking a {monster} squarely. You deal {damage} HP of damage.{kill}",
-        "You take aim with your bow and loose an arrow at a {monster}.{cursed} The shot connects, dealing {damage} HP of damage.{kill}",
-        "You pull back your bow and let the arrow fly toward a {monster}.{cursed} It hits its mark, dealing {damage} HP of damage.{kill}"
+        "You nock an arrow, draw back the bowstring, and release.{cursed} The arrow flies true, striking a <c>{monster}</c> squarely. You deal <c>{damage} HP</c> of damage.{kill}",
+        "You take aim with your bow and loose an arrow at a <c>{monster}.</c>{cursed} The shot connects, dealing <c>{damage} HP</c> of damage.{kill}",
+        "You pull back your bow and let the arrow fly toward a <c>{monster}.</c>{cursed} It hits its mark, dealing <c>{damage} HP</c> of damage.{kill}"
     ],
     "outcome_attack_boss_witch": [
-        "You charge at the Witch and swing your {weapon} with all your might.{cursed} She attempts to dodge but you manage to strike her, lowering her health by {damage} HP.{kill}",
-        "You close the distance and attack the Witch with your {weapon}.{cursed} Your weapon finds its mark, dealing {damage} HP of damage.{kill}"
+        "You charge at the Witch and swing your {weapon} with all your might.{cursed} She attempts to dodge but you manage to strike her, lowering her health by <c>{damage} HP.</c>{kill}",
+        "You close the distance and attack the Witch with your {weapon}.{cursed} Your weapon finds its mark, dealing <c>{damage} HP</c> of damage.{kill}"
     ],
     "outcome_attack_boss_vampire": [
-        "You lunge at the Vampire and strike with your {weapon}.{cursed} The blow lands, dealing {damage} HP of damage to the creature.{kill}",
-        "You attack the Vampire with your {weapon}, moving quickly before it can counter.{cursed} You successfully deal {damage} HP of damage.{kill}"
+        "You lunge at the Vampire and strike with your {weapon}.{cursed} The blow lands, dealing <c>{damage} HP</c> of damage to the creature.{kill}",
+        "You attack the Vampire with your {weapon}, moving quickly before it can counter.{cursed} You successfully deal <c>{damage} HP</c> of damage.{kill}"
     ],
     "outcome_hurt_boss_witch": [
-        "You produce the Witch Ward you crafted and hurl it directly at the Witch. The rowan-woven charm strikes her and she recoils with a piercing shriek... the sacred wood burns her dark essence. The Ward deals {damage} HP of damage, far more effective than any mundane weapon.{kill}",
-        "You throw the Witch Ward at her with precision. The moment it makes contact, the Witch screams in agony as the rowan berries sear through her magical defenses. The Ward inflicts {damage} HP of damage, exploiting her ancient weakness.{kill}"
+        "You produce the Witch Ward you crafted and hurl it directly at the Witch. The rowan-woven charm strikes her and she recoils with a piercing shriek... the sacred wood burns her dark essence. The Ward deals <c>{damage} HP</c> of damage, far more effective than any mundane weapon.{kill}",
+        "You throw the Witch Ward at her with precision. The moment it makes contact, the Witch screams in agony as the rowan berries sear through her magical defenses. The Ward inflicts <c>{damage} HP</c> of damage, exploiting her ancient weakness.{kill}"
     ],
     "outcome_hurt_boss_vampire": [
-        "You grab your Black Salt and fling it at the Vampire in a wide arc. The blessed mixture scatters across its undead flesh, causing it to hiss and smoke where it lands. The garlic-infused salt burns through its supernatural resilience, inflicting {damage} HP of damage.{kill}",
-        "You hurl the Black Salt directly at the Vampire. The creature shrieks as the salt makes contact, its flesh sizzling and recoiling from the garlic-laced grains. The traditional Vampire's bane deals {damage} HP of damage, far more than any ordinary weapon could manage.{kill}"
+        "You grab your Black Salt and fling it at the Vampire in a wide arc. The blessed mixture scatters across its undead flesh, causing it to hiss and smoke where it lands. The garlic-infused salt burns through its supernatural resilience, inflicting <c>{damage} HP</c> of damage.{kill}",
+        "You hurl the Black Salt directly at the Vampire. The creature shrieks as the salt makes contact, its flesh sizzling and recoiling from the garlic-laced grains. The traditional Vampire's bane deals <c>{damage} HP</c> of damage, far more than any ordinary weapon could manage.{kill}"
     ],
     "outcome_trap_triggered": [
-        "You hear {count} loud *SNAP!* from outside. The trap mechanism worked perfectly, catching and killing {monsterList} before they could reach you!",
-        "The sound of {count} loud *SNAP!* fills the air. Your preparation paid off, stopping {monsterList} which triggered the mechanism!"
+        "You hear {count} loud *SNAP!* from outside. The trap mechanism worked perfectly, catching and killing <c>{monsterList}</c> before they could reach you!",
+        "The sound of {count} loud *SNAP!* fills the air. Your preparation paid off, stopping <c>{monsterList}</c> which triggered the mechanism!"
     ],
 
 

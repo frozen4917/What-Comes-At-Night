@@ -49,11 +49,11 @@ export function handleEffects(chosenAction, gameState, gameData) {
 
                         if (stat === 'health' && actualChange > 0) {
                             // Health increase > 0
-                            healthGainText = ` You regain ${actualChange} HP.`;
+                            healthGainText = ` You regain <c>${actualChange} HP.</c>`;
                         }
                         if (stat === 'stamina' && actualChange > 0) {
                             // Stamina increase > 0
-                            staminaGainText = ` You regain ${actualChange} stamina.`;
+                            staminaGainText = ` You regain <c>${actualChange} stamina.</c>`;
                         }
 
                         messageParams.healthGain = healthGainText;
@@ -94,7 +94,6 @@ export function handleEffects(chosenAction, gameState, gameData) {
                         added[itemID] = quantity;
                     }
                 }
-
                 messageParams.quantity = added['wood'] || 0; // For texts like: "you gather {quantity} wood."
                 break;
             
@@ -160,7 +159,7 @@ export function handleEffects(chosenAction, gameState, gameData) {
                     // Pushes unique message
                     gameState.status.messageQueue.push({ 
                         text_ref: "outcome_wait_normal",
-                        params: (netStaminaGain > 0) ? { staminaRegen: ` You regain ${netStaminaGain} stamina.` } : { staminaRegen: "" } 
+                        params: (netStaminaGain > 0) ? { staminaRegen: ` You regain <c>${netStaminaGain} stamina.</c>` } : { staminaRegen: "" } 
                     });
                 }
                 break;
@@ -308,7 +307,7 @@ function processSingleAttack(effects, weaponID, gameState, gameData) {
             // The chosen monster died
             hordeList.splice(randomIndex, 1); // Remove the defeated monster
             
-            killParam = ` You killed the ${gameData.monsters[target].name}.`; // Add feedback
+            killParam = ` You killed the <c>${gameData.monsters[target].name}.</c>`; // Add feedback
             checkAndSetGracePeriod(gameState, gameData); // Check if it was the last monster in the horde. If so, set cooldowns and change game mode
         }
 
@@ -366,7 +365,7 @@ function processCleaveAttack(effects, weaponID, gameState, gameData) {
 
     let killParam = '', cursedParam = '';
     if (defeatedCount > 0) {
-        killParam = ` You manage to kill ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback if player defeates atleast one monster
+        killParam = ` You manage to kill <c>${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.</c>`; // Add feedback if player defeates atleast one monster
         checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
     if (enfeebled) {
@@ -430,7 +429,7 @@ function processShootAttack(effects, gameState, gameData) {
     let killParam = '', cursedParam = '';
     if (targetMonster.currentHealth <= 0) {
         targetList.splice(randomIndex, 1); // Remove the defeated monster
-        killParam = ` You shot the ${targetName} to death.`; // Add feedback
+        killParam = ` You shot the <c>${targetName}</c> to death.`; // Add feedback
         checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
     if (enfeebled) {
@@ -496,7 +495,7 @@ function processIncinerateAttack(effects, gameState, gameData) {
         cursedParam = " Your throw, weakened by the curse, doesn't achieve its full potential." // If enfeebled, add feedback text
     }
     if (defeatedCount > 0) {
-        killParam = ` The fire ends up killing ${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.`; // Add feedback
+        killParam = ` The fire ends up killing <c>${defeatedCount} monster${(defeatedCount > 1) ? "s" : ""}.</c>`; // Add feedback
         checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
     }
 
@@ -534,7 +533,7 @@ function processSpecialAttack(effects, gameState, gameData) {
         if (bossList[0].currentHealth <= 0) {
             bossList.shift(); // Remove the boss from the horde if dead.
             
-            killParam = ` You defeated the ${gameData.monsters[bossType].name}.` // Add feedback if boss is killed
+            killParam = ` You defeated the <c>${gameData.monsters[bossType].name}.</c>` // Add feedback if boss is killed
             checkAndSetGracePeriod(gameState, gameData); // Check if the horde is empty now. If so, set cooldowns and change game mode
         }
 

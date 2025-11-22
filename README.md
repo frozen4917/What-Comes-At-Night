@@ -1,6 +1,14 @@
 # 🌙 What Comes At Night
 
-> Minimalist Survival Horror. 50 Turns. One Goal: Survive until Dawn.
+<p align="center">
+  <img src="public/images/readme-banner.png" width="100%" alt="What Comes At Night Banner">
+</p>
+<p align="center">
+  <i>Minimalist Survival Horror. 50 Turns. One Goal: Survive until Dawn.</i>
+</p>
+<p align="center">
+  <a href="https://what-comes-at-night.vercel.app/"><strong>Play <i>What Comes At Night</i> on Browser</strong></a>
+</p>
 
 **What Comes At Night** is a minimalist, text-based survival horror game. Stranded in a remote campsite, you must endure a single, harrowing night against escalating supernatural threats. Master turn-based strategy and resource management to survive 50 turns against the supernatural until dawn.
 
@@ -17,31 +25,37 @@
 * **7 Phases, 50 Actions:** Progress from Dusk through The Witching Hour to Dawn. Each phase increases difficulty.
 
 ### How To Play
-The game is turn-based. Every decision you make counts as one action. You have to survive for 50 actions.
-
-1. **Interface**
-    - **Stats Bar (Top):** Monitor your Health, Stamina, Fortification and Noise here. You can find the current phase, actions left in the current phase, your location, and most importantly, the number of monsters here.
-    - **Story Log (Middle):** This is the main story text. It updates every turn and tells you what has happened, what you have found, and what is about to take your life.
+1. **Game Interface**
+    - **Stats Bar (Top):** Monitor Health, Stamina, Fortification, and Noise here. You can find the current phase, the actions left in the current phase, your location, and the number of monsters here.
+    - **Story Log (Middle):** This is the main story text. It updates every turn and tells you about what has happened, what you have found, and what is about to take your life. Read it carefully.
     - **Action Menu (Bottom):** These are your controls.
-        - **Left Column:** Select your category, e.g. **MOVE**, **ATTACK**, etc.
-        - **Right Column:** Select a specific Action to perform. If you are curious, the tooltip on the far right will guide you on what a specific action will do.
-    - **Footer:** Additional options
-        - **Show Inventory:** Look at all the items you have leftover in your inventory.
-        - **Options:** Change volume, in case the music is too loud.
-        - **Restart Game:** Resets the game.
-2. **Taking Action**
-    - As a turn-based game, time progresses only after an action is performed.
-    - Clicking an action immediately performs it. Your stats update, time ticks forward, and the world reacts.
-    - Check the details using the tooltip on the right if you are not sure what an action does. It would be a shame if you fortify your gate only to realise you ran out of stamina.
-3. **Managing Survival**
-    - **Stamina:** Most actions require stamina. If you run out of Stamina, you can't work or fight. Use Rest actions to recover.
-    - **Health:** Monsters can and will attack you and bring your health down. If your health ever reaches zero, you lose. Healing and eating can help recover health.
-    - **Noise:** Scavenging and building make noise. If your Noise level gets too high, you will attract wandering monsters. Use Hide actions to stay quiet.
-    - **Fortification HP:** Monsters will try to break into your location. Use Wood to fortify the gates and doors. A strong wall can save your life when a horde attacks.
-4. **Monsters**
-    - Lone monsters are attracted by noise. Should you kill them quickly, or should you hide? That is a choice for you to make.
-    - Hordes, consisting of multiple monsters, start appearing after Nightfall. You cannot hide from them. You must fight!
-    - Boss monsters could appear. They are stronger, better, and can perform special attacks! Take them out fast!
+        - **Category (Left):** Select your category, e.g. **MOVE**, **ATTACK**, etc. Each category has different actions.
+        - **Actions (Right):** Select a specific action here. Clicking an action immediately triggers it.
+        - **Tooltip (ⓘ):** If you are ever confused, click the tooltip button on the far right of a specific action to figure out what it costs and what effects it has.
+    - **Footer:** Contains additional options
+        - **Show Inventory:** Look at the items you have remaining in your inventory.
+        - **Options:** Control the volume and enable/disable the text highlighting.
+        - **Main Menu:** Return to the main menu.
+2. **Survival Mechanics**
+    - **Stamina:** Almost every action costs stamina. Rest to recover. If you run out, you cannot work or fight.
+    - **Health:** Monsters can and will attack you. If this hits zero, you die. Heal using Bandages or Food.
+    - **Noise:** Scavenging and building make noise. High noise attracts lone monsters. Hide to reduce noise.
+    - **Fortification HP:** Build walls to protect yourself. A strong gate can save you when the Horde attacks.
+3. **Gameplay**
+    - Select a category and an action. Each action advances the clock.
+    - After you act, the game updates. Monsters may spawn, move closer, or attack your fortifications depending on the Noise you made.
+    - Read the text log carefully. It tells you what you found, if your defenses held, if you took damage, or if new threats have emerged.
+4. **The Monsters**
+    - **Lone Monsters:** Attracted by noise. You can kill them or hide from them.
+    - **The Horde:** Appears in each phase from Nightfall onwards. You cannot hide. You must fight or tank the damage.
+    - **Bosses:** Stronger enemies with special abilities. Kill them quickly before they overwhelm you.
+5. **Phases**
+    - The game is composed of 50 moves spread across 7 phases.
+        - Dusk and Evening are the exploration phases. Use this time to scavenge for resources and fortify your defenses. Be careful, if you create too much noise, lone monsters might wander towards you.
+        - Nightfall and Deep Night are the phases when darkness takes over. Small hordes will begin to spawn. You cannot hide from them!
+        - The Witching Hour is the peak of the night. A massive horde, led by a boss monster will attack. Your preparations will be tested.
+        - Pre-Dawn is the final stretch as the sun begins to rise. Survive for a few more moves until Dawn to win.
+
 ---
 
 ## 🛠️ Technical Highlights

@@ -7,7 +7,7 @@
  * - Persisting game state to localStorage.
  * - Handling user input
  * - Coordinating the game loop (Player Turn -> Monster Turn -> UI Update).
- * - Managing UI overlays and settings (Volume).
+ * - Managing UI overlays and settings
  */
 
 import { ref, watch } from 'vue'
@@ -27,7 +27,7 @@ import { buildPromptText } from '@/game/ui.js'
 import { renderText, getRandomText } from '@/game/utils.js'
 
 const SAVE_GAME_KEY = 'wcan_saveGame'; // For saving game data
-const SETTINGS_KEY = 'wcan_settings'; // For saving volume
+const SETTINGS_KEY = 'wcan_settings'; // For saving settings
 const MAX_VOLUME = 0.3; // 100% maps to 0.3 
 
 /**
@@ -77,6 +77,7 @@ export const useGameStore = defineStore('game', () => {
     // --- SETTINGS ---
     const savedSettings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
     const volume = ref(savedSettings.volume !== undefined ? savedSettings.volume : 100);
+    const textHighlight = ref(savedSettings.textHighlight !== undefined ? savedSettings.textHighlight : true);
 
     /**
      * Deeply observes the `gameState` object for any changes. Whenever the state changes, it serializes the state to JSON and saves it to localStorage.
@@ -159,16 +160,16 @@ export const useGameStore = defineStore('game', () => {
     }
 
     /**
-     * Calculates the actual volume based on the UI slider (0-100) and the defined MAX_VOLUME constant, then updates the Audio Service. Saves the setting to localStorage.
+     * Saves the volume and text highlight settings to local storage
      */
-    function _setVolume() {
-        // This maps 0-100 slider to 0-0.3 real volume scale
-        const actualVolume = (volume.value / 100) * MAX_VOLUME;
-        audio.setMasterVolume(actualVolume); // Set the volume
-        
-        // Save the setting
-        localStorage.setItem(SETTINGS_KEY, JSON.stringify({ volume: volume.value }));
-    };
+    function _setSettings() {
+        const settings = {
+            volume: volume.value,
+            textHighlight: textHighlight.value
+        };
+        audio.setMasterVolume((volume.value / 100) * MAX_VOLUME); // Apply volume mapping 0-100 to 0.03
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); // Save all the settings to localStorage
+    }
 
     // --- CORE GAME FUNCTIONS ---
     // These functions run the action game loop.
@@ -179,8 +180,8 @@ export const useGameStore = defineStore('game', () => {
      */
     async function startGame() {
         try {
-            // Step 1. Fetch and set volume
-            _setVolume();
+            // Step 1. Fetch and set settings
+            _setSettings();
 
             // Step 2. Load all game data (the "Rulebook")
             gameData.value = await loadGameData();
@@ -374,35 +375,45 @@ export const useGameStore = defineStore('game', () => {
      */
     function updateVolume(newVolume) {
         volume.value = parseInt(newVolume, 10);
-        _setVolume();
+        _setSettings();
     };
+
+    /**
+     * Toggles text higlighting
+     */
+    function toggleHighlight() {
+        textHighlight.value = !textHighlight.value;
+        _setSettings();
+    }
 
 
     // --- This exposes our state and functions to the components ---
     return {
         // States
-        gameState,
-        gameData,
-        validActions,
-        promptText,
-        isInventoryOpen,
-        isOptionsOpen,
-        isHowToPlayOpen,
-        isGameOver,
-        isGameStarted,
-        hasSaveFile,
-        volume,
+        gameState, // Dynamic game state
+        gameData, // Static game data / rulebook
+        validActions, // List of actions available to player
+        promptText, // Story text
+        isInventoryOpen, // Visibility of inventory overlay
+        isOptionsOpen, // Visibility of options overlay
+        isHowToPlayOpen, // Visibility of How to play overlay
+        isGameOver, // Controls game over state
+        isGameStarted, // Controls between menu and game view
+        hasSaveFile, // Checks for presence of save file in local storage
+        volume, // Volume setting
+        textHighlight, // Text highlight setting
 
         // Functions
-        startGame,
-        launchNewGame,
-        continueSavedGame,
-        handlePlayerAction,
-        toggleInventory,
-        toggleOptions,
-        toggleHowToPlay,
-        restartGame,
-        goToMainMenu,
-        updateVolume
+        startGame, // Starts game session
+        launchNewGame, // Launches the game
+        continueSavedGame, // Reads the save file and starts the game
+        handlePlayerAction, // Handle action from player from action button
+        toggleInventory, // Toggle the inventory overlay
+        toggleOptions, // Toggle the options overlay
+        toggleHowToPlay, // Toggle the How to play overlay
+        restartGame, // Hard restarts the game by deleting previous save
+        goToMainMenu, // Returns to main menu
+        updateVolume, // Update volume
+        toggleHighlight // Toggle the text highlight option
     };
 })
