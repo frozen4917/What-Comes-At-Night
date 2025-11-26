@@ -56,7 +56,7 @@
                     {
                         "id": "hide_in_tents",
                         "text_ref": "action_text_hide_in_tents",
-                        "showIf": [ { "gameModeIs": "combat_lone" } ],
+                        "showIf": [ { "gameModeIs": "combat_lone" }, { "hordeAtPlayerLocation": false } ],
                         "effects": { 
                             "changeStat": { "noise": -15 }, 
                             "setPlayerState": "hiding",
@@ -142,7 +142,7 @@
                     {
                         "id": "set_trap_campGate",
                         "text_ref": "action_text_set_trap_campGate",
-                        "showIf": [ { "hasItems": { "net": 1, "wood": 1 } }, { "hordeLocationNotIn": ["campsite", "insideCabin"] }, { "minStamina": 8 } ],
+                        "showIf": [ { "hasItems": { "net": 1, "wood": 1 } }, { "hordeLocationNotIn": ["campGate", "campsite", "cabin"] }, { "minStamina": 8 } ],
                         "effects": { 
                             "addTrap": "campGate",
                             "changeStat": { "stamina": -8, "noise": 6 },
@@ -212,7 +212,7 @@
                     {
                         "id": "hide_in_cabin",
                         "text_ref": "action_text_hide_in_cabin",
-                        "showIf": [ { "gameModeIs": "combat_lone" } ],
+                        "showIf": [ { "gameModeIs": "combat_lone" }, { "hordeAtPlayerLocation": false } ],
                         "effects": { 
                             "changeStat": { "noise": -15 }, 
                             "setPlayerState": "hiding",
@@ -279,7 +279,7 @@
                     {
                         "id": "hide_in_hut",
                         "text_ref": "action_text_hide_in_hut",
-                        "showIf": [ { "gameModeIs": "combat_lone" } ],
+                        "showIf": [ { "gameModeIs": "combat_lone" }, { "hordeAtPlayerLocation": false } ],
                         "effects": { 
                             "changeStat": { "noise": -15 }, 
                             "setPlayerState": "hiding",
@@ -333,7 +333,7 @@
                     {
                         "id": "set_trap_graveyardGate",
                         "text_ref": "action_text_set_trap_graveyardGate",
-                        "showIf": [ { "hasItems": { "net": 1, "wood": 1 } }, { "hordeLocationNotIn": ["graveyard"] }, { "minStamina": 8 } ],
+                        "showIf": [ { "hasItems": { "net": 1, "wood": 1 } }, { "hordeLocationNotIn": ["graveyardGate", "graveyard"] }, { "minStamina": 8 } ],
                         "effects": { 
                             "addTrap": "graveyardGate",
                             "changeStat": { "stamina": -8, "noise": 6 },

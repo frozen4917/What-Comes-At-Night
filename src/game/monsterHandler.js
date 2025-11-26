@@ -60,6 +60,8 @@ export function trapMonster(gameState, gameData) {
 
         // Add the type to the counter for the final message
         trappedCounter[targetType] = (trappedCounter[targetType] || 0) + 1;
+
+        checkAndSetGracePeriod(gameState, gameData);
     }
 
     // Get the total count from the counter

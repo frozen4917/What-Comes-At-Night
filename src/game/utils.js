@@ -41,6 +41,9 @@ export function areConditionsMet(conditions, gameState) {
             case "gameModeIs":
                 return gameState.status.gameMode === value;
 
+            case "hordeAtPlayerLocation": // Checks if horde is at player location
+                if (!value) return (gameState.world.currentLocation !== gameState.world.hordeLocation);
+
             case "minStamina":  // Minimum Stamina required
                 return gameState.player.stamina >= value;
 
