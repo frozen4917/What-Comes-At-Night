@@ -478,7 +478,7 @@ function processIncinerateAttack(effects, gameState, gameData) {
         // Damage each monster separately
         // Damage = Base damage + randomiser. If enfeebled, the damage is only 3/4th of the actual value.
         let damage = Math.floor((baseDamage + getRandomInt(-4, 3)) * (enfeebled ? gameData.settings.PLAYER.ENFEEBLE_MULTIPLIER : 1));
-        monster.currentHealth -= baseDamage;
+        monster.currentHealth -= damage;
         totalDamage += damage;
         if (monster.currentHealth <= 0) {
             defeatedCount++;
