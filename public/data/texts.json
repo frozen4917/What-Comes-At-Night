@@ -163,11 +163,11 @@
     ],
     "outcome_set_trap_graveyardGate": [
         "You string up the net above the graveyard gate, securing it to wooden supports on either side. When the net falls, it will trap and kill anything caught into it.",
-        "You weave the net between wooden posts above the gate entrance, creating a snare that will collapse on command. The trap is supposed to . This trap will claim at least one victim."
+        "You weave the net between wooden posts above the gate entrance, creating a snare that will collapse on command. This trap will claim at least one victim."
     ],
 
     "outcome_search_rec_tent": "You push aside the tent flap and search through the recreational area, digging through duffel bags and storage bins. Your efforts pay off as you uncover <c>a baseball bat</c>, <c>a hunting bow</c> in surprisingly good condition, and a quiver containing <c>5 arrows.</c>",
-    "outcome_search_woods": "You venture into the woods beyond the campsite's perimeter, moving carefully through the undergrowth. You harvest <c>4 mushsooms</c> growing near rotting logs, discover <c>2 garlic</c> bulbs in a wild patch, and gather <c>2 pieces of usable wood</c> from fallen branches.",
+    "outcome_search_woods": "You venture into the woods beyond the campsite's perimeter, moving carefully through the undergrowth. You harvest <c>4 mushrooms</c> growing near rotting logs, discover <c>2 garlic</c> bulbs in a wild patch, and gather <c>2 pieces of usable wood</c> from fallen branches.",
     "outcome_search_woods_again": [
         "You return to the woods and search more thoroughly this time, scanning the ground and low-hanging branches. Your persistence is rewarded as you manage to collect <c>{quantity} wood.</c>",
         "You venture back into the woods, combing through the underbrush for anything useful. After some searching, you find <c>{quantity} wood</c> worth taking.",
@@ -191,7 +191,7 @@
     ],
     "outcome_attack_single_spirit": [
         "You swing your {weapon} at the Spirit.{cursed} The weapon passes through, somehow dealing <c>{damage} HP</c> of damage.{kill}",
-        "You strike at the Spirit with your {weapon}, the blade cutting through its ghostly essence.{cursed} You deal <c>{damage} HP</c> of damage.{kill}"
+        "You strike at the Spirit with your {weapon}. The weapon cuts through its ghostly essence.{cursed} You deal <c>{damage} HP</c> of damage.{kill}"
     ],
     "outcome_attack_cleave": [
         "You wind up and swing your weapon in a wide arc through the horde.{cursed} The cleaving strike connects with multiple targets, dealing a combined <c>{damage} HP</c> of damage and hitting <c>{numHit} monsters</c>.{kill}",
