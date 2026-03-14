@@ -59,8 +59,7 @@
                 "damage": 16,
                 "targets": 1
             }
-        },
-        "special": "discard_after_axe"
+        }
     },
     "bow": {
         "name": "Bow",
